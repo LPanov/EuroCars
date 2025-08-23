@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Bar</title>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-left">
+            <a href="front-page.html"><img src="/assets/images/logo-clear.png" alt="Logo"></a>
+            <a href="#" class="menu-button" id="catalogueButton">
+                <i class="fa-solid fa-bars"></i> <span>CATALOGUE</span>    
+            </a>
+            <div id="catalogueMenu" class="menu">
+                <ul><li><a href="#">Full offer</a></li>
+                    <li><a href="#">Universal Searches</a></li>
+                    <li><a href="#">Saved Vehicles</a></li>
+                    <li><a href="#">News offer</a></li>
+                </ul>
+            </div>
+            
+            <a href="#" class="category"><i class="fa-solid fa-car-side"></i> VEHICLES</a>
+            
+        </div>
+        <div class="navbar-search" id="navbar-search">
+            <div class="search-input">
+                <input type="text" placeholder="Search by product">
+            </div>
+            <div class="button"><i class="fa-solid fa-magnifying-glass"></i></div>
+            <div class="button"><i class="fa-solid fa-filter"></i></div>
+        </div>
+        <div class="navbar-right">
+            <a href="">User User</a>
+            <a href="" class="icon" id="bell">
+                <i class="fa-solid fa-bell">
+                    <div id="notificationBox" class="notifications">
+                        <ul>
+                            <p>Latest notifications</p>
+                            <li>There are no notifications</li>
+                        </ul>
+                        <button>See All</button>
+                    </div>
+                </i></a>
+            <a href="" class="cart"><i class="fa-solid fa-cart-shopping"></i>
+                <div class="minicart">
+                    <p>Recently added product</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Total value incl. VAT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                    <p id="empty">Your cart is empty</p>
+                    <div class="total">
+                        <p>Wholesale total value incl. VAT: <span id="sum">100</span>€</p>
+                        <button>GO TO CART</button>
+                    </div>
+                    
+                </div>
+            </a>
+            
+        </div>
+    </div>
+    <script>
+        window.addEventListener('scroll', () => {
+            const searchSection = document.getElementById('search-section');
+            const navbarSearch = document.getElementById('navbar-search');
+            const scrollPosition = window.scrollY;
+
+            if (scrollPosition > searchSection.offsetTop) {
+                searchSection.style.display = 'none';
+                navbarSearch.classList.add('active');
+            } else {
+                searchSection.style.display = 'flex';
+                navbarSearch.classList.remove('active');
+            }
+        });
+
+	// Show/hide the button based on scroll position
+        window.addEventListener('scroll', function() {
+            const button = document.querySelector('.scroll-to-top');
+            if (window.scrollY > 10) { // Show button after scrolling 200px
+                button.classList.add('visible');
+            } else {
+                button.classList.remove('visible');
+            }
+        });
+
+        // Smooth scroll to top
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>

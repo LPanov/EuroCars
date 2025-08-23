@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cart</title>
+    <link rel="stylesheet" href="../static/styles/_styles.css">
+    <link rel="stylesheet" href="../static/styles/_cart-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-left">
+            <a href="front-page.html"><img src="../static/assets/images/logo-clear.png" alt="Logo"></a>
+            <a href="#" class="menu-button" id="catalogueButton">
+                <i class="fa-solid fa-bars"></i> <span>MENU</span>    
+            </a>
+            <div id="catalogueMenu" class="menu">
+                <ul><li><a href="#">Full offer</a></li>
+                    <li><a href="#">Universal Searches</a></li>
+                    <li><a href="#">Saved Vehicles</a></li>
+                    <li><a href="#">News offer</a></li>
+                </ul>
+            </div>
+            
+            <a href="#" class="category"><i class="fa-solid fa-car-side"></i> VEHICLES</a>
+            
+        </div>
+        <div class="navbar-search" id="navbar-search">
+            <div class="search-input">
+                <input type="text" placeholder="Search by product">
+            </div>
+            <div class="button"><i class="fa-solid fa-magnifying-glass"></i></div>
+            <div class="button filter-btn" onclick="openModalFilter()"><i class="fa-solid fa-filter"></i></div>
+            <div id="searchModalFilter" class="modal-filter">
+                <div class="modal-filter-content">
+                  <div class="modal-filter-header">
+                    <h3>Advanced search</h3>
+                    <span class="close-btn" onclick="closeModalFilter()">&times;</span>
+                  </div>
+                  <div class="form-group">
+                    <h4>Search within</h4>
+                    <label for="productIndex">Product index</label>
+                    <input type="text" id="productIndex" placeholder="Enter the product index">
+                  </div>
+                  <div class="form-group">
+                    <label for="techDescription">Technical description</label>
+                    <input type="text" id="techDescription" placeholder="Enter the technical description">
+                  </div>
+                  <div class="form-group">
+                    <h4>Additional filtering options</h4>
+                    <label for="category">Category</label>
+                    <input type="text" id="category" placeholder="Start typing a category name">
+                  </div>
+                  <div class="form-group">
+                    <label for="manufacturer">Manufacturer</label>
+                    <select id="manufacturer">
+                      <option value="any">Any</option>
+                    </select>
+                  </div>
+                  <div class="checkbox-group">
+                    <input type="checkbox" id="logisticPath">
+                    <label for="logisticPath">Only products available in logistic path</label>
+                  </div>
+                  <div class="form-buttons">
+                    <button class="clear-btn" onclick="clearForm()">Clear</button>
+                    <button class="search-btn" onclick="submitForm()">Search</button>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar-right">
+            <a href="">User User</a>
+            <a href="" class="icon" id="bell">
+                <i class="fa-solid fa-bell">
+                    <div id="notificationBox" class="notifications">
+                        <ul>
+                            <p>Latest notifications</p>
+                            <li>There are no notifications</li>
+                        </ul>
+                        <button>See All</button>
+                    </div>
+                </i></a>
+            <a href="" class="cart"><i class="fa-solid fa-cart-shopping"></i>
+                <div class="minicart">
+                    <p>Recently added product</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Total value incl. VAT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                    <p id="empty">Your cart is empty</p>
+                    <div class="total">
+                        <p>Wholesale total value incl. VAT: <span id="sum">100</span>€</p>
+                        <button>GO TO CART</button>
+                    </div>
+                    
+                </div>
+            </a>
+            
+        </div>
+    </div>
+    <div class="scroll-to-top" onclick="scrollToTop()"><i class="fa-solid fa-arrow-up"></i></div>
+
+    <main>
+        <div class="cart-parts">
+            <div class="top-bar">
+                <div class="top-bar-left">
+                    <span><</span><a href="#"> Continue shopping</a>
+                </div>
+            </div>
+            <div class="product-list">
+                <table>
+                    <thead class="product-list-header">
+                        <tr>
+                            <th>Product</th>
+                            <th>Delivery time</th>
+                            <th>Quantity</th>
+                            <th>Wholesale price per item incl. VAT</th>
+                            <th>Wholesale total value incl. VAT</th>
+                            <th>Total weight</th>
+                        </tr>
+                    </thead>
+                    <tbody class="product-item">
+                        <tr>
+                            <td><div class="product">
+                                    <div class="buttons">
+                                        <input type="checkbox" class="product-checkbox">
+                                        <button class="remove-button">✕</button>
+                                    </div>
+                                    <div class="product-image">
+                                        <img src="../static/assets/images/parts/17-0583.jpg" alt="">
+                                    </div>
+                                    <div class="product-info">
+                                        <div class="product-name">17-0583 Steering rack</div>
+                                        <div class="product-details">Steering rack electric</div>
+                                        <div class="blue-text">User User</div>
+                                    </div>
+                                    <div class="manufacture-img">
+                                        <img src="../static/assets/images/manufactures/elstock.jpg" alt="">
+                                    </div>
+                                </div>
+                            </td>
+                            <td><div class="delivery-time">
+                                    <span class="green-text">1 business day (in branch)</span>
+                                </div>
+                            </td>
+                            <td>
+                                <input type="number" value="1" class="quantity-input">
+                            </td>
+                            <td><div class="vat">1,294.00 BGN</div></td>
+                            <td><div class="price">1,294.00 BGN</div></td>
+                            <td><div class="weight">12.00 kg</div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="summary-container">
+            <h2 class="summary-heading">Summary</h2>
+            <div class="selected-products">
+                <span>Selected products</span>
+                <span id="qty">1</span>
+            </div>
+            <div class="total-weight">
+                <span>Total weight</span>
+                <span id="weight">27.50 kg</span>
+            </div>
+            <div class="price-info">
+                <span>Wholesale price excl. VAT</span>
+                <span id="price">1,078.00 BGN</span>
+            </div>
+            
+            <div class="vat-value">
+                <span>VAT value</span>
+                <span id="vat">215.67 BGN</span>
+            </div>
+            <div class="wholesale-price-sum">
+                <span>Wholesale price sum incl. VAT</span>
+                <span id="whole-price">1,294.00 BGN</span>
+            </div>
+            <div class="delivery-method">
+                <span>Delivery method</span>
+                <span>Personal pickup</span>
+            </div>
+            <div class="payment-method">
+                <span>Payment method</span>
+                <span>Cash</span>
+            </div>
+            <div class="add-coupon">
+                Add a coupon code
+            </div>
+            <button class="order-now-button">
+                ORDER NOW
+            </button>
+            
+            <div class="contact-info">
+                Got questions? Please contact your branch:
+            </div>
+            <div class="contact-details">
+                Central Warehouse
+            </div>
+            <div class="contact-info">
+                Mob.:
+            </div>
+            <button class="call-button">
+                CALL
+            </button>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-section">
+            <h4>YOUR BRANCH</h4>
+            <p>Central Warehouse(B01)</p>
+            <p>Sofia, Bulgaria</p>
+            <p><a href="#">See on Google maps</a></p>
+            <p class="status-open">• Open</p>
+        </div>
+        <div class="footer-section">
+            <h4>Contact us</h4>
+            <p><a href="#">Send message</a></p>
+            <p><a href="#">Go to contacts</a></p>
+        </div>
+        <div class="footer-section">
+            <h4>OUR WEBSITES</h4>
+            <p><a href="#">www.eurocars.eu</a></p>
+            <p><a href="#">bg.eurocars.eu</a></p>
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#"><i class="fa-brands fa-square-youtube"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            
+            <div>
+                <span>2024 Inter Cars. All rights reserved.</span>
+                <a href="#">COOKIES POLICY</a>
+                <a href="#">TERMS OF USE</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../static/scripts/navigation.js"></script>
+</body>
+</html>

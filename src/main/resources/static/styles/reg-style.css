@@ -1,0 +1,75 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh
+}
+
+#nameOwner {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+#nameOwner div {
+    flex-grow: 1;
+    min-width: 200px; 
+}
+
+#cityInfo {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 8px;
+}
+
+#cityInfo input {
+    flex: 1; 
+    min-width: 100px; 
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+label {
+    font-size: 0.9rem;
+}
+
+#form {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    max-width: 55vw; 
+    padding: 17px;
+    
+    box-sizing: border-box;
+    width: 100%; 
+}
+
+
+#logo img {
+    max-width: 25%;
+    max-height: 120px;
+    border-radius: 50%;
+    object-fit: fill;
+}
+
+#password div {
+    flex-grow: 1;
+    min-width: 200px;
+}
+#password{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+footer {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+
+}

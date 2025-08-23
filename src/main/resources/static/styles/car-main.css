@@ -1,0 +1,166 @@
+main {
+    display: flex;
+}
+
+.car-details-container {
+    width: 20%;
+    margin: 10em 5em;
+    box-sizing: border-box;
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack items vertically */
+}
+
+.car-details-container img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.car-details-container p {
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    color: #555;
+}
+
+.car-details-container p strong{
+    color: #333;
+}
+
+.car-details-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px; /* Add space above the buttons */
+}
+.car-details-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center; /* Center the text */
+}
+
+.change-vehicle-button {
+    background-color: #ff3333;  /* Red */
+    color: white;
+}
+.change-vehicle-button:hover {
+  background-color: #c53030;
+}
+
+.full-offer-button {
+    background-color: #f0f0f0; /* Light gray */
+    color: #333;
+}
+
+.full-offer-button:hover {
+    background-color: #e0e0e0;
+}
+
+.category-section {
+    flex: 1;
+    font-family: 'Inter', sans-serif;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin: 20px;
+}
+
+.category-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10%;
+    justify-content: center;
+}
+
+.category-item {
+    width: 40%;
+    min-height: 70px;
+    display: flex; /* Use flexbox for icon and text alignment */
+    align-items: center; /* Vertically center icon and text */
+    padding: 12px;
+    justify-content: start;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.category-item:last-child {
+    border-bottom: none; /* Remove border from the last item */
+}
+
+.category-item img {
+    margin-right: 10px; /* Space between icon and text */
+    width: 10%; /* Consistent icon size */
+    aspect-ratio: 1;
+    object-fit: contain; /* Ensure the whole icon is visible */
+}
+
+.category-item a{
+    color: #333;
+    text-decoration: none;
+    font-weight: 500; /* Medium font weight for the links */
+    transition: color 0.2s ease; /* Smooth color transition on hover */
+}
+
+.category-item a:hover {
+    color: #007bff; /* Change color on hover to indicate interactivity */
+}
+
+/* Remove default bullets */
+ul, #myUL {
+    list-style-type: none;
+}
+
+    /* Remove margins and padding from the parent ul */
+#myUL {
+    margin: 0;
+    padding: 0;
+}
+
+    /* Style the caret/arrow */
+.caret {
+    cursor: pointer;
+    user-select: none; /* Prevent text selection */
+    color: #333;
+    text-decoration: none;
+    font-weight: 500; /* Medium font weight for the links */
+    transition: color 0.2s ease; 
+}
+
+    /* Create the caret/arrow with a unicode, and style it */
+.caret::before {
+    content: "\25B6";
+    font-size: 0.7em;
+    color: #333;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+.caret:hover {
+    color: #007bff;
+}
+
+    /* Rotate the caret/arrow icon when clicked on (using JavaScript) */
+.caret-down::before {
+    transform: rotate(90deg);
+}
+
+    /* Hide the nested list */
+.nested {
+    display: none;
+}
+
+    /* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
+.active {
+    display: block;
+}
+
+/* Add indentation for each level */
+ul > li > ul.nested > li {
+    padding-left: 20px; 
+}
+  

@@ -1,0 +1,183 @@
+.container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    justify-content: center;
+    min-height: 60vh;
+}
+.sidebar {
+    width: 200px;
+    background-color: #f8f9fa;
+    /* padding: 20px 0; */
+    border-right: 1px solid #ddd;
+}
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+.sidebar ul li {
+    margin: 15px 0;
+    padding: 10px;
+}
+.sidebar ul li a {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    align-items: center;
+}
+.content,
+.models,
+.engines {
+    display: none;
+    flex-grow: 1;
+    padding: 20px;
+}
+
+#cars {
+    display: block;
+}
+.search-bar {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+.content h3,
+.models h3,
+.engines h3 {
+    font-size: 14px;
+    color: #666;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+.content ul,
+.models ul,
+.engines ul {
+    list-style: none;
+    padding: 0;
+}
+.content ul li, 
+.models ul li,
+.engines ul li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+.content ul li a, 
+.models ul li a,
+.engines ul li a {
+    text-decoration: none;
+    color: #333;
+}
+.content ul li:hover ,
+.models ul li:hover,
+.engines ul li:hover {
+    background-color: #343a40;   
+}
+.content ul li:hover a,
+.models ul li:hover a,
+.engines ul li:hover a{
+    color: white;
+}
+
+.sidebar ul li a i{
+    margin-right: 5px;
+}
+
+#VIN {
+    font-size: 0.7em;
+    border: 2px solid #444;
+    padding: 0.3em;
+    margin-right: 5px;
+    border-radius: 50%; 
+}
+
+.active {
+    background-color: #343a40;
+    color: white;   
+}
+
+.active a > *{
+    color: white;
+}
+
+.active a #VIN {
+    border-color: white;
+}
+
+.models ul li a,
+.engines ul li a {
+    display: flex;
+    justify-content: space-between;
+}
+
+.models a, 
+.engines a {
+    display: block;
+    color: rgb(100, 50, 255);
+    text-decoration: none;
+    margin-bottom: 10px;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+.models a i, 
+.engines a i {
+    margin-right: 5px;
+    transition: all ease 0.5s;
+}
+
+.models a:hover, 
+.engines a:hover {
+    text-decoration: underline;
+    
+}
+
+.models a:hover i, 
+.engines a:hover i {
+    border-radius: 50%;
+    border: 1.55px solid rgb(100, 50, 255);
+    padding: 2px;
+}
+
+
+/* #cars {
+    display: none;
+}
+
+.engines {
+    display: block;
+} */
+
+.engines ul li:first-of-type{
+    display: flex;
+    justify-content: space-between;
+    background-color: #ddd;
+    padding: 5px;
+    font-weight: 700;
+}
+
+.highlight {
+    background-color: #ffeb3b;
+}
+.hidden {
+    display: none;
+}
+.models {
+    display: none; /* Hidden by default */
+}
+.previous {
+    display: inline-block;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: #007bff;
+}
+.model, .years {
+    margin-right: 10px;
+}
+
+
+
+
+

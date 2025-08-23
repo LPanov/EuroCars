@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EuroCars Login</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../static/styles/login-styles.css">
+</head>
+<body class="flex items-center justify-center min-h-screen bg-cover" style="background-image: url('../static/assets/images/background_image.jpg');">
+    <!-- Login Form -->
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
+        <!-- Logo -->
+        <div id="logo" class="flex justify-center mb-6">
+            <img src="../static/assets/images/logo.jpeg" alt="Euro Cars Logo" >
+        </div>
+        <!-- Form -->
+        <form id="loginForm" class="space-y-4">
+            <div>
+                <input type="email" id="username" placeholder="example@eurocars.eu" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div>
+                <input type="password" id="password" placeholder="••••••••" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div class="text-right">
+                <a href="forgot-password.html" class="text-sm text-blue-600 hover:underline">Forgot Password?</a>
+            </div>
+            <button type="submit" class="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-900 transition">Login</button>
+            <div class="text-center">
+                <span class="text-sm">Not registered?</span>
+                <a href="registration.html" class="font-bold text-blue-600 hover:underline">Create account</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer class="absolute bottom-0 left-0 right-0 p-2 text-white text-sm flex justify-between">
+        <div>
+            <span>© GLUU, INC | </span>
+            <a href="#" class="hover:underline">PRIVACY POLICY</a> |
+            <a href="#" class="hover:underline">TERMS OF SERVICE</a>
+        </div>
+        <div>ver 2.0</div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../static/scripts/login.js"></script>
+</body>
+</html>

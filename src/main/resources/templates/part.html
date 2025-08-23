@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Page</title>
+    <link rel="stylesheet" href="../static/styles/_styles.css">
+    <link rel="stylesheet" href="../static/styles/_part-page.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-left">
+            <a href="front-page.html"><img src="../static/assets/images/logo-clear.png" alt="Logo"></a>
+            <a href="#" class="menu-button" id="catalogueButton">
+                <i class="fa-solid fa-bars"></i> <span>MENU</span>    
+            </a>
+            <div id="catalogueMenu" class="menu">
+                <ul><li><a href="#">Full offer</a></li>
+                    <li><a href="#">Universal Searches</a></li>
+                    <li><a href="#">Saved Vehicles</a></li>
+                    <li><a href="#">News offer</a></li>
+                </ul>
+            </div>
+            
+            <a href="#" class="category"><i class="fa-solid fa-car-side"></i> VEHICLES</a>
+            
+        </div>
+        <div class="navbar-search" id="navbar-search">
+            <div class="search-input">
+                <input type="text" placeholder="Search by product">
+            </div>
+            <div class="button"><i class="fa-solid fa-magnifying-glass"></i></div>
+            <div class="button filter-btn" onclick="openModalFilter()"><i class="fa-solid fa-filter"></i></div>
+            <div id="searchModalFilter" class="modal-filter">
+                <div class="modal-filter-content">
+                  <div class="modal-filter-header">
+                    <h3>Advanced search</h3>
+                    <span class="close-btn" onclick="closeModalFilter()">&times;</span>
+                  </div>
+                  <div class="form-group">
+                    <h4>Search within</h4>
+                    <label for="productIndex">Product index</label>
+                    <input type="text" id="productIndex" placeholder="Enter the product index">
+                  </div>
+                  <div class="form-group">
+                    <label for="techDescription">Technical description</label>
+                    <input type="text" id="techDescription" placeholder="Enter the technical description">
+                  </div>
+                  <div class="form-group">
+                    <h4>Additional filtering options</h4>
+                    <label for="category">Category</label>
+                    <input type="text" id="category" placeholder="Start typing a category name">
+                  </div>
+                  <div class="form-group">
+                    <label for="manufacturer">Manufacturer</label>
+                    <select id="manufacturer">
+                      <option value="any">Any</option>
+                    </select>
+                  </div>
+                  <div class="checkbox-group">
+                    <input type="checkbox" id="logisticPath">
+                    <label for="logisticPath">Only products available in logistic path</label>
+                  </div>
+                  <div class="form-buttons">
+                    <button class="clear-btn" onclick="clearForm()">Clear</button>
+                    <button class="search-btn" onclick="submitForm()">Search</button>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar-right">
+            <a href="">User User</a>
+            <a href="" class="icon" id="bell">
+                <i class="fa-solid fa-bell">
+                    <div id="notificationBox" class="notifications">
+                        <ul>
+                            <p>Latest notifications</p>
+                            <li>There are no notifications</li>
+                        </ul>
+                        <button>See All</button>
+                    </div>
+                </i></a>
+            <a href="" class="cart"><i class="fa-solid fa-cart-shopping"></i>
+                <div class="minicart">
+                    <p>Recently added product</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Total value incl. VAT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                    <p id="empty">Your cart is empty</p>
+                    <div class="total">
+                        <p>Wholesale total value incl. VAT: <span id="sum">100</span>€</p>
+                        <button>GO TO CART</button>
+                    </div>
+                    
+                </div>
+            </a>
+            
+        </div>
+    </div>
+    <div class="scroll-to-top" onclick="scrollToTop()"><i class="fa-solid fa-arrow-up"></i></div>
+    <!-- <div class="content"></div> -->
+    <main>
+        <section class="product">
+            <div class="product-section">
+                <div class="image-gallery">
+                    <div class="main-image-placeholder">
+                        <img src="../static/assets/images/parts/0 250 403 002.jpg" alt="" id="mainImg" onclick="openModal();currentSlide(1)">
+                    </div>
+                    <div class="thumbnail-container">
+                        <div class="thumbnail-placeholder">
+                            <img src="../static/assets/images/parts/0 250 403 002.jpg" alt="" onclick="openModal();currentSlide(1)">
+                        </div>
+                        <div class="thumbnail-placeholder">
+                            <img src="../static/assets/images/parts/0 250 403 002(2).jpg" alt="" onclick="openModal();currentSlide(2)">
+                        </div>
+                        <div class="thumbnail-placeholder">
+                            <img src="../static/assets/images/parts/0 250 403 002(3).jpg" alt="" onclick="openModal();currentSlide(3)">
+                        </div>
+                        <div class="thumbnail-placeholder">
+                            <img src="../static/assets/images/parts/0 250 403 002(4).jpg" alt="" onclick="openModal();currentSlide(4)">
+                        </div>
+                        <div class="thumbnail-placeholder">
+                            <img src="../static/assets/images/parts/0 250 403 002(5).jpg" alt="" onclick="openModal();currentSlide(5)">
+                        </div>
+                    </div>
+                    <div id="myModal" class="modal">
+                        <span class="close cursor" onclick="closeModal()">&times;</span>
+                        <div class="modal-content">
+                      
+                          <div class="mySlides">
+                            <img src="../static/assets/images/parts/0 250 403 002.jpg" style="width:100%">
+                          </div>
+                      
+                          <div class="mySlides">
+                            <img src="../static/assets/images/parts/0 250 403 002(2).jpg" style="width:100%">
+                          </div>
+                      
+                          <div class="mySlides">
+                            <img src="../static/assets/images/parts/0 250 403 002(3).jpg" style="width:100%">
+                          </div>
+                      
+                          <div class="mySlides">
+                            <img src="../static/assets/images/parts/0 250 403 002(4).jpg" style="width:100%">
+                          </div>
+
+                          <div class="mySlides">
+                            <img src="../static/assets/images/parts/0 250 403 002(5).jpg" style="width:100%">
+                          </div>
+                      
+                          <!-- Next/previous controls -->
+                          <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                          <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                      
+                          <!-- Thumbnail image controls -->
+                          <div class="thumbnail-placeholder">
+                            <img class="demo" src="../static/assets/images/parts/0 250 403 002.jpg" onclick="currentSlide(1)" alt="">
+                          </div>
+                      
+                          <div class="thumbnail-placeholder">
+                            <img class="demo" src="../static/assets/images/parts/0 250 403 002(2).jpg" onclick="currentSlide(2)" alt="">
+                          </div>
+                      
+                          <div class="thumbnail-placeholder">
+                            <img class="demo" src="../static/assets/images/parts/0 250 403 002(3).jpg" onclick="currentSlide(3)" alt="">
+                          </div>
+                      
+                          <div class="thumbnail-placeholder">
+                            <img class="demo" src="../static/assets/images/parts/0 250 403 002(4).jpg" onclick="currentSlide(4)" alt="">
+                          </div>
+
+                          <div class="thumbnail-placeholder">
+                            <img class="demo" src="../static/assets/images/parts/0 250 403 002(5).jpg" onclick="currentSlide(5)" alt="">
+                          </div>
+                        </div>
+                      </div>
+                </div>
+                <div class="product-details">
+                    <h2 class="product-id">0 250 403 002</h2>
+                    <p class="product-name">Glow Plug</p>
+                    <div class="brand">
+                        <div class="brand-logo-placeholder">
+                            <img src="../static/assets/images/manufactures/boch.jpg" alt="BOSCH">
+                        </div>
+                    </div>
+                    <div class="technical-description">
+                        <h3>Technical description</h3>
+                        <p>Glow plug fits: AUDI A3, A4 B7, A6 C6, CHRYSLER SEBRING, DODGE AVENGER, CALIBER, JEEP COMPASS, PATRIOT; MITSUBISHI GRANDIS, OUTLANDER II; SEAT ALTEA, ALTEA XL, LEON, TOLEDO III 2.0 02.03-</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tabs">
+                <div class="tab-buttons">
+                    <button onclick="showTab('parameters')">PARAMETERS</button>
+                    <button onclick="showTab('crossReference')">CROSS REFERENCE</button>
+                    <button onclick="showTab('applications')">APPLICATIONS</button>
+                    <button onclick="showTab('otherNumbers')">OTHER NUMBERS</button>
+                    <button onclick="showTab('additionalInfo')">ADDITIONAL PRODUCT INFORMATION</button>
+                </div>
+            
+                <div id="parameters" class="tab">
+                    <table border="1">
+                        <tr>
+                            <th>Name</th>
+                            <td>Glow Plug</td>
+                        </tr>
+                        <tr>
+                            <th>Weight</th>
+                            <td>4.80 kg</td>
+                        </tr>
+                        <tr>
+                            <th>Internal Code</th>
+                            <td>id</td>
+                        </tr>
+                    </table>
+                </div>
+            
+                <div id="crossReference" class="tab">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product SKU</th>
+                                <th>Manufacturer</th>
+                                <th>Delivery time</th>
+                                <th>Stock availability</th>
+                                <th>Prices (incl. VAT)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="product-sku">
+                                    <img src="../static/assets/images/parts/DG-190.jpg" alt="">
+                                    DG-190<br>
+                                    <span>Glow Plug</span>
+                                </td>
+                                <td class="manufacturer">
+                                    <img src="../static/assets/images/manufactures/denso.jpg" alt="">
+                                </td>
+                                <td><span class="delivery-time">1 business day (in branch)</span></td>
+                                <td class="stock-availability">
+                                    <div class="branch">
+                                        <i class="fa fa-home"></i> <span>Branch Qty > 9</span>
+                                    </div>
+                                    <div class="other-branches">Other branches</div>
+                                </td>
+                                <td class="prices">
+                                    <div class="price">
+                                        <p>31.20 BGN</p>
+                                        <p class="retail-price">Retail price: 31.20 BGN</p>
+                                    </div>
+                                    <div class="quantity">
+                                        <button id="-">-</button>
+                                        <input id="qty" type="text" value="1">
+                                        <button id="+">+</button>
+                                    </div>
+                                    <div class="buttons">
+                                        <button class="add-to-cart"><i class="fa fa-shopping-cart"></i></button>
+                                    </div>
+                                    
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            
+                <div id="applications" class="tab">
+                    
+                </div>
+            
+                <div id="otherNumbers" class="tab">
+                    <table border="1">
+                        <tr>
+                            <th>Original Numbers</th>
+                        </tr>
+                        <tr>
+                            <td>Data X</td>
+                        
+                        </tr>
+                        <tr>
+                            <td>Data Y</td>
+                        </tr>
+                    </table>
+                </div>
+            
+                <div id="additionalInfo" class="tab">
+                    <table border="1">
+                        <tr>
+                            <th>More information</th>
+                        </tr>
+                        <tr>
+                            <td>Data M</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+    
+
+        <section class="add-to-cart">
+            <div class="product-info-section">
+                <div class="price-info">
+                    <div class="price-row">
+                        <label>Wholesale price incl. VAT:</label>
+                        <span class="price">40.40 BGN</span>
+                    </div>
+                </div>
+
+                <div class="quantity-section">
+                    <label for="qty">Qty:</label>
+                    <input type="number" id="qty" value="1" min="1">
+                </div>
+
+                <div class="delivery-info">
+                    <label>Delivery time:</label>
+                    <div class="delivery-details">
+                        <span><i class="fa fa-home"></i> 1 business day (in branch)</span>
+                        <a href="#"> <i class="fa fa-globe"></i> Other branches</a>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="add-to-cart"><i class="fa fa-shopping-cart"></i></button>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-section">
+            <h4>YOUR BRANCH</h4>
+            <p>Central Warehouse(B01)</p>
+            <p>Sofia, Bulgaria</p>
+            <p><a href="#">See on Google maps</a></p>
+            <p class="status-open">• Open</p>
+        </div>
+        <div class="footer-section">
+            <h4>Contact us</h4>
+            <p><a href="#">Send message</a></p>
+            <p><a href="#">Go to contacts</a></p>
+        </div>
+        <div class="footer-section">
+            <h4>OUR WEBSITES</h4>
+            <p><a href="#">www.eurocars.eu</a></p>
+            <p><a href="#">bg.eurocars.eu</a></p>
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#"><i class="fa-brands fa-square-youtube"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            
+            <div>
+                <span>2024 Inter Cars. All rights reserved.</span>
+                <a href="#">COOKIES POLICY</a>
+                <a href="#">TERMS OF USE</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="../static/scripts/navigation.js"></script>
+    <script src="../static/scripts/part.js"></script>
+    <script src="../static/scripts/modal-images.js"></script>
+</body>
+</html>

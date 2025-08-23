@@ -1,0 +1,202 @@
+main {
+    display: flex;
+    padding: 6em 5em;
+    gap: 2em;
+}
+
+ .catalogue-menu {
+    width: 250px; 
+    border: 1px solid #e0e0e0; 
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); 
+    background-color: #fff;
+  }
+  
+  .catalogue-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .catalogue-menu ul li a {
+    display: block;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: #333; 
+  }
+  
+  .catalogue-menu ul li a:hover {
+    background-color: #f9f9f9; 
+  }
+  
+  .catalogue-menu ul li:not(:last-child) {
+    border-bottom: 1px solid #f0f0f0; 
+  }
+
+  /*Sliding promotions*/
+
+  .carousel-nav {
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+  .carousel-nav-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ddd;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    }
+    .carousel-nav-dot.active {
+        background-color: #333;
+    }
+    .carousel-nav-dot:hover {
+        background-color: #aaa;
+    }
+
+.slideshow-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background-color: #fff; 
+    border-radius: 0.5rem; 
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); 
+  }
+
+  
+  /* Hide the images by default */
+  .mySlides {
+    display: none;
+  }
+
+  .mySlides img {
+    width: 100%;
+    height: 300px;
+    display: block;
+  }
+  
+  /* Next & previous buttons */
+  .prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+  }
+  
+  /* Position the "next button" to the right */
+  .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+  }
+  
+  /* On hover, add a black background color with a little bit see-through */
+  .prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+  }
+  
+  
+  /* Fading animation */
+  .fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+  }
+  
+  @keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+  }
+/*Sliding recommended parts*/
+
+:is(p, ul, ol):not(:last-child) {
+    padding-bottom: 5px;
+}
+
+.parts-carousel-container {
+    position: relative;
+    overflow: hidden;
+    padding: 0 5em;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.parts-carousel-wrapper {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 20px;
+}
+.parts-carousel-item {
+    flex: 0 0 40%;  /*Take up 50% of the viewport */
+    min-width: 40%;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    scroll-snap-align: start;
+    /* background-color: #f9f9f9; */
+    box-sizing: border-box;
+}
+.parts-carousel-item img {
+  width: 150px;
+  aspect-ratio: 1/1;
+}
+.parts-carousel-item h3 {
+    font-size: 1.2rem;
+    /* margin-bottom: 1px; */
+    color: #333;
+}
+.parts-carousel-item p {
+    font-size: 0.9rem;
+    color: #666;
+}
+.parts-carousel-item .price {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #e44d26;
+}
+
+.carousel-nav-part {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+.carousel-nav-part button {
+    background-color: #ddd;
+    border: none;
+    padding: 8px 16px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-bottom: 5em;
+}
+.carousel-nav-part button:hover {
+    background-color: #ccc;
+}
+
+.carousel-nav-part button.active {
+    background-color: #e44d26;
+    color: white;
+}
+
+.parts-carousel-wrapper::-webkit-scrollbar {
+    display: none;  /* Hide scrollbar for Chrome, Safari and Opera */
+}
+
+.parts-carousel-wrapper {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

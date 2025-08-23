@@ -1,0 +1,245 @@
+main {
+    display: flex;
+    padding: 3em 5em;
+
+}
+
+.cart-parts {
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+.top-bar {
+    margin-bottom: 24px;
+}
+
+.top-bar-left {
+    color: #3b82f6;
+    
+}
+
+.top-bar-left a {
+    color: #3b82f6;
+    text-decoration: none;
+}
+
+.top-bar-left a:hover {
+    text-decoration: underline;
+}
+
+.product-list {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    padding: 24px;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+}
+thead {
+    background-color: #f4f4f4;
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+th {
+    font-weight: bold;
+}
+.product {
+    display: flex;
+    align-items: center;
+}
+.buttons {
+    margin-right: 10px;
+}
+
+.buttons button {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.buttons input {
+    cursor: pointer;
+}
+
+.product-image img {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.manufacture-img img {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+}
+.product-info {
+    display: flex;
+    flex-direction: column;
+}
+.product-name {
+    font-weight: bold;
+}
+.green-text {
+    color: green;
+}
+.blue-text {
+    color: blue;
+}
+
+.quantity-input {
+    max-width: 40px;
+}
+.delivery-time, .price, .total-price, .weight {
+    font-size: 14px;
+}
+
+.summary-container {
+    background-color: #ffffff;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    max-width: 320px;
+    margin-left: auto;
+    border: 2px solid #ff3333;
+}
+.summary-heading {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 16px;
+}
+.selected-products {
+    font-size: 14px;
+    color: #4b5563;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.total-weight {
+    font-size: 14px;
+    color: #4b5563;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.price-info {
+    font-size: 14px;
+    color: #4b5563;
+    margin-bottom: 4px;
+    display: flex;
+    justify-content: space-between;
+}
+.old-cores{
+    font-size: 14px;
+    color: #4b5563;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.vat-value{
+    font-size: 14px;
+    color: #4b5563;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.wholesale-price-sum{
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+}
+.delivery-method {
+    font-size: 14px;
+    color: #4b5563;
+    margin-bottom: 8px;
+}
+.payment-method {
+    font-size: 14px;
+    color: #4b5563;
+    margin-bottom: 16px;
+}
+.add-coupon {
+    font-size: 14px;
+    color: #3b82f6;
+    margin-bottom: 24px;
+    cursor: pointer;
+}
+
+.add-coupon:hover {
+    text-decoration: underline;
+}
+
+.order-now-button {
+    background-color: #ff3333;
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+    border: none;
+}
+.order-now-button:hover {
+    background-color: #c81e2e;
+}
+.cart-comment-title {
+    font-size: 14px;
+    color: #4b5563;
+    margin-bottom: 8px;
+}
+.cart-comment-text {
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 24px;
+}
+.contact-info {
+    font-size: 14px;
+    color: #4b5563;
+    margin-bottom: 8px;
+}
+.contact-details {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f2937;
+}
+.call-button {
+    background-color: #16a34a;
+    color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none;
+    margin-top: 8px;
+}
+.call-button:hover {
+    background-color: #15803d;
+}
+.image-placeholder {
+    width: 80px;
+    height: 60px;
+    background-color: #e5e7eb;
+    border-radius: 4px;
+    margin-right: 12px;
+    display: inline-block;
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EuroCars Registration</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../static/styles/login-styles.css">
+    <link rel="stylesheet" href="../static/styles/reg-style.css">
+</head>
+<body class="bg-cover" style="background-image: url('../static/assets/images/background_image.jpg');">
+    <!-- Login Form -->
+    <div id="form" class="bg-white p-8 rounded-lg shadow-lg">
+        <!-- Logo -->
+        <div id="logo" class="flex justify-center mb-6">
+            <img src="../static/assets/images/logo.jpeg" alt="Inter Cars Logo" >
+        </div>
+        <!-- Form -->
+        <form id="regForm">
+            <div id="nameOwner">
+                <div>
+                    <label for="companyName">Company Name<span class="text-red-600 text-xl">*</span></label>
+                    <input id="companyName" type="text" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                </div>
+                <div>
+                    <label for="owner">Owner Name<span class="text-red-600 text-xl">*</span></label>
+                    <input id="owner" type="text" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                </div>
+            </div>
+            <div>
+                <label for="addres">Company Mailing Address<span class="text-red-600 text-xl">*</span></label>
+                <input id="addres" placeholder="Street address" type="text" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div id="cityInfo">
+                <input placeholder="City" type="text" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input placeholder="State" type="text" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input placeholder="Zip Code" type="text" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input placeholder="Country" type="text" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <div class="pb-2">
+                <label for="email">Email<span class="text-red-600 text-xl">*</span></label>
+                <input id="email" placeholder="example@mail.com" type="text" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                <label for="phone">Phone<span class="text-red-600 text-xl">*</span></label>
+                <input id="phone" placeholder="+359*********" type="text" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+
+            <div class="flex pb-2 gap-[15px]" id="password"> 
+                <div>
+                    <label for="password">Enter password</label>
+                    <input type="password" id="password" placeholder="••••••••" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                </div>
+                <div>
+                    <label for="password">Repeat password</label>
+                    <input type="password" id="password" placeholder="••••••••" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                </div>
+            </div>
+        
+            
+            <button type="submit" class="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-900 transition">Register</button>
+            <div class="text-center">
+                <span class="text-sm">Already has an account?</span>
+                <a href="login.html" class="font-bold text-blue-600 hover:underline">Login</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-white text-sm flex justify-between">
+        <div>
+            <span>© GLUU, INC | </span>
+            <a href="#" class="hover:underline">PRIVACY POLICY</a> |
+            <a href="#" class="hover:underline">TERMS OF SERVICE</a>
+        </div>
+        <div>ver 2.0</div>
+    </footer>
+
+</body>
+</html>

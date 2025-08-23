@@ -1,0 +1,171 @@
+.container {
+    max-width: 672px; 
+    margin-left: auto; 
+    margin-right: auto; 
+    margin-top: 1em;
+    margin-bottom: 1em;
+    background-color: #fff; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); 
+    padding: 32px; 
+}
+.heading-1 {
+    font-size: 24px; 
+    font-weight: 600; 
+    color: #374151; 
+    margin-bottom: 24px; 
+}
+.section-1 {
+    margin-bottom: 32px; 
+}
+.heading-2 {
+    font-size: 18px; 
+    font-weight: 600; 
+    color: #4b5563; 
+    margin-bottom: 16px; 
+}
+.account-info {
+    background-color: #f9fafb; 
+    border-radius: 6px; 
+    padding: 16px;
+    margin-bottom: 16px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+}
+
+.account-info-title {
+    font-size: 14px; 
+    font-weight: 500; 
+    color: #6b7280; 
+    margin-bottom: 4px;
+}
+.account-info-name {
+    font-size: 14px; 
+    color: #374151; 
+}
+.change-password-button {
+    background-color: #ff3333; 
+    color: #fff; 
+    font-weight: 700; 
+    padding: 8px 16px; 
+    border-radius: 6px; 
+    font-size: 14px; 
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.change-password-button:hover {
+    background-color: #b91c1c; 
+}
+.language-info {
+    background-color: #f9fafb; 
+    border-radius: 6px; 
+    padding: 16px; 
+    display: flex; 
+    align-items: center;
+}
+.language-text {
+    font-size: 14px; 
+    color: #374151; 
+}
+.catalog-settings {
+    margin-bottom: 32px; 
+}
+.catalog-title{
+    font-size: 18px; 
+    font-weight: 600; 
+    color: #4b5563; 
+    margin-bottom: 16px; 
+}
+.price-tax-display {
+    margin-bottom: 16px; 
+}
+.price-tax-label {
+    font-size: 14px; 
+    font-weight: 500; 
+    color: #6b7280; 
+    margin-bottom: 8px; 
+}
+.radio-group {
+    display: flex;
+    align-items: center; 
+    gap: 16px; 
+}
+.radio-label {
+    display: flex; 
+    align-items: center; 
+}
+.radio-input {
+    margin-right: 8px; 
+    color: #3b82f6; 
+    /* focus:ring-blue-500 */
+    height: 16px;
+    width: 16px;
+}
+.radio-text {
+    font-size: 14px;
+    color: #374151;
+}
+.wholesale-prices-visibility{
+    margin-bottom: 16px; 
+}
+.wholesale-prices-label {
+    font-size: 14px; 
+    font-weight: 500; 
+    color: #6b7280; 
+    margin-bottom: 8px; 
+}
+.keyboard-shortcut{
+    font-size: 12px; 
+    color: #9ca3af; 
+    margin-top: 4px; 
+}
+.product-categories-order{
+    margin-bottom: 16px; 
+}
+.product-categories-label{
+    font-size: 14px; 
+    font-weight: 500; 
+    color: #6b7280; 
+    margin-bottom: 8px; 
+}
+.product-weight-visibility{
+    margin-bottom: 16px; 
+}
+.product-weight-label{
+    font-size: 14px; 
+    font-weight: 500;
+    color: #6b7280; 
+    margin-bottom: 8px; 
+}
+.product-listing-view{
+    margin-bottom: 16px; 
+}
+.product-listing-label{
+    font-size: 14px; 
+    font-weight: 500; 
+    color: #6b7280; 
+    margin-bottom: 8px; 
+}
+.initial-open-tab{
+    margin-bottom: 0;
+}
+.initial-open-tab-label{
+    font-size: 14px; 
+    font-weight: 500; 
+    color: #6b7280; 
+    margin-bottom: 8px; 
+}
+.save-button {
+    background-color: #ff3333; 
+    color: #fff; 
+    font-weight: 700; 
+    padding: 8px 16px; 
+    border-radius: 6px; 
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.save-button:hover {
+    background-color: #b91c1c; 
+}

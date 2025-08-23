@@ -1,0 +1,23 @@
+/* Custom styles to complement Tailwind */
+body {
+    background-color: #1a202c; /* Fallback color if image fails to load */
+}
+
+input::placeholder {
+    color: #a0aec0;
+    font-size: 0.9rem;
+}
+
+
+#logo {
+    height: 100px;
+}
+
+#logo img {
+    width: 60%;
+    border-radius: 50%;
+}
+
+footer {
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for readability */
+}

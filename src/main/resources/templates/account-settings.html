@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings</title>
+    <link rel="stylesheet" href="../static/styles/_styles.css">
+    <link rel="stylesheet" href="../static/styles/_account-settings.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-left">
+            <a href="front-page.html"><img src="../static/assets/images/logo-clear.png" alt="Logo"></a>
+            <a href="#" class="menu-button" id="catalogueButton">
+                <i class="fa-solid fa-bars"></i> <span>MENU</span>    
+            </a>
+            <div id="catalogueMenu" class="menu">
+                <ul><li><a href="#">Full offer</a></li>
+                    <li><a href="#">Universal Searches</a></li>
+                    <li><a href="#">Saved Vehicles</a></li>
+                    <li><a href="#">News offer</a></li>
+                </ul>
+            </div>
+            
+            <a href="#" class="category"><i class="fa-solid fa-car-side"></i> VEHICLES</a>
+            
+        </div>
+        <div class="navbar-search" id="navbar-search">
+            <div class="search-input">
+                <input type="text" placeholder="Search by product">
+            </div>
+            <div class="button"><i class="fa-solid fa-magnifying-glass"></i></div>
+            <div class="button filter-btn" onclick="openModalFilter()"><i class="fa-solid fa-filter"></i></div>
+            <div id="searchModalFilter" class="modal-filter">
+                <div class="modal-filter-content">
+                  <div class="modal-filter-header">
+                    <h3>Advanced search</h3>
+                    <span class="close-btn" onclick="closeModalFilter()">&times;</span>
+                  </div>
+                  <div class="form-group">
+                    <h4>Search within</h4>
+                    <label for="productIndex">Product index</label>
+                    <input type="text" id="productIndex" placeholder="Enter the product index">
+                  </div>
+                  <div class="form-group">
+                    <label for="techDescription">Technical description</label>
+                    <input type="text" id="techDescription" placeholder="Enter the technical description">
+                  </div>
+                  <div class="form-group">
+                    <h4>Additional filtering options</h4>
+                    <label for="category">Category</label>
+                    <input type="text" id="category" placeholder="Start typing a category name">
+                  </div>
+                  <div class="form-group">
+                    <label for="manufacturer">Manufacturer</label>
+                    <select id="manufacturer">
+                      <option value="any">Any</option>
+                    </select>
+                  </div>
+                  <div class="checkbox-group">
+                    <input type="checkbox" id="logisticPath">
+                    <label for="logisticPath">Only products available in logistic path</label>
+                  </div>
+                  <div class="form-buttons">
+                    <button class="clear-btn" onclick="clearForm()">Clear</button>
+                    <button class="search-btn" onclick="submitForm()">Search</button>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar-right">
+            <a href="">User User</a>
+            <a href="" class="icon" id="bell">
+                <i class="fa-solid fa-bell">
+                    <div id="notificationBox" class="notifications">
+                        <ul>
+                            <p>Latest notifications</p>
+                            <li>There are no notifications</li>
+                        </ul>
+                        <button>See All</button>
+                    </div>
+                </i></a>
+            <a href="" class="cart"><i class="fa-solid fa-cart-shopping"></i>
+                <div class="minicart">
+                    <p>Recently added product</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Total value incl. VAT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                    <p id="empty">Your cart is empty</p>
+                    <div class="total">
+                        <p>Wholesale total value incl. VAT: <span id="sum">100</span>€</p>
+                        <button>GO TO CART</button>
+                    </div>
+                    
+                </div>
+            </a>
+            
+        </div>
+    </div>
+    <div class="scroll-to-top" onclick="scrollToTop()"><i class="fa-solid fa-arrow-up"></i></div>
+    <main>
+        <div class="container">
+            <h1 class="heading-1">Account Settings</h1>
+            <section class="section-1">
+                <h2 class="heading-2">Your account</h2>
+                <div class="account-info">
+                    <div class="account-info-text">
+                        <div class="account-info-title">Signed In As</div>
+                        <div class="account-info-name">User User</div>
+                        <div class="account-info-name">user@eurocars.eu</div>
+                    </div>
+                    <button class="change-password-button">
+                        CHANGE PASSWORD
+                    </button>
+                </div>
+                <div class="language-info">
+                    <label for="language">Choose a language:</label>
+
+                    <select id="language">
+                        <option value="eng">English</option>
+                        <option value="bg">Bulgarian</option>
+                    </select>
+                </div>
+            </section>
+
+            <section class="catalog-settings">
+                <h2 class="catalog-title">Catalog</h2>
+                <div class="price-tax-display">
+                    <div class="price-tax-label">Price tax display</div>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="priceTaxDisplay" value="including" class="radio-input" checked>
+                            <span class="radio-text">including VAT</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="priceTaxDisplay" value="excluding" class="radio-input">
+                            <span class="radio-text">excluding VAT</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="wholesale-prices-visibility">
+                    <div class="wholesale-prices-label">Wholesale prices visibility</div>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="wholesalePricesVisibility" value="show" class="radio-input" checked>
+                            <span class="radio-text">Show</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="wholesalePricesVisibility" value="hide" class="radio-input">
+                            <span class="radio-text">Hide</span>
+                        </label>
+                    </div>
+                    <p class="keyboard-shortcut">You can also use keyboard shortcut Z + W in any place in the system.</p>
+                </div>
+
+                <div class="product-categories-order">
+                    <div class="product-categories-label">Product categories order</div>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="productCategoriesOrder" value="tecdoc" class="radio-input" checked>
+                            <span class="radio-text">TecDoc order</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="productCategoriesOrder" value="alphabetic" class="radio-input">
+                            <span class="radio-text">Alphabetic order</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="product-weight-visibility">
+                    <div class="product-weight-label">Visibility of product weight on cart</div>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="productWeightVisibility" value="show" class="radio-input" checked>
+                            <span class="radio-text">Show</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="productWeightVisibility" value="hide" class="radio-input">
+                            <span class="radio-text">Hide</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="product-listing-view">
+                    <div class="product-listing-label">Product listing view</div>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="productListingView" value="technical" class="radio-input" checked>
+                            <span class="radio-text">Technical description</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="productListingView" value="mostImportant" class="radio-input">
+                            <span class="radio-text">Most important product attributes</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="productListingView" value="all" class="radio-input">
+                            <span class="radio-text">All product attributes</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="initial-open-tab">
+                    <div class="initial-open-tab-label">Initial open tab in Graphical search</div>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="graphicalSearchTab" value="graphical" class="radio-input" checked>
+                            <span class="radio-text">Graphical search</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="graphicalSearchTab" value="universal" class="radio-input">
+                            <span class="radio-text">Universal category search</span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <button class="save-button">
+                SAVE
+            </button>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-section">
+            <h4>YOUR BRANCH</h4>
+            <p>Central Warehouse(B01)</p>
+            <p>Sofia, Bulgaria</p>
+            <p><a href="#">See on Google maps</a></p>
+            <p class="status-open">• Open</p>
+        </div>
+        <div class="footer-section">
+            <h4>Contact us</h4>
+            <p><a href="#">Send message</a></p>
+            <p><a href="#">Go to contacts</a></p>
+        </div>
+        <div class="footer-section">
+            <h4>OUR WEBSITES</h4>
+            <p><a href="#">www.eurocars.eu</a></p>
+            <p><a href="#">bg.eurocars.eu</a></p>
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#"><i class="fa-brands fa-square-youtube"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            
+            <div>
+                <span>2024 Inter Cars. All rights reserved.</span>
+                <a href="#">COOKIES POLICY</a>
+                <a href="#">TERMS OF USE</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../static/scripts/navigation.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose car</title>
+    <link rel="stylesheet" href="../static/styles/_choose-car.css">
+    <link rel="stylesheet" href="../static/styles/_styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-left">
+            <a href="front-page.html"><img src="../static/assets/images/logo-clear.png" alt="Logo"></a>
+            <a href="#" class="menu-button" id="catalogueButton">
+                <i class="fa-solid fa-bars"></i> <span>MENU</span>    
+            </a>
+            <div id="catalogueMenu" class="menu">
+                <ul><li><a href="#">Full offer</a></li>
+                    <li><a href="#">Universal Searches</a></li>
+                    <li><a href="#">Saved Vehicles</a></li>
+                    <li><a href="#">News offer</a></li>
+                </ul>
+            </div>
+            
+            <a href="#" class="category"><i class="fa-solid fa-car-side"></i> VEHICLES</a>
+            
+        </div>
+        <div class="navbar-search" id="navbar-search">
+            <div class="search-input">
+                <input type="text" placeholder="Search by product">
+            </div>
+            <div class="button"><i class="fa-solid fa-magnifying-glass"></i></div>
+            <div class="button filter-btn" onclick="openModalFilter()"><i class="fa-solid fa-filter"></i></div>
+            <div id="searchModalFilter" class="modal-filter">
+                <div class="modal-filter-content">
+                  <div class="modal-filter-header">
+                    <h3>Advanced search</h3>
+                    <span class="close-btn" onclick="closeModalFilter()">&times;</span>
+                  </div>
+                  <div class="form-group">
+                    <h4>Search within</h4>
+                    <label for="productIndex">Product index</label>
+                    <input type="text" id="productIndex" placeholder="Enter the product index">
+                  </div>
+                  <div class="form-group">
+                    <label for="techDescription">Technical description</label>
+                    <input type="text" id="techDescription" placeholder="Enter the technical description">
+                  </div>
+                  <div class="form-group">
+                    <h4>Additional filtering options</h4>
+                    <label for="category">Category</label>
+                    <input type="text" id="category" placeholder="Start typing a category name">
+                  </div>
+                  <div class="form-group">
+                    <label for="manufacturer">Manufacturer</label>
+                    <select id="manufacturer">
+                      <option value="any">Any</option>
+                    </select>
+                  </div>
+                  <div class="checkbox-group">
+                    <input type="checkbox" id="logisticPath">
+                    <label for="logisticPath">Only products available in logistic path</label>
+                  </div>
+                  <div class="form-buttons">
+                    <button class="clear-btn" onclick="clearForm()">Clear</button>
+                    <button class="search-btn" onclick="submitForm()">Search</button>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar-right">
+            <a href="">User User</a>
+            <a href="" class="icon" id="bell">
+                <i class="fa-solid fa-bell">
+                    <div id="notificationBox" class="notifications">
+                        <ul>
+                            <p>Latest notifications</p>
+                            <li>There are no notifications</li>
+                        </ul>
+                        <button>See All</button>
+                    </div>
+                </i></a>
+            <a href="" class="cart"><i class="fa-solid fa-cart-shopping"></i>
+                <div class="minicart">
+                    <p>Recently added product</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Total value incl. VAT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                    <p id="empty">Your cart is empty</p>
+                    <div class="total">
+                        <p>Wholesale total value incl. VAT: <span id="sum">100</span>€</p>
+                        <button>GO TO CART</button>
+                    </div>
+                    
+                </div>
+            </a>
+            
+        </div>
+    </div>
+    <div class="scroll-to-top" onclick="scrollToTop()"><i class="fa-solid fa-arrow-up"></i></div>
+    <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li id="cars-btn" class="active"><a href="#"><i class="fa-solid fa-car-side"> </i><span>Car</span></a></li>
+                <li id="vans-btn"><a href="#"><i class="fa-solid fa-van-shuttle"></i> <span>Van</span></a></li>
+                <li id="trucks-btn"><a href="#"><i class="fa-solid fa-truck"></i> <span>Buses/Trucks</span></a></li>
+                <li id="motorcycles-btn"><a href="#"><i class="fa-solid fa-motorcycle"></i><span>Motorcycle/ATV/UTV</span></a></li>
+                <li id="vin-btn"><a href="#"><span id="VIN">VIN</span> <span>VIN</span></a></li>
+            </ul>
+        </div>
+        <div id="cars" class="content">
+            <input type="text" class="search-bar" placeholder="Type manufacturer...">
+            <h3>Choose brand</h3>
+            <ul>
+                <li class="audi"><a href="#">AUDI</a></li>
+                <li><a href="#">BMW</a></li>
+                <li><a href="#">CHEVROLET</a></li>
+                <li><a href="#">CITROEN</a></li>
+                <li><a href="#">OPEL</a></li>
+                <li><a href="#">HYUNDAI</a></li>
+                <li><a href="#">IVECO</a></li>
+                <li><a href="#">FIAT</a></li>
+                <li><a href="#">FORD</a></li>
+                <li><a href="#">MERCEDES-BENZ</a></li>
+                <li><a href="#">PEUGEOT</a></li>
+                <li><a href="#">RENAULT</a></li>
+                <li><a href="#">VW</a></li>
+            </ul>
+        </div>
+        <div class="models audi">
+            <input type="text" class="search-bar" placeholder="Type model...">
+            <a class="previous" href=""><i class="fa-solid fa-arrow-left"></i>BACK</a>
+            <h3>Choose model</h3>
+            <ul>
+                <li class="50"><a href="#"><span class="model">50 (863)</span><span class="years">1974-1978</span></a></li>
+                <li>80</li>
+            </ul>
+        </div>
+
+        <div class="engines 50">
+            <input type="text" class="search-bar" placeholder="Type engine...">
+            <a class="previous-en" href=""><i class="fa-solid fa-arrow-left"></i>BACK</a>
+            <h3>Choose engine</h3>
+            <ul>
+                <li><span>Type</span><span>Production years</span><span>kW</span><span>HP</span><span>CCM</span></li>
+                <li><a href="#">
+                    <span>0.8</span><span>1976-1978</span><span>25</span><span>34</span><span>771</span>
+                </a></li>
+            </ul>
+        </div>
+        <div id="vans" class="content">
+            <input type="text" class="search-bar" placeholder="Type manufacturer...">
+            <h3>Choose brand</h3>
+            <ul>
+                <li><a href="#">CITROEN</a></li>
+                <li><a href="#">IVECO</a></li>
+                <li><a href="#">FIAT</a></li>
+                <li><a href="#">FORD</a></li>
+                <li><a href="#">MERCEDES-BENZ</a></li>
+                <li><a href="#">PEUGEOT</a></li>
+                <li><a href="#">RENAULT</a></li>
+                <li><a href="#">VW</a></li>
+            </ul>
+        </div>
+        <div id="trucks" class="content">
+            <input type="text" class="search-bar" placeholder="Type manufacturer...">
+            <h3>Choose brand</h3>
+            <ul>
+                <li><a href="#">DAF</a></li>
+                <li><a href="#">IVECO</a></li>
+                <li><a href="#">MAN</a></li>
+                <li><a href="#">MERCEDES-BENZ</a></li>
+                <li><a href="#">RENAULT TRUCKS</a></li>
+                <li><a href="#">SCANIA</a></li>
+                <li><a href="#">VOLVO</a></li>
+            </ul>
+        </div>
+        <div id="motorcycles" class="content">
+            <input type="text" class="search-bar" placeholder="Type manufacturer...">
+            <h3>Choose brand</h3>
+            <ul>
+                <li><a href="#">Aprillia</a></li>
+                <li><a href="#">BMW</a></li>
+                <li><a href="#">DUCATI</a></li>
+                <li><a href="#">HONDA</a></li>
+                <li><a href="#">KAWASAKI</a></li>
+                <li><a href="#">KTM</a></li>
+                <li><a href="#">SUZUKI</a></li>
+                <li><a href="#">YAMAHA</a></li>
+            </ul>
+        </div>
+        <div id="vin-category" class="content">
+            <input type="text" class="search-bar" placeholder="Search by VIN...">
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footer-section">
+            <h4>YOUR BRANCH</h4>
+            <p>Central Warehouse(B01)</p>
+            <p>Sofia, Bulgaria</p>
+            <p><a href="#">See on Google maps</a></p>
+            <p class="status-open">• Open</p>
+        </div>
+        <div class="footer-section">
+            <h4>Contact us</h4>
+            <p><a href="#">Send message</a></p>
+            <p><a href="#">Go to contacts</a></p>
+        </div>
+        <div class="footer-section">
+            <h4>OUR WEBSITES</h4>
+            <p><a href="#">www.eurocars.eu</a></p>
+            <p><a href="#">bg.eurocars.eu</a></p>
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#"><i class="fa-brands fa-square-youtube"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            
+            <div>
+                <span>2024 Inter Cars. All rights reserved.</span>
+                <a href="#">COOKIES POLICY</a>
+                <a href="#">TERMS OF USE</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../static/scripts/navigation.js"></script>
+    <script src="../static/scripts/cm-script.js"></script>
+</body>
+</html>
