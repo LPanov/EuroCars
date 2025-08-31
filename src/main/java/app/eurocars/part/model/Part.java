@@ -1,5 +1,6 @@
 package app.eurocars.part.model;
 
+import app.eurocars.cartItem.model.CartItem;
 import app.eurocars.category.model.Category;
 import app.eurocars.engine.model.Engine;
 import app.eurocars.manufacturer.model.Manufacturer;
@@ -59,16 +60,16 @@ public class Part {
             inverseJoinColumns = @JoinColumn(name = "engine_id"))
     private Set<Engine> engines;
 
-    @ManyToMany
-    @JoinTable(name = "parts_categories",
-            joinColumns = @JoinColumn(name = "part_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> categories;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    @OneToMany(mappedBy = "part")
+    private Set<CartItem> cartItems;
 
     public Part() {
         this.imgUrls = new HashSet<>();
         this.otherNumbers = new HashSet<>();
         this.engines = new HashSet<>();
-        this.categories = new HashSet<>();
     }
 }

@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage Euro Cars</title>
-    <link rel="stylesheet" href="../static/styles/_styles.css">
-    <link rel="stylesheet" href="../static/styles/_front-page-style.css">
+    <link rel="stylesheet" href="/styles/_styles.css">
+    <link rel="stylesheet" href="/styles/_front-page-style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
     <div class="navbar">
         <div class="navbar-left">
-            <a href="front-page.html"><img src="../static/assets/images/logo-clear.png" alt="Logo"></a>
+            <a href="home.html"><img src="/assets/images/logo-clear.png" alt="Logo"></a>
             <a href="#" class="menu-button" id="catalogueButton">
                 <i class="fa-solid fa-bars"></i> <span>MENU</span>    
             </a>
@@ -70,7 +70,18 @@
             </div>
         </div>
         <div class="navbar-right">
-            <a href="">User User</a>
+            <div class="profile-dropdown-container">
+                <p th:text="${user.ownerName}" class="profile-section"></p>
+                <div class="profile-dropdown-content">
+                    <div class="profile-item-link">
+                        <i class="fa-solid fa-user"></i>
+                        <a th:href="@{/users/{id}/account-settings(id=${user.id})}" th:text="${user.ownerName}" class="user-profile-link"></a>
+                    </div>
+                    <form th:action="@{/logout}">
+                        <button type="submit">Logout</button>
+                    </form>
+                </div>
+            </div>
             <a href="" class="icon" id="bell">
                 <i class="fa-solid fa-bell">
                     <div id="notificationBox" class="notifications">
@@ -176,19 +187,19 @@
 
             <!-- Full-width images with number and caption text -->
             <div class="mySlides fade">
-                <img src="../static/assets/images/Magnum22560x597HomePageBackground.webp" style="width:100%">
+                <img src="/assets/images/Magnum22560x597HomePageBackground.webp" style="width:100%">
             </div>
 
             <div class="mySlides fade">
-              <img src="../static/assets/images/Mann22560x597HomePageBackground.webp" style="width:100%">
+              <img src="/assets/images/Mann22560x597HomePageBackground.webp" style="width:100%">
             </div>
           
             <div class="mySlides fade">
-              <img src="../static/assets/images/Thermotec2560x597HomePageBackground.webp" style="width:100%">
+              <img src="/assets/images/Thermotec2560x597HomePageBackground.webp" style="width:100%">
             </div>
           
             <div class="mySlides fade">
-              <img src="../static/assets/images/Trw22560x597HomePageBackground.webp" style="width:100%">
+              <img src="/assets/images/Trw22560x597HomePageBackground.webp" style="width:100%">
             </div>
           
             <!-- Next and previous buttons -->
@@ -208,42 +219,42 @@
         <h4>Recommended Parts</h4>
         <div class="parts-carousel-wrapper">
             <div class="parts-carousel-item">
-                <img src="../static/assets/images/parts/0 250 403 002.jpg" alt="">
+                <img src="/assets/images/parts/0 250 403 002.jpg" alt="">
                 <h3>0 250 403 002</h3>
                 <p>Glow Plug</p>
                 <p class="price">Wholesale Price: 30.80 BGN</p>
                 <p class="price">Retail Price: 65.32 BGN</p>
             </div>
             <div class="parts-carousel-item">
-                <img src="../static/assets/images/parts/default.png" alt="">
+                <img src="/assets/images/parts/default.png" alt="">
                 <h3>085 DRU04</h3>
                 <p>Fuel Filter</p>
                 <p class="price">Wholesale Price: 576.00 BGN</p>
                 <p class="price">Retail Price: 84.00 BGN</p>
             </div>
             <div class="parts-carousel-item">
-                <img src="../static/assets/images/parts/default.png" alt="">
+                <img src="/assets/images/parts/default.png" alt="">
                 <h3>085 398 0480</h3>
                 <p>Some Other Part</p>
                 <p class="price">Wholesale Price: 750.00 BGN</p>
                 <p class="price">Retail Price: 920.00 BGN</p>
             </div>
             <div class="parts-carousel-item">
-                <img src="../static/assets/images/parts/default.png" alt="">
+                <img src="/assets/images/parts/default.png" alt="">
                 <h3>16 127 451 424</h3>
                 <p>Another Part</p>
                 <p class="price">Wholesale Price: 1,000.00 BGN</p>
                 <p class="price">Retail Price: 1,250.00 BGN</p>
             </div>
              <div class="parts-carousel-item">
-                <img src="../static/assets/images/parts/default.png" alt="">
+                <img src="/assets/images/parts/default.png" alt="">
                 <h3>YMB-CH03</h3>
                 <p>Mechatronics, automatic transmission</p>
                 <p class="price">Wholesale Price: 1,242.50 BGN</p>
                 <p class="price">Retail Price: 2,614.00 BGN</p>
             </div>
             <div class="parts-carousel-item">
-                <img src="../static/assets/images/parts/default.png" alt="">
+                <img src="/assets/images/parts/default.png" alt="">
                 <h3>085 DRU04</h3>
                 <p>Fuel Filter</p>
                 <p class="price">Wholesale Price: 576.00 BGN</p>
@@ -293,8 +304,8 @@
         </div>
     </footer>
 
-    <script src="../static/scripts/fp-navigation.js"></script>
-    <script src="../static/scripts/fp-main-carousel.js"></script>
-    <script src="../static/scripts/fp-carousel-rec.js"></script>
+    <script src="/scripts/fp-navigation.js"></script>
+    <script src="/scripts/fp-main-carousel.js"></script>
+    <script src="/scripts/fp-carousel-rec.js"></script>
 </body>
 </html>

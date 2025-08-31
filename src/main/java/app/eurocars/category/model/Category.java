@@ -31,6 +31,6 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private List<Category> categories = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "categories")
+    @OneToMany(mappedBy = "category")
     private List<Part> parts = new ArrayList<>();
 }

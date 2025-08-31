@@ -1,5 +1,6 @@
 package app.eurocars.user.model;
 
+import app.eurocars.cart.model.Cart;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -70,4 +71,6 @@ public class User {
     @Column(name = "show_weight")
     private Boolean showWeight;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Cart cart;
 }

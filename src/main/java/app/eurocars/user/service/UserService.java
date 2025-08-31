@@ -1,5 +1,6 @@
 package app.eurocars.user.service;
 
+import app.eurocars.cart.model.Cart;
 import app.eurocars.exception.DomainException;
 import app.eurocars.user.model.Country;
 import app.eurocars.user.model.Role;
@@ -10,11 +11,13 @@ import app.eurocars.web.dto.RegisterRequest;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -22,13 +25,12 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
 
 
-    public UserService(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
@@ -40,7 +42,8 @@ public class UserService {
         }
 
         User user = modelMapper.map(registerRequest, User.class);
-        user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+//        user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+        user.setCart(new Cart());
         user.setRole(Role.USER);
         user.setIsActive(true);
         user.setCountry(Country.BULGARIA);
@@ -67,10 +70,19 @@ public class UserService {
         }
 
         User user = optionalUser.get();
-        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+//        if (!passwordEncoder.matches(loginRequest.getPassword(),  user.getPassword())) {
+        if (!loginRequest.getPassword().equals(user.getPassword())) {
             throw new DomainException("Email or Password are incorrect");
         }
 
         return user;
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public User getById(UUID id) {
+        return userRepository.findById(id).orElseThrow(() -> new DomainException("User with such ID:'%s' does not exist.".formatted(id)));
     }
 }
