@@ -2,16 +2,20 @@ package app.eurocars.user.service;
 
 import app.eurocars.cart.model.Cart;
 import app.eurocars.exception.DomainException;
+import app.eurocars.security.AuthenticationDetails;
 import app.eurocars.user.model.Country;
 import app.eurocars.user.model.Role;
 import app.eurocars.user.model.User;
 import app.eurocars.user.repository.UserRepository;
-import app.eurocars.web.dto.LoginRequest;
 import app.eurocars.web.dto.RegisterRequest;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-//import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -21,18 +25,20 @@ import java.util.UUID;
 
 @Slf4j
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
-//    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
 
-    public UserService(UserRepository userRepository, ModelMapper modelMapper) {
+    public UserService(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
+//    @CacheEvict(value = "users", allEntries = true)
     @Transactional
     public User register(RegisterRequest registerRequest) {
         Optional<User> userOptional = userRepository.findByEmail(registerRequest.getEmail());
@@ -42,7 +48,7 @@ public class UserService {
         }
 
         User user = modelMapper.map(registerRequest, User.class);
-//        user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+        user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         user.setCart(new Cart());
         user.setRole(Role.USER);
         user.setIsActive(true);
@@ -61,28 +67,18 @@ public class UserService {
         return user;
     }
 
-    public User login(LoginRequest loginRequest) {
-
-        Optional<User> optionalUser = userRepository.findByEmail(loginRequest.getEmail());
-
-        if (optionalUser.isEmpty()) {
-            throw new DomainException("Email or Password are incorrect");
-        }
-
-        User user = optionalUser.get();
-//        if (!passwordEncoder.matches(loginRequest.getPassword(),  user.getPassword())) {
-        if (!loginRequest.getPassword().equals(user.getPassword())) {
-            throw new DomainException("Email or Password are incorrect");
-        }
-
-        return user;
-    }
-
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
     public User getById(UUID id) {
         return userRepository.findById(id).orElseThrow(() -> new DomainException("User with such ID:'%s' does not exist.".formatted(id)));
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new DomainException("User with this email does not exist"));
+
+        return new AuthenticationDetails(user.getId(), user.getEmail(), user.getPassword(), user.getRole(), user.getIsActive());
     }
 }

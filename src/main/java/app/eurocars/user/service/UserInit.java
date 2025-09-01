@@ -23,12 +23,12 @@ public class UserInit implements CommandLineRunner {
         }
 
         RegisterRequest registerRequest = RegisterRequest.builder()
-                .companyName("CompanyOOD")
-                .ownerName("John Doe")
+                .companyName("AdminOOD")
+                .ownerName("Admin Admin")
                 .companyAddress("Sofia, Bulgaria")
-                .email("company@company.com")
-                .phoneNumber("+34 587 3423 54")
-                .password("John123")
+                .email("admin@admin.com")
+                .phoneNumber("phone number")
+                .password("Admin123")
                 .build();
 
         userService.register(registerRequest);

@@ -10,12 +10,12 @@
     <link rel="stylesheet" href="/styles/login-styles.css">
     <link rel="stylesheet" href="/styles/reg-style.css">
 </head>
-<body class="bg-cover" style="background-image: url('/assets/images/background_image.jpg');">
+<body class="bg-cover" style="background-image: url('/images/background_image.jpg');">
     <!-- Login Form -->
     <div id="form" class="bg-white p-8 rounded-lg shadow-lg">
         <!-- Logo -->
         <div id="logo" class="flex justify-center mb-6">
-            <img src="/assets/images/logo.jpeg" alt="Inter Cars Logo" >
+            <img src="/images/logo.jpeg" alt="Inter Cars Logo" >
         </div>
         <!-- Form -->
         <form id="regForm" th:action="@{/register}" th:method="post" th:object="${registerRequest}">

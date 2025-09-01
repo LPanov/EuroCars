@@ -22,7 +22,7 @@ footer {
     background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for readability */
 }
 
-.errors {
+.alert-warning {
     color: red;
-    font-size: 0.6em;
+    font-size: 0.75em;
 }
