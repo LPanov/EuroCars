@@ -3,6 +3,7 @@ package app.eurocars.web;
 import app.eurocars.security.AuthenticationDetails;
 import app.eurocars.user.model.User;
 import app.eurocars.user.service.UserService;
+import app.eurocars.web.dto.ChangePasswordRequest;
 import app.eurocars.web.dto.RegisterRequest;
 import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -65,8 +67,24 @@ public class IndexController {
 
 
     @GetMapping("/forgot-password")
-    public String getForgotPasswordPage() {
-        return "forgot-password";
+    public ModelAndView getForgotPasswordPage() {
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("forgot-password");
+        modelAndView.addObject("changerPassRequest", new ChangePasswordRequest());
+
+        return modelAndView;
+    }
+
+    @PutMapping("/forgot-password")
+    public ModelAndView changePassword(@Valid ChangePasswordRequest changePasswordRequest, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("forgot-password");
+        }
+
+        User user = userService.changePassword(changePasswordRequest);
+
+        return new ModelAndView("redirect:/login");
     }
 
     @GetMapping("/home")
@@ -82,7 +100,12 @@ public class IndexController {
     }
 
     @GetMapping("/error")
-    public String getErrorPage() {
-        return "redirect:/home";
+    public String getErrorPage(@RequestParam(value = "continue", required = false) String continueParam) {
+
+        if (continueParam != null) {
+            return "redirect:/home";
+        }
+
+        else return "redirect:/login";
     }
 }

@@ -7,11 +7,15 @@ import app.eurocars.user.model.Country;
 import app.eurocars.user.model.Role;
 import app.eurocars.user.model.User;
 import app.eurocars.user.repository.UserRepository;
+import app.eurocars.web.dto.ChangePasswordRequest;
+import app.eurocars.web.dto.ChangedPasswordEvent;
 import app.eurocars.web.dto.RegisterRequest;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -30,12 +34,14 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
+    private final ApplicationEventPublisher eventPublisher;
 
 
-    public UserService(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder, ApplicationEventPublisher eventPublisher) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
+        this.eventPublisher = eventPublisher;
     }
 
 //    @CacheEvict(value = "users", allEntries = true)
@@ -80,5 +86,27 @@ public class UserService implements UserDetailsService {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new DomainException("User with this email does not exist"));
 
         return new AuthenticationDetails(user.getId(), user.getEmail(), user.getPassword(), user.getRole(), user.getIsActive());
+    }
+
+    @Transactional
+    public User changePassword(ChangePasswordRequest changePasswordRequest) {
+
+        if (!changePasswordRequest.getPassword().equals(changePasswordRequest.getConfirmPassword())) {
+            throw new DomainException("Passwords do not match");
+        }
+
+        User user = userRepository.findByEmail(changePasswordRequest.getEmail()).orElseThrow(() -> new DomainException("Profile with such email does not exist"));
+
+        user.setPassword(passwordEncoder.encode(changePasswordRequest.getPassword()));
+        log.info("Successfully changed password for profile with email: '%s'".formatted(user.getEmail()));
+
+        ChangedPasswordEvent event = ChangedPasswordEvent.builder()
+                .email(user.getEmail())
+                .owner(user.getOwnerName())
+                .changeDate(LocalDateTime.now())
+                .build();
+
+        eventPublisher.publishEvent(event);
+        return userRepository.save(user);
     }
 }
