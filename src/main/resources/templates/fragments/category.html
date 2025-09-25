@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div th:fragment="categoryFragment(category, isLeaf)">
+        <ul th:if="${category.categories != null and !#lists.isEmpty(category.categories)}">
+            <li th:each="child : ${category.categories}">
+                <span class="category-name-container">
+                    <span th:if="${child.imageUrl != null}">
+                        <img th:src="${child.imageUrl}" alt="Category Image" class="icon">
+                    </span>
+
+                    <span th:if="${child.categories != null and !#lists.isEmpty(child.categories)}" class="toggle-icon">▶</span>
+
+                    <span th:if="${child.categories == null or #lists.isEmpty(child.categories)}">
+                        <a th:href="@{/list-parts/{id}(id=${child.id})}" th:text="${child.name}">Leaf Category</a>
+                    </span>
+                    <span th:unless="${child.categories == null or #lists.isEmpty(child.categories)}"
+                          th:text="${child.name}" class="category-name">Branch Category</span>
+                </span>
+
+                <div th:replace="~{fragments/category :: categoryFragment(category=${child}, isLeaf=${child.categories == null or #lists.isEmpty(child.categories)})}"></div>
+
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

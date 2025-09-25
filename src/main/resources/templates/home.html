@@ -23,7 +23,7 @@
                 </ul>
             </div>
             
-            <a href="#" class="category"><i class="fa-solid fa-car-side"></i> VEHICLES</a>
+            <a th:href="@{/catalogue}" class="category"><i class="fa-solid fa-car-side"></i> VEHICLES</a>
             
         </div>
         <div class="navbar-search" id="navbar-search">
@@ -122,7 +122,7 @@
         </div>
     </div>
     <div class="search-section" id="search-section">
-        <span class="category">Choose vehicle</span>
+        <a th:href="@{/catalogue}" class="category">Choose vehicle</a>
         <span id="or">or</span>
         <div class="search-input">
             <input type="text" placeholder="Search by product">
@@ -272,38 +272,7 @@
         </div>
     </div>
 
-    <footer class="footer">
-        <div class="footer-section">
-            <h4>YOUR BRANCH</h4>
-            <p>Central Warehouse(B01)</p>
-            <p>Sofia, Bulgaria</p>
-            <p><a href="#">See on Google maps</a></p>
-            <p class="status-open">• Open</p>
-        </div>
-        <div class="footer-section">
-            <h4>Contact us</h4>
-            <p><a href="#">Send message</a></p>
-            <p><a href="#">Go to contacts</a></p>
-        </div>
-        <div class="footer-section">
-            <h4>OUR WEBSITES</h4>
-            <p><a href="#">www.eurocars.eu</a></p>
-            <p><a href="#">bg.eurocars.eu</a></p>
-            <div class="social-icons">
-                <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
-                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-                <a href="#"><i class="fa-brands fa-square-youtube"></i></a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            
-            <div>
-                <span>2024 Inter Cars. All rights reserved.</span>
-                <a href="#">COOKIES POLICY</a>
-                <a href="#">TERMS OF USE</a>
-            </div>
-        </div>
-    </footer>
+    <div th:insert="~{fragments/footer :: footer}"></div>
 
     <script src="/scripts/fp-navigation.js"></script>
     <script src="/scripts/fp-main-carousel.js"></script>

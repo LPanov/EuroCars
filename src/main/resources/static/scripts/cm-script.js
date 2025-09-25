@@ -4,6 +4,7 @@ const contents = document.querySelectorAll('.content');
 for (let link of sidebarLinks) {
     link.addEventListener('click', function(e) {
         e.preventDefault()
+
         // Remove 'active' class from all links
         sidebarLinks.forEach(link => link.parentElement.classList.remove('active'));
         models.forEach(model => {
@@ -13,9 +14,9 @@ for (let link of sidebarLinks) {
         engines.forEach(engine => {
             let engineBox = engine.parentElement.parentElement;
             engineBox.style.display = 'none';
-        });     
+        });
         contents.forEach(content => content.style.display = 'none');
-        
+
         // Add 'active' class to the clicked link's parent <li>
         this.parentElement.classList.add('active');
         if (this.parentElement.id === 'cars-btn') {
@@ -33,6 +34,11 @@ for (let link of sidebarLinks) {
         else if (this.parentElement.id === 'vin-btn') {
             document.getElementById('vin-category').style.display = 'block';
         }
+
+        // Get the ID of the clicked list item (li)
+        const clickedLiId = this.parentElement.id;
+
+        sendCategoryData(clickedLiId)
     });
 }
 
@@ -142,6 +148,36 @@ backBtns.forEach(back => back.addEventListener('click', function(e) {
     })
     
 }));
+
+function sendCategoryData(clickedLiId) {
+    fetch(`/catalogue`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ category: clickedLiId })
+    })
+        .then(response => {
+            if (!response.ok) {
+                console.error('Failed to log click on the server.');
+            } else {
+                console.log('Category click logged successfully!');
+            }
+        })
+        .catch(error => console.error('Error sending click data:', error));
+}
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    // Find the default link and "click" it
+    const defaultLink = document.getElementById('cars-btn');
+    if (defaultLink) {
+        defaultLink.classList.add('active'); // Add the active class
+        document.getElementById('cars').style.display = 'block'; // Show the default content
+    }
+
+    // Directly call the function to send the data for the default category
+    sendCategoryData('cars-btn');
+});
 
 
 

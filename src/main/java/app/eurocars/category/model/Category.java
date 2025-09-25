@@ -24,11 +24,11 @@ public class Category {
     @Column(name = "image_url")
     private String imageUrl;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "parent_category_id")
     private Category category;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     private List<Category> categories = new ArrayList<>();
 
     @OneToMany(mappedBy = "category")

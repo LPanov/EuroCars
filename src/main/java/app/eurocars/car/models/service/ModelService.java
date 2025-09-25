@@ -4,11 +4,11 @@ import app.eurocars.car.models.repository.ModelRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CarService {
+public class ModelService {
 
     private final ModelRepository modelRepository;
 
-    public CarService(ModelRepository modelRepository) {
+    public ModelService(ModelRepository modelRepository) {
         this.modelRepository = modelRepository;
     }
 }

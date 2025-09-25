@@ -128,7 +128,7 @@ ul, #myUL {
     color: #333;
     text-decoration: none;
     font-weight: 500; /* Medium font weight for the links */
-    transition: color 0.2s ease; 
+    transition: color 0.2s ease;
 }
 
     /* Create the caret/arrow with a unicode, and style it */
@@ -161,6 +161,6 @@ ul, #myUL {
 
 /* Add indentation for each level */
 ul > li > ul.nested > li {
-    padding-left: 20px; 
+    padding-left: 20px;
 }
-  
+

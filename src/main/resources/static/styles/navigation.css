@@ -403,3 +403,104 @@
     opacity: 1;
     visibility: visible;
 }
+
+/* Style for the container of the icon and link */
+.profile-item-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+}
+
+/* Style for the icon and link, making them the same color */
+.profile-item-link .fa-solid,
+.profile-item-link .user-profile-link {
+    color: rgba(92, 140, 170, 255);
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.profile-item-link .fa-solid {
+    color: rgba(92, 140, 170, 255);
+}
+
+#user-profile-name {
+    padding-bottom: 0;
+}
+
+.profile-section {
+    padding: 2px;
+    border-radius: 2px;
+}
+
+/* Style for the dropdown container */
+.profile-dropdown-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Style for the dropdown content box */
+.profile-dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    min-width: 180px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Show the dropdown on hover */
+.profile-dropdown-container:hover .profile-dropdown-content {
+    display: block;
+}
+
+/* Style for the icon and link inside the dropdown */
+.profile-dropdown-content .fa-solid,
+.profile-dropdown-content .user-profile-link {
+    font-size: 16px;
+    color: #333;
+    text-decoration: none;
+    display: block;
+}
+
+/* Spacing and styling for the items inside the dropdown */
+.profile-dropdown-content .user-profile-link {
+    margin-left: 5px;
+}
+
+/* Style for the Logout button */
+.profile-dropdown-content button {
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    margin-top: 10px; /* Add space above the button */
+    background-color: #f44336; /* A red color for a clear action */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+/* Hover effect for the logout button */
+.profile-dropdown-content button:hover {
+    background-color: #d32f2f;
+}
+
+/* Styles for the hover effect on the Test Test paragraph */
+.profile-dropdown-container p:hover {
+    background-color: white;
+    color: rgba(92, 140, 170, 255);
+}
+
+.profile-dropdown-container:hover a {
+    color: rgba(92, 140, 170, 255);
+    margin: 0;
+}

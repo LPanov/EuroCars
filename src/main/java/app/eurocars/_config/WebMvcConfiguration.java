@@ -41,7 +41,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/")
-                );
+                )
+                .csrf().disable();
 
         return http.build();
     }
