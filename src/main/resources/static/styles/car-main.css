@@ -47,6 +47,13 @@ main {
 .change-vehicle-button {
     background-color: #ff3333;  /* Red */
     color: white;
+    text-decoration: none;
+    display: flex;
+    padding: 7px 15px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+
 }
 .change-vehicle-button:hover {
   background-color: #c53030;
@@ -55,6 +62,12 @@ main {
 .full-offer-button {
     background-color: #f0f0f0; /* Light gray */
     color: #333;
+    text-decoration: none;
+    display: flex;
+    padding: 7px 15px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
 }
 
 .full-offer-button:hover {

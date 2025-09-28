@@ -14,13 +14,13 @@
      <main>
         <div class="car-details-container">
             <img th:src="${engine.carImg} ? ${engine.carImg} : 'https://i.ibb.co/7xbjRTyb/unselected-car.png'" alt="Car Image">
-            <p id="brand"><strong th:text="${engine.model.brand.name}"></strong></p>
-            <p id="model" th:text="${engine.model.name}"></p>
-            <p id="engine"><span th:text="${engine.type}"></span> (<span th:text="${engine.kw}"></span> kW, <span th:text="${engine.hp}"></span> HP) </p>
-            <p>Production years: <span id="year" th:text="${engine.prodYears}"></span></p>
+            <p id="brand"><strong th:text="${engine.model} ? ${engine.model.brand.name} : 'Brand: - '"></strong></p>
+            <p id="model" th:text="${engine.model} ? ${engine.model.name} : 'Model: - '" ></p>
+            <p id="engine"><span th:text="${engine.type} ? ${engine.type} : 'Enigne: - '"></span> (<span th:text="${engine.kw}"></span> kW, <span th:text="${engine.hp}"></span> HP) </p>
+            <p>Production years: <span id="year" th:text="${engine.prodYears} ? ${engine.prodYears} : '-'"></span></p>
             <div class="car-details-buttons">
-                <button class="change-vehicle-button">CHANGE VEHICLE<a th:href="@{/choose-model.html}"></a></button>
-                <button class="full-offer-button">GO TO FULL OFFER</button>
+                <a class="change-vehicle-button" th:href="@{/choose-model.html}">CHANGE VEHICLE</a>
+                <a class="full-offer-button" th:href="@{/cars/0/categories}">GO TO FULL OFFER</a>
             </div>
         </div>
 
@@ -36,7 +36,7 @@
 
                       <ul class="nested" th:if="${!#lists.isEmpty(category.categories)}">
                         <li th:each="sub : ${category.categories}">
-                          <a th:href="@{/list-parts/{id}(id=${sub.id})}"
+                          <a th:href="${engine.id} ? @{/list-parts(categoryId=${sub.id}, vehicleId=${engine.id})} : @{/list-parts(categoryId=${sub.id})}"
                              th:text="${sub.name}">Subcategory</a>
                         </li>
                       </ul>

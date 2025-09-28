@@ -34,18 +34,12 @@ public class CarController {
     }
 
     @GetMapping("/{id}/categories")
-    public ModelAndView getProfileMenu(@AuthenticationPrincipal AuthenticationDetails authenticationDetails, @PathVariable Long id) {
+    public ModelAndView getVehicleManu(@AuthenticationPrincipal AuthenticationDetails authenticationDetails, @PathVariable Long id) {
         Engine engine = engineService.getById(id);
         User user = userService.getById(authenticationDetails.getUserId());
 
         List<Category> mainCategories = categoryService.getAllMainCategories();
         List<Category> subCategories = categoryService.getAllSubCategories();
-
-        //List<Category> categories = categoryService.getAllCategories();
-
-//        Map<Category, List<Category>> subcategoriesByParent = subCategories.stream()
-//                .filter(c -> c.getCategory() != null)
-//                .collect(Collectors.groupingBy(Category::getCategory));
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("car");
@@ -53,6 +47,23 @@ public class CarController {
         modelAndView.addObject("mainCategories", mainCategories);
         modelAndView.addObject("subCategories", subCategories);
         modelAndView.addObject("engine", engine);
+
+        return modelAndView;
+    }
+
+    @GetMapping("/0/categories")
+    public ModelAndView getVehicleMenu(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
+        User user = userService.getById(authenticationDetails.getUserId());
+
+        List<Category> mainCategories = categoryService.getAllMainCategories();
+        List<Category> subCategories = categoryService.getAllSubCategories();
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("car");
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("mainCategories", mainCategories);
+        modelAndView.addObject("subCategories", subCategories);
+        modelAndView.addObject("engine", new Engine());
 
         return modelAndView;
     }
