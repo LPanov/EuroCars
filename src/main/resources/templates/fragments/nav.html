@@ -24,10 +24,19 @@
 
         </div>
         <div class="navbar-search" id="navbar-search">
-            <div class="search-input">
-                <input type="text" placeholder="Search by product">
-            </div>
-            <div class="button"><i class="fa-solid fa-magnifying-glass"></i></div>
+            <form th:action="@{parts}" th:method="GET" class="search-form" style="display: flex; gap: 8px; align-items: center;">
+                <div class="search-input">
+                    <input
+                            type="text"
+                            name="input"
+                            placeholder="Search by product"
+                            th:value="${param.input}" />
+                </div>
+                <button type="submit" class="button" aria-label="Search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+
             <div class="button filter-btn" onclick="openModalFilter()"><i class="fa-solid fa-filter"></i></div>
             <div id="searchModalFilter" class="modal-filter">
                 <div class="modal-filter-content">

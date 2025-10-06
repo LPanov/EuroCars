@@ -236,6 +236,12 @@
     color: white;
     margin-right: 10px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border: none;
 }
 
 .search-section {
@@ -291,6 +297,12 @@
     color: white;
     cursor: pointer;
     margin-left: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border: none;
 }
 
   .modal-filter {

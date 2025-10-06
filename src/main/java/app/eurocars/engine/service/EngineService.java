@@ -17,4 +17,8 @@ public class EngineService {
     public Engine getById(Long id) {
         return engineRepository.findById(id).orElseThrow(() -> new DomainException("Car with such engine id does not exist"));
     }
+
+    public Engine findById(String engineId) {
+        return engineRepository.findById(Long.valueOf(engineId)).orElseThrow(() -> new DomainException("Car with such engine id does not exist"));
+    }
 }

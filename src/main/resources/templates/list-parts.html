@@ -4,160 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Parts</title>
-    <link rel="stylesheet" href="../static/styles/_list-parts.css">
-    <link rel="stylesheet" href="../static/styles/_styles.css">
+    <link rel="stylesheet" href="/styles/_list-parts.css">
+    <link rel="stylesheet" href="/styles/_styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
-    <div class="navbar">
-        <div class="navbar-left">
-            <a href="home.html"><img src="../static/images/logo-clear.png" alt="Logo"></a>
-            <a href="#" class="menu-button" id="catalogueButton">
-                <i class="fa-solid fa-bars"></i> <span>MENU</span>    
-            </a>
-            <div id="catalogueMenu" class="menu">
-                <ul><li><a href="#">Full offer</a></li>
-                    <li><a href="#">Universal Searches</a></li>
-                    <li><a href="#">Saved Vehicles</a></li>
-                    <li><a href="#">News offer</a></li>
-                </ul>
-            </div>
-            
-            <a href="#" class="category"><i class="fa-solid fa-car-side"></i> VEHICLES</a>
-            
-        </div>
-        <div class="navbar-search" id="navbar-search">
-            <div class="search-input">
-                <input type="text" placeholder="Search by product">
-            </div>
-            <div class="button"><i class="fa-solid fa-magnifying-glass"></i></div>
-            <div class="button filter-btn" onclick="openModalFilter()"><i class="fa-solid fa-filter"></i></div>
-            <div id="searchModalFilter" class="modal-filter">
-                <div class="modal-filter-content">
-                  <div class="modal-filter-header">
-                    <h3>Advanced search</h3>
-                    <span class="close-btn" onclick="closeModalFilter()">&times;</span>
-                  </div>
-                  <div class="form-group">
-                    <h4>Search within</h4>
-                    <label for="productIndex">Product index</label>
-                    <input type="text" id="productIndex" placeholder="Enter the product index">
-                  </div>
-                  <div class="form-group">
-                    <label for="techDescription">Technical description</label>
-                    <input type="text" id="techDescription" placeholder="Enter the technical description">
-                  </div>
-                  <div class="form-group">
-                    <h4>Additional filtering options</h4>
-                    <label for="category">Category</label>
-                    <input type="text" id="category" placeholder="Start typing a category name">
-                  </div>
-                  <div class="form-group">
-                    <label for="manufacturer">Manufacturer</label>
-                    <select id="manufacturer">
-                      <option value="any">Any</option>
-                    </select>
-                  </div>
-                  <div class="checkbox-group">
-                    <input type="checkbox" id="logisticPath">
-                    <label for="logisticPath">Only products available in logistic path</label>
-                  </div>
-                  <div class="form-buttons">
-                    <button class="clear-btn" onclick="clearForm()">Clear</button>
-                    <button class="search-btn" onclick="submitForm()">Search</button>
-                  </div>
-                </div>
-            </div>
-        </div>
-        <div class="navbar-right">
-            <a href="">User User</a>
-            <a href="" class="icon" id="bell">
-                <i class="fa-solid fa-bell">
-                    <div id="notificationBox" class="notifications">
-                        <ul>
-                            <p>Latest notifications</p>
-                            <li>There are no notifications</li>
-                        </ul>
-                        <button>See All</button>
-                    </div>
-                </i></a>
-            <a href="" class="cart"><i class="fa-solid fa-cart-shopping"></i>
-                <div class="minicart">
-                    <p>Recently added product</p>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Product</th>
-                                <th>Total value incl. VAT</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td></td>
-                            </tr>
-                            
-                        </tbody>
-                    </table>
-                    <p id="empty">Your cart is empty</p>
-                    <div class="total">
-                        <p>Wholesale total value incl. VAT: <span id="sum">100</span>€</p>
-                        <button>GO TO CART</button>
-                    </div>
-                    
-                </div>
-            </a>
-            
-        </div>
-    </div>
+
+    <div th:insert="~{fragments/nav :: navbar}"></div>
     <div class="scroll-to-top" onclick="scrollToTop()"><i class="fa-solid fa-arrow-up"></i></div>
     
     <main>
         <div class="filters">
             <h5>Filters</h5>
             <div class="manufacturer-section">
-                <ul style="list-style: none; padding: 0; margin: 0;">
-                    <p>Manufacturers</p>
-                    <li class="manufacturer-list-item">
+                <p>Manufacturers</p>
+                <ul style="padding: 0; margin: 0;" th:each="manufacturer : ${manufacturers}">
+                    <li th:classappend="${manufacturer.id >= 5 ? 'hidden-manufacturer' : ''}" class="manufacturer-list-item">
                         <input type="checkbox" class="manufacturer-checkbox">
-                        <img src="../static/images/manufactures/elstock.jpg" alt="Logo" class="manufacturer-logo">
-                        <span class="manufacturer-name">ELSTOCk</span>
+                        <img th:src="${manufacturer.imgUrl}" th:alt="${manufacturer.name}" class="manufacturer-logo">
+                        <span class="manufacturer-name" th:text="${manufacturer.name}"></span>
                     </li>
-                    <li class="manufacturer-list-item">
-                        <input type="checkbox" class="manufacturer-checkbox">
-                        <img src="../static/images/manufactures/denso.jpg" alt="Logo" class="manufacturer-logo">
-                        <span class="manufacturer-name">DENSO</span>
-                    </li>
-                    <li class="manufacturer-list-item">
-                        <input type="checkbox" class="manufacturer-checkbox">
-                        <img src="../static/images/manufactures/boch.jpg" alt="Logo" class="manufacturer-logo">
-                        <span class="manufacturer-name">BOSCH</span>
-                    </li>
-                    
                 </ul>
-                </div>
+
+                <button id="show-more-button">Show More...</button>
+            </div>
         </div>
         <div class="product-list">
-            <div class="product-item">
+            <div class="product-item" th:each="part : ${parts}">
                 <div class="img-info">
                     <div class="product-image-col">
-                        <img src="../static/images/parts/0 250 403 002.jpg" alt="Oil Filter" class="product-image">
+                        <img th:src="${#lists.isEmpty(part.imgUrls) ? '/images/default.png' : part.imgUrls[0]}"
+                             th:alt="${part.name}" class="product-image">
                     </div>
                     <div class="product-details-col">
-                        <div class="product-title">0 250 403 002</div>
-                        <div class="product-specs">Glow Plug</div>
-                        <div class="product-specs">Glow plug fits: AUDI A3, A4 B7, A6 C6; CHRYSLER SEBRING; DODGE AVENGER, AUDI A3, A4 B7, A6 C6; CHRYSLER SEBRING; DODGE AVENGER, AUDI A3, A4 B7, A6 C6; CHRYSLER SEBRING; DODGE AVENGER,</div>
+                        <a class="product-title" th:href="@{/part(partId=${part.id})}" th:text="${part.name}">0 250 403 002</a>
+                        <div class="product-specs" th:text="${part.description}">Glow Plug</div>
+                        <div class="product-specs" th:text="${part.additionalInformation}"></div>
                     </div>
                 </div>
                 
                 <div class="manufacturer">
-                    <img src="../static/images/manufactures/boch.jpg" alt="">
+                    <img th:src="${part.manufacturer.imgUrl}" th:alt="${part.manufacturer.name}" class="manufacturer-logo">
                 </div>
                 <div class="availability-col">
                     <div class="availability-info">1 business day (in branch)</div>
                 </div>
                 
                 <div class="price-col">
-                    <div class="current-price">30.80 BGN</div>
+                    <div class="current-price" th:text="${user.pricesWithVAT ? #numbers.formatDecimal(part.price * 1.2, 0, 2) : #numbers.formatDecimal(part.price, 0, 2)} + ' EUR'"></div>
                     <div>
                         <input type="number" class="quantity-input" value="1" min="1">
                         <button class="add-to-cart-button"><i class="fa-solid fa-cart-shopping"></i></button>
@@ -169,39 +63,9 @@
         
     </main>
 
-    <footer class="footer">
-        <div class="footer-section">
-            <h4>YOUR BRANCH</h4>
-            <p>Central Warehouse(B01)</p>
-            <p>Sofia, Bulgaria</p>
-            <p><a href="#">See on Google maps</a></p>
-            <p class="status-open">• Open</p>
-        </div>
-        <div class="footer-section">
-            <h4>Contact us</h4>
-            <p><a href="#">Send message</a></p>
-            <p><a href="#">Go to contacts</a></p>
-        </div>
-        <div class="footer-section">
-            <h4>OUR WEBSITES</h4>
-            <p><a href="#">www.eurocars.eu</a></p>
-            <p><a href="#">bg.eurocars.eu</a></p>
-            <div class="social-icons">
-                <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
-                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-                <a href="#"><i class="fa-brands fa-square-youtube"></i></a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            
-            <div>
-                <span>2024 Inter Cars. All rights reserved.</span>
-                <a href="#">COOKIES POLICY</a>
-                <a href="#">TERMS OF USE</a>
-            </div>
-        </div>
-    </footer>
+    <div th:insert="~{fragments/footer :: footer}"></div>
 
-    <script src="../static/scripts/navigation.js"></script>
+    <script src="/scripts/navigation.js"></script>
+    <script src="/scripts/parts.js"></script>
 </body>
 </html>

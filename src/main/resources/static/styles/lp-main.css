@@ -84,9 +84,15 @@ main {
 } */
 
 .product-title {
+  text-decoration: none;
   font-weight: bold;
   color: #337ab7;
   margin-bottom: 5px;
+  font-size: 1.2em;
+}
+
+.product-title:hover {
+  text-decoration: underline;
 }
 
 .product-specs {
@@ -219,4 +225,18 @@ main {
 
 .buy-button-link a:hover {
   text-decoration: underline;
+}
+
+.hidden-manufacturer {
+  display: none !important;
+}
+
+/* Optional: Basic styling for the button */
+#show-more-button {
+  display: block;
+  margin-top: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
 }

@@ -36,7 +36,7 @@
 
                       <ul class="nested" th:if="${!#lists.isEmpty(category.categories)}">
                         <li th:each="sub : ${category.categories}">
-                          <a th:href="${engine.id} ? @{/list-parts(categoryId=${sub.id}, vehicleId=${engine.id})} : @{/list-parts(categoryId=${sub.id})}"
+                          <a th:href="${engine.id} ? @{/parts(categoryId=${sub.id}, vehicleId=${engine.id})} : @{/parts(categoryId=${sub.id})}"
                              th:text="${sub.name}">Subcategory</a>
                         </li>
                       </ul>

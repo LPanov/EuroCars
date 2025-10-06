@@ -237,6 +237,12 @@
     color: white;
     margin-right: 10px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border: none;
 }
 
 .search-section {
@@ -270,7 +276,7 @@
     /* position: absolute;
     right: 35%; */
     width: 30%;
-    /* flex-grow: 1; */
+     flex-grow: 1;
     margin: 0 20px;
 }
 .search-input select,
@@ -293,6 +299,12 @@
     color: white;
     cursor: pointer;
     margin-left: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border: none;
 }
 
 .modal-filter {
@@ -502,4 +514,14 @@
 .profile-dropdown-container:hover a {
     color: rgba(92, 140, 170, 255);
     margin: 0;
+}
+
+.search-form {
+    flex-grow: 1;
+    padding: 0;
+    margin: 0;
+}
+
+.search-input {
+    max-width: 500px;
 }
