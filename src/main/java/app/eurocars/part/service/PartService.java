@@ -9,8 +9,10 @@ import app.eurocars.part.model.Part;
 import app.eurocars.part.repository.PartRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class PartService {
@@ -47,5 +49,24 @@ public class PartService {
 
     public void save(Part part) {
         partRepository.save(part);
+    }
+
+    public Part getPartById(String partId) {
+        return partRepository.findPartById(UUID.fromString(partId)).orElseThrow(() -> new DomainException("Part not found")) ;
+    }
+
+    public List<Part> findCrossReferences(Part part) {
+        List<Part> partsByCategory = partRepository.findPartsByCategory(part.getCategory());
+        List<Part> filteredParts = new ArrayList<>();
+
+        for (Part p : partsByCategory) {
+            for (Engine e : p.getEngines()) {
+                if (part.getEngines().stream().anyMatch(engine -> engine.getId().equals(e.getId()) && !part.getId().equals(p.getId())) ) {
+                    filteredParts.add(p);
+                }
+            }
+        }
+
+        return filteredParts;
     }
 }

@@ -448,3 +448,20 @@ main {
 .action-buttons button i {
   font-size: 1.2em;
 }
+
+.cross-reference {
+  text-decoration: none;
+  font-size: 1.1em;
+}
+
+.cross-reference:hover {
+  text-decoration: underline;
+}
+
+.application-link {
+  text-decoration: none;
+}
+
+.application-link:hover {
+  text-decoration: underline;
+}
