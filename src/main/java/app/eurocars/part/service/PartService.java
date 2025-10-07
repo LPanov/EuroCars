@@ -7,8 +7,14 @@ import app.eurocars.engine.service.EngineService;
 import app.eurocars.exception.DomainException;
 import app.eurocars.part.model.Part;
 import app.eurocars.part.repository.PartRepository;
+import jakarta.transaction.Transactional;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -68,5 +74,30 @@ public class PartService {
         }
 
         return filteredParts;
+    }
+
+    public void inflatePrices()  {
+        Document doc = null;
+        try {
+            doc = Jsoup.connect("https://tradingeconomics.com/bulgaria/inflation-cpi")
+                    // Key addition: Pretend to be a common browser
+                    .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36")
+                    .timeout(10000) // Increase timeout just in case
+                    .get();
+        } catch (IOException e) {
+            System.err.println("Failed to connect to inflation source: " + e.getMessage());
+        }
+
+        double inflationRate = 0;
+
+        if (doc != null) {
+            inflationRate = Double.parseDouble(doc.select("tr.datatable-row-alternating > td:nth-child(2)").text().split("\\s+")[4]);
+        }
+
+        double rate = inflationRate/100 + 1;
+
+        partRepository.updateAllPrices(rate);
+
+        System.out.println("Prices updated at " + LocalDateTime.now());
     }
 }
