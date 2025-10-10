@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose car</title>
+    <link rel="stylesheet" href="/styles/_choose-car.css">
+    <link rel="stylesheet" href="/styles/_styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+    <div th:insert="~{fragments/nav :: navbar}"></div>
+    <div class="scroll-to-top" onclick="scrollToTop()"><i class="fa-solid fa-arrow-up"></i></div>
+    <div class="container">
+        <div class="models audi">
+            <input type="text" class="search-bar" placeholder="Type model...">
+            <a class="previous" th:href="@{/brands}"><i class="fa-solid fa-arrow-left"></i>BACK</a>
+            <h3>Choose model</h3>
+            <ul>
+                <li th:each="model : ${models}">
+                    <a th:href="@{/engines(modelId=${model.id})}"><span class="model" th:text="${model.name}"></span><span class="years" th:text="${model.prodYears}"></span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div th:insert="~{fragments/footer :: footer}"></div>
+
+    <script src="/scripts/navigation.js"></script>
+    <script src="/scripts/cm-script.js"></script>
+</body>
+</html>

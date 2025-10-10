@@ -23,7 +23,7 @@ public class Brand {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @ManyToMany(mappedBy = "brands")
+    @ManyToMany(mappedBy = "brands", fetch = FetchType.EAGER)
     private List<VehicleType> types;
 
     @OneToMany(mappedBy = "brand")

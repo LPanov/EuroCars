@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose car</title>
+    <link rel="stylesheet" href="/styles/_choose-car.css">
+    <link rel="stylesheet" href="/styles/_styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+    <div th:insert="~{fragments/nav :: navbar}"></div>
+    <div class="scroll-to-top" onclick="scrollToTop()"><i class="fa-solid fa-arrow-up"></i></div>
+    <div class="container">
+        <div class="engines 50">
+            <input type="text" class="search-bar" placeholder="Type engine...">
+            <a class="previous-en" th:href="@{/models(brandId=${engines[0].model.brand.id})}"><i class="fa-solid fa-arrow-left"></i>BACK</a>
+            <h3>Choose engine</h3>
+            <ul>
+                <li><span>Type</span><span>Production years</span><span>kW</span><span>HP</span><span>CCM</span></li>
+                <li th:each="engine : ${engines}"><a th:href="@{/cars/{engineId}/categories(engineId=${engine.id})}">
+                    <span th:text="${engine.type}">0.8</span><span th:text="${engine.prodYears}"></span><span th:text="${engine.kw}"></span><span th:text="${engine.hp}">34</span><span th:text="${engine.engCapacity}">771</span>
+                </a></li>
+            </ul>
+        </div>
+    </div>
+    <div th:insert="~{fragments/footer :: footer}"></div>
+
+    <script src="/scripts/navigation.js"></script>
+    <script src="/scripts/cm-script.js"></script>
+</body>
+</html>

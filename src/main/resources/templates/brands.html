@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose car</title>
+    <link rel="stylesheet" href="/styles/_choose-car.css">
+    <link rel="stylesheet" href="/styles/_styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+    <div th:insert="~{fragments/nav :: navbar}"></div>
+    <div class="scroll-to-top" onclick="scrollToTop()"><i class="fa-solid fa-arrow-up"></i></div>
+    <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li id="cars-btn" class="active"><a href="#"><i class="fa-solid fa-car-side"> </i><span>Car</span></a></li>
+                <li id="vans-btn"><a href="#"><i class="fa-solid fa-van-shuttle"></i> <span>Van</span></a></li>
+                <li id="trucks-btn"><a href="#"><i class="fa-solid fa-truck"></i> <span>Buses/Trucks</span></a></li>
+                <li id="motorcycles-btn"><a href="#"><i class="fa-solid fa-motorcycle"></i><span>Motorcycle/ATV/UTV</span></a></li>
+                <li id="vin-btn"><a href="#"><span id="VIN">VIN</span> <span>VIN</span></a></li>
+            </ul>
+        </div>
+        <div id="cars" class="content">
+            <input type="text" class="search-bar" placeholder="Type manufacturer...">
+            <h3>Choose brand</h3>
+            <ul>
+                <li th:each="car : ${cars}">
+                    <a th:href="@{/models(brandId=${car.id})}" th:text="${car.name}">AUDI</a>
+                </li>
+            </ul>
+        </div>
+        <div id="vans" class="content">
+            <input type="text" class="search-bar" placeholder="Type manufacturer...">
+            <h3>Choose brand</h3>
+            <ul>
+                <li th:each="van : ${vans}">
+                    <a th:href="@{/models(brandId=${van.id})}" th:text="${van.name}">AUDI</a>
+                </li>
+            </ul>
+        </div>
+        <div id="trucks" class="content">
+            <input type="text" class="search-bar" placeholder="Type manufacturer...">
+            <h3>Choose brand</h3>
+            <ul>
+                <li th:each="truck : ${trucks}">
+                    <a th:href="@{/models(brandId=${truck.id})}" th:text="${truck.name}">AUDI</a>
+                </li>
+            </ul>
+        </div>
+        <div id="motorcycles" class="content">
+            <input type="text" class="search-bar" placeholder="Type manufacturer...">
+            <h3>Choose brand</h3>
+            <ul>
+                <li th:each="motorcycle : ${motorcycles}">
+                    <a th:href="@{/models(brandId=${motorcycle.id})}" th:text="${motorcycle.name}">AUDI</a>
+                </li>
+            </ul>
+        </div>
+        <div id="vin-category" class="content">
+            <input type="text" class="search-bar" placeholder="Search by VIN...">
+        </div>
+    </div>
+
+    <div th:insert="~{fragments/footer :: footer}"></div>
+
+    <script src="/scripts/navigation.js"></script>
+    <script src="/scripts/cm-script.js"></script>
+</body>
+</html>

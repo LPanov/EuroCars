@@ -26,9 +26,14 @@
     display: flex;
     align-items: center;
 }
-.content,
 .models,
 .engines {
+    display: block;
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.content {
     display: none;
     flex-grow: 1;
     padding: 20px;
@@ -162,10 +167,10 @@
     background-color: #ffeb3b;
 }
 .hidden {
-    display: none;
+    display: block;
 }
 .models {
-    display: none; /* Hidden by default */
+    display: block; /* Hidden by default */
 }
 .previous {
     display: inline-block;

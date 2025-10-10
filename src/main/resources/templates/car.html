@@ -19,7 +19,7 @@
             <p id="engine"><span th:text="${engine.type} ? ${engine.type} : 'Enigne: - '"></span> (<span th:text="${engine.kw}"></span> kW, <span th:text="${engine.hp}"></span> HP) </p>
             <p>Production years: <span id="year" th:text="${engine.prodYears} ? ${engine.prodYears} : '-'"></span></p>
             <div class="car-details-buttons">
-                <a class="change-vehicle-button" th:href="@{/choose-model.html}">CHANGE VEHICLE</a>
+                <a class="change-vehicle-button" th:href="@{/brands}">CHANGE VEHICLE</a>
                 <a class="full-offer-button" th:href="@{/cars/0/categories}">GO TO FULL OFFER</a>
             </div>
         </div>
