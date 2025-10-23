@@ -77,6 +77,10 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
+    public List<User> getAllNonAdminUsers() {
+        return getAllUsers().stream().filter(u -> !u.getRole().equals(Role.ADMIN)).toList();
+    }
+
     public User getById(UUID id) {
         return userRepository.findById(id).orElseThrow(() -> new DomainException("User with such ID:'%s' does not exist.".formatted(id)));
     }
@@ -108,5 +112,9 @@ public class UserService implements UserDetailsService {
 
         eventPublisher.publishEvent(event);
         return userRepository.save(user);
+    }
+
+    public void deleteUserById(UUID id) {
+        userRepository.deleteById(id);
     }
 }

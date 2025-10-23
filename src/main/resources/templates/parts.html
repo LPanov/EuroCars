@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parts Setting</title>
+    <link rel="stylesheet" href="/styles/_parts.css">
+    <link rel="stylesheet" href="/styles/_styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+<div th:insert="~{fragments/nav :: navbar}"></div>
+<div class="scroll-to-top" onclick="scrollToTop()"><i class="fa-solid fa-arrow-up"></i></div>
+<main style="min-height: 80vh;">
+    <div id="filterDiv">
+        <input type="text" id="searchInput" placeholder="Search part...">
+        <form th:action="@{/add-part}" th:method="GET">
+            <button class="action-button add-btn">Add Part</button>
+        </form>
+    </div>
+
+    <table id="dataTable">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Manufacturer</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="part : ${parts}">
+            <td th:text="${part.id}">101</td>
+            <td class="name">
+                <img th:src="@{${part.imgUrls[0]}}" th:alt="${part.name}" class="icon">
+                <span th:text="${part.name}">**Part Name**</span>
+            </td>
+            <td th:text="${part.description}">Description</td>
+            <td class="manufacturer">
+                <img th:src="@{${part.manufacturer.imgUrl}}" th:alt="${part.manufacturer.name}" class="icon">
+            </td>
+            <td th:text="${part.category.name}">Category</td>
+            <td th:text="${part.price + ' EUR'}">11 euro</td>
+            <td>
+                <form th:action="@{/edit-part}" th:method="GET">
+                    <button class="action-button edit-btn">Edit</button>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/parts-settings(partId=${part.id})}" th:method="DELETE">
+                    <button class="action-button delete-btn" onclick="alert('Part will be deleted')">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<div th:insert="~{fragments/footer :: footer}"></div>
+
+<script>
+    document.getElementById("searchInput").addEventListener("input", function () {
+        const input = this.value.toLowerCase();
+        const table = document.getElementById("dataTable");
+        const rows = table.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+
+        for (let row of rows) {
+            const cells = row.getElementsByTagName("td");
+            let matchFound = false;
+
+            for (let cell of cells) {
+                if (cell.textContent.toLowerCase().includes(input)) {
+                    matchFound = true;
+                    break;
+                }
+            }
+
+            row.style.display = matchFound ? "" : "none";
+        }
+    });
+</script>
+</body>
+</html>

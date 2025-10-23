@@ -100,4 +100,8 @@ public class PartService {
 
         System.out.println("Prices updated at " + LocalDateTime.now());
     }
+
+    public List<Part> getAllParts() {
+        return partRepository.findAll();
+    }
 }

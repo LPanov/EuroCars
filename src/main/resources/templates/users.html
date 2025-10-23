@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+    <link rel="stylesheet" href="/styles/_users-style.css">
+    <link rel="stylesheet" href="/styles/_styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+    <div th:insert="~{fragments/nav :: navbar}"></div>
+    <div class="scroll-to-top" onclick="scrollToTop()"><i class="fa-solid fa-arrow-up"></i></div>
+    <main style="min-height: 80vh;">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Company Name</th>
+                <th>Company Address</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}">101</td>
+                <td th:text="${user.ownerName}" id="username">**Jane Doe**</td>
+                <td th:text="${user.email}">jane.doe@example.com</td>
+                <td th:text="${user.companyName}">**Tech Innovations Inc.**</td>
+                <td th:text="${user.companyAddress}">123 Main St, Anytown, USA</td>
+                <td>
+                    <form th:action="@{/edit-user}" th:method="GET">
+                        <button class="action-button edit-btn">Edit</button>
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{/users(userId=${user.id})}" th:method="DELETE">
+                        <button class="action-button delete-btn" onclick="alert('User will be deleted')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </main>
+    <div th:insert="~{fragments/footer :: footer}"></div>
+</body>
+</html>

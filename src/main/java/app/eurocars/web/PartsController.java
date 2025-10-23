@@ -53,4 +53,17 @@ public class PartsController {
 
         return modelAndView;
     }
+
+    @RequestMapping("/parts-settings")
+    public ModelAndView getPartsSettingsPage(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
+        User user = userService.getById(authenticationDetails.getUserId());
+        List<Part> allParts = partService.getAllParts();
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("parts");
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("parts", allParts);
+
+        return modelAndView;
+    }
 }

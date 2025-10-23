@@ -1,0 +1,122 @@
+table {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    /*margin-top: 20px;*/
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: #f2f2f2;
+}
+.action-button {
+    padding: 5px 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    font-weight: bold;
+}
+.edit-btn {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+.delete-btn {
+    background-color: #f44336; /* Red */
+    color: white;
+}
+
+.icon {
+    max-width: 80px;
+    max-height: 80px;
+}
+
+.name {
+    display: flex;
+    align-items: center;
+}
+
+.name img {
+    margin-right: 10px;
+    margin-left: 5px;
+}
+
+.manufacturer {
+    text-align: center;
+}
+
+#filterDiv {
+    display: flex;
+    /* Aligns items vertically in the middle */
+    align-items: center;
+    gap: 100px; /* Space between the input and button */
+    padding: 1rem 0; /* Vertical padding */
+    /*margin-bottom: 1rem; !* Space below the filter bar *!*/
+    /*border-bottom: 1px solid #e0e0e0;*/
+
+    /* --- EDITED: Center the div and give it a max width for centering --- */
+    max-width: 650px; /* Adjust this value as needed for your main content width */
+    margin-left: auto;
+    margin-right: 0;
+    /* --- END EDITED --- */
+}
+
+/* Styling for the search input field */
+#searchInput {
+    padding: 0.75rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem; /* Rounded corners */
+
+    /* --- EDITED: Made the input wider --- */
+    width: 350px; /* Increased from 250px */
+    /* --- END EDITED --- */
+
+    font-size: 1rem;
+    /* Subtle shadow for a lift effect */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#searchInput:focus {
+    border-color: #007bff; /* Highlight on focus */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    outline: none; /* Remove default focus outline */
+}
+
+/* Styling for the "Add Part" button */
+.action-button {
+    cursor: pointer;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    color: #fff; /* White text */
+}
+
+/* Specific styling for the Add button */
+.add-btn {
+    background-color: #28a745; /* Green color */
+    box-shadow: 0 4px 6px rgba(40, 167, 69, 0.2);
+}
+
+.add-btn:hover {
+    background-color: #218838; /* Darker green on hover */
+    /* Lift the button slightly */
+    transform: translateY(-1px);
+    box-shadow: 0 6px 8px rgba(40, 167, 69, 0.3);
+}
+
+.add-btn:active {
+    background-color: #1e7e34; /* Even darker green on active/click */
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(40, 167, 69, 0.2);
+}

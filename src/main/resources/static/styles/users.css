@@ -1,0 +1,31 @@
+table {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: #f2f2f2;
+}
+.action-button {
+    padding: 5px 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    font-weight: bold;
+}
+.edit-btn {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+.delete-btn {
+    background-color: #f44336; /* Red */
+    color: white;
+}
