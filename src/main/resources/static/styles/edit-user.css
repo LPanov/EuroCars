@@ -1,0 +1,43 @@
+/* Apply a base font and reset margin/padding on body */
+main {
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f4f7f9; /* Light background for contrast */
+    padding-top: 50px;
+    padding-bottom: 100px;
+}
+
+/* Base styles for labels */
+label {
+    display: block; /* Ensure labels take full width above input */
+    margin-bottom: 4px;
+    color: #374151; /* Darker text for readability */
+}
+
+/* Style for required asterisk */
+.text-red-600 {
+    vertical-align: top;
+    line-height: 1;
+}
+
+/* Universal style for all form inputs and select (matching Tailwind's focus style) */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* Subtle shadow */
+}
+
+/* Specific focus style (if not handled well by Tailwind) */
+input:focus,
+select:focus {
+    border-color: #3b82f6 !important; /* Blue-500 */
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5); /* Focus ring */
+}
+
+/* Style for the submit button */
+button[type="submit"] {
+    cursor: pointer;
+    letter-spacing: 0.025em;
+    border: none;
+}

@@ -9,12 +9,12 @@ import app.eurocars.user.model.User;
 import app.eurocars.user.repository.UserRepository;
 import app.eurocars.web.dto.ChangePasswordRequest;
 import app.eurocars.web.dto.ChangedPasswordEvent;
+import app.eurocars.web.dto.EditUserRequest;
 import app.eurocars.web.dto.RegisterRequest;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -116,5 +116,27 @@ public class UserService implements UserDetailsService {
 
     public void deleteUserById(UUID id) {
         userRepository.deleteById(id);
+    }
+
+    public void editUser(@Valid EditUserRequest editUserRequest, UUID editUserId) {
+        User editUser = getById(editUserId);
+
+        editUser.setOwnerName(editUserRequest.getOwnerName());
+        editUser.setCompanyName(editUserRequest.getCompanyName());
+        editUser.setCompanyAddress(editUserRequest.getCompanyAddress());
+        editUser.setPhoneNumber(editUserRequest.getPhoneNumber());
+        editUser.setEmail(editUserRequest.getEmail());
+        editUser.setCountry(editUserRequest.getCountry());
+        editUser.setPassword(passwordEncoder.encode(editUserRequest.getPassword()));
+        editUser.setCity(editUserRequest.getCity());
+        editUser.setZipCode(editUserRequest.getZipCode());
+        editUser.setState(editUserRequest.getState());
+        editUser.setUpdatedOn(LocalDateTime.now());
+
+        updateUser(editUser);
+    }
+
+    public void updateUser(User user) {
+        userRepository.save(user);
     }
 }

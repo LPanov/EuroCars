@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit user</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="/styles/_users-style.css">
+    <link rel="stylesheet" href="/styles/_styles.css">
+    <link rel="stylesheet" href="/styles/edit-user.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+    <div th:insert="~{fragments/nav :: navbar}"></div>
+    <div class="scroll-to-top" onclick="scrollToTop()"><i class="fa-solid fa-arrow-up"></i></div>
+    <main style="min-height: 80vh;">
+        <form th:action="@{/users/{id}/edit(id=${editUserRequest.id})}" th:method="PUT" th:object="${editUserRequest}" id="edit-form" class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-xl">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <div class="mb-4">
+                        <label for="companyName" class="block text-sm font-medium text-gray-700 mb-1">Company Name<span class="text-red-600 text-xl">*</span></label>
+                        <input id="companyName" type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required th:field="*{companyName}">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="owner" class="block text-sm font-medium text-gray-700 mb-1">Owner Name<span class="text-red-600 text-xl">*</span></label>
+                        <input id="owner" type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required th:field="*{ownerName}">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email<span class="text-red-600 text-xl">*</span></label>
+                        <input id="email" placeholder="example@mail.com" type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required th:field="*{email}">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone<span class="text-red-600 text-xl">*</span></label>
+                        <input id="phone" placeholder="+359*********" type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" th:field="*{phoneNumber}">
+                    </div>
+                </div>
+
+                <div>
+                    <div class="mb-4">
+                        <label for="addres" class="block text-sm font-medium text-gray-700 mb-1">Company Mailing Address<span class="text-red-600 text-xl">*</span></label>
+                        <input id="addres" placeholder="Street address" type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-3" required th:field="*{companyAddress}">
+
+                        <div class="grid grid-cols-3 gap-3 mb-3">
+                            <input th:field="*{city}" placeholder="City" type="text" class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <input th:field="*{state}" placeholder="State" type="text" class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <input th:field="*{zipCode}" placeholder="Zip Code" type="text" class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="country" class="block text-sm font-medium text-gray-700 mb-1">Country</label>
+                        <select th:field="*{country}" id="country" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                            <option value="">Select country</option>
+                            <option th:each="country : ${T(app.eurocars.user.model.Country).values()}" th:value="${country}" th:text="${country}"></option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Enter password<span class="text-red-600 text-xl">*</span></label>
+                        <input type="password" id="password" placeholder="••••••••" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required th:field="*{password}">
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-6 border-gray-200">
+
+            <div class="flex justify-end">
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-150 ease-in-out shadow-md">
+                    Edit
+                </button>
+            </div>
+        </form>
+    </main>
+    <div th:insert="~{fragments/footer :: footer}"></div>
+</body>
+</html>
