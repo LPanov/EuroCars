@@ -1,6 +1,6 @@
 **Project Title: E-Commerce Auto Parts Platform**
 
-Overview
+Overview:
 This project is a fully functional, full-stack e-commerce web application designed to showcase technical proficiency in the Java/Spring ecosystem and MVC architecture. It provides users with a seamless shopping experience for auto parts, from browsing the catalog to placing an order.
 <img width="1899" height="834" alt="image" src="https://github.com/user-attachments/assets/c8696235-67cb-470e-94da-d6cd96867967" />
 
