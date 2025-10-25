@@ -5,20 +5,20 @@ import app.eurocars.category.service.CategoryService;
 import app.eurocars.engine.model.Engine;
 import app.eurocars.engine.service.EngineService;
 import app.eurocars.exception.DomainException;
+import app.eurocars.manufacturer.model.Manufacturer;
+import app.eurocars.manufacturer.service.ManufacturerService;
 import app.eurocars.part.model.Part;
 import app.eurocars.part.repository.PartRepository;
-import jakarta.transaction.Transactional;
+import app.eurocars.web.dto.AddPartRequest;
+import jakarta.validation.Valid;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class PartService {
@@ -26,11 +26,13 @@ public class PartService {
     private final PartRepository partRepository;
     private final EngineService engineService;
     private final CategoryService categoryService;
+    private final ManufacturerService manufacturerService;
 
-    public PartService(PartRepository partRepository, EngineService engineService, CategoryService categoryService) {
+    public PartService(PartRepository partRepository, EngineService engineService, CategoryService categoryService, ManufacturerService manufacturerService) {
         this.partRepository = partRepository;
         this.engineService = engineService;
         this.categoryService = categoryService;
+        this.manufacturerService = manufacturerService;
     }
 
     public List<Part> getAllFilteredParts(String vehicleId, String categoryId, String input) {
@@ -103,5 +105,43 @@ public class PartService {
 
     public List<Part> getAllParts() {
         return partRepository.findAll();
+    }
+
+    public void createPart(AddPartRequest createPart) {
+        Set<Engine> engines = new HashSet<>();
+
+        Category category = categoryService.findById(createPart.getCategory());
+        Engine engine = engineService.findById(String.valueOf(createPart.getEngine()));
+        Manufacturer manufacturer = manufacturerService.findById(createPart.getManufacturer());
+
+        engines.add(engine);
+        Set<String> imgUl = new HashSet<>();
+        if (createPart.getImgUrls() != null && !createPart.getImgUrls().isEmpty() ) {
+            imgUl = Arrays.stream(createPart.getImgUrls().split("\n")).collect(Collectors.toSet());
+
+        }
+
+        Set<String> otherNumbers = new HashSet<>();
+        if (createPart.getOtherNumbers() != null && !createPart.getOtherNumbers().isEmpty()) {
+            otherNumbers = Arrays.stream(createPart.getOtherNumbers().split("\n")).collect(Collectors.toSet());
+        }
+
+
+        Part part = Part.builder()
+                .name(createPart.getName())
+                .description(createPart.getDescription())
+                .weight(createPart.getWeight())
+                .price(createPart.getPrice())
+                .additionalInformation(createPart.getAdditionalInformation())
+                .manufacturer(manufacturer)
+                .category(category)
+                .engines(engines)
+                .imgUrls(imgUl)
+                .otherNumbers(otherNumbers)
+                .createdDate(LocalDateTime.now())
+                .updatedOn(LocalDateTime.now())
+                .build();
+
+        partRepository.save(part);
     }
 }

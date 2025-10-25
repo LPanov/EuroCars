@@ -5,8 +5,7 @@ import app.eurocars.category.model.Category;
 import app.eurocars.engine.model.Engine;
 import app.eurocars.manufacturer.model.Manufacturer;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -18,6 +17,8 @@ import java.util.UUID;
 @Setter
 @Table(name = "parts")
 @Entity
+@Builder
+@AllArgsConstructor
 public class Part {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

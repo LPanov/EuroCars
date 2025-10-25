@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add part</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="/styles/_users-style.css">
+    <link rel="stylesheet" href="/styles/_styles.css">
+    <link rel="stylesheet" href="/styles/edit-user.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+    <div th:insert="~{fragments/nav :: navbar}"></div>
+    <div class="scroll-to-top" onclick="scrollToTop()"><i class="fa-solid fa-arrow-up"></i></div>
+    <main class="pt-10" style="min-height: 80vh;">
+        <form th:action="@{/parts-settings/add-part}" th:method="POST" th:object="${createPart}" id="edit-form" class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-xl">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <div>
+                    <div class="mb-4">
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Part Name<span class="text-red-600 text-xl">*</span></label>
+                        <input id="name" type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required th:field="*{name}">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="price" class="block text-sm font-medium text-gray-700 mb-1">Price<span class="text-red-600 text-xl">*</span></label>
+                        <input id="price" type="number" step="0.01" min="0" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required th:field="*{price}">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="weight" class="block text-sm font-medium text-gray-700 mb-1">Weight (kg)</label>
+                        <input id="weight" type="number" step="0.01" min="0" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" th:field="*{weight}">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="otherNumbers" class="block text-sm font-medium text-gray-700 mb-1">Part Codes/Other Numbers</label>
+                        <textarea id="otherNumbers" placeholder="Enter codes, one per line" rows="2" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" th:field="*{otherNumbers}"></textarea>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="imgUrls" class="block text-sm font-medium text-gray-700 mb-1">Image URLs</label>
+                        <textarea id="imgUrls" placeholder="Enter image URLs, one per line" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" th:field="*{imgUrls}"></textarea>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="mb-4">
+                        <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                        <input id="description" placeholder="Description of the part" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" th:field="*{description}">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="manufacturer" class="block text-sm font-medium text-gray-700 mb-1">Manufacturer</label>
+                        <select th:field="*{manufacturer}" id="manufacturer" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                            <option value="">Select Manufacturer</option>
+                            <option th:each="m : ${allManufacturers}" th:value="${m.id}" th:text="${m.name}"></option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="category" class="block text-sm font-medium text-gray-700 mb-1">Category<span class="text-red-600 text-xl">*</span></label>
+                        <select th:field="*{category}" id="category" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white" required>
+                            <option value="">Select Category</option>
+                            <option th:each="c : ${allCategories}" th:value="${c.id}" th:text="${c.name}"></option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="engine" class="block text-sm font-medium text-gray-700 mb-1">Category<span class="text-red-600 text-xl">*</span></label>
+                        <select th:field="*{engine}" id="engine" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white" required>
+                            <option value="">Select Engine</option>
+                            <option th:each="e : ${allEngines}" th:value="${e.id}" th:text="${e.type}"></option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="additionalInformation" class="block text-sm font-medium text-gray-700 mb-1">Additional Information</label>
+                        <textarea id="additionalInformation" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" th:field="*{additionalInformation}"></textarea>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-6 border-gray-200">
+
+            <div class="flex justify-end">
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-150 ease-in-out shadow-md">
+                    Save Part
+                </button>
+            </div>
+
+
+        </form>
+    </main>
+    <div th:insert="~{fragments/footer :: footer}"></div>
+</body>
+</html>

@@ -35,4 +35,8 @@ public class EngineService {
 
         return allEnginesByModel;
     }
+
+    public List<Engine> getAllEngines() {
+        return engineRepository.findAll();
+    }
 }
