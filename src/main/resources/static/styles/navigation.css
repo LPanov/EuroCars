@@ -517,3 +517,19 @@
     color: rgba(92, 140, 170, 255);
     margin: 0;
 }
+
+.admin-opt {
+    display: block;
+    padding: 0 0.2em;
+    border: none;
+    border-radius: 2px;
+}
+
+#second-opt {
+    margin-right: 20px;
+}
+
+.admin-opt:hover {
+    background-color: white;
+    color: rgba(92, 140, 170, 255);
+}

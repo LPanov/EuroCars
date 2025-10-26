@@ -46,7 +46,7 @@
             <td th:text="${part.category.name}">Category</td>
             <td th:text="${part.price + ' EUR'}">11 euro</td>
             <td>
-                <form th:action="@{/edit-part}" th:method="GET">
+                <form th:action="@{/parts-settings/{partId}/edit(partId=${part.id})}" th:method="GET">
                     <button class="action-button edit-btn">Edit</button>
                 </form>
             </td>

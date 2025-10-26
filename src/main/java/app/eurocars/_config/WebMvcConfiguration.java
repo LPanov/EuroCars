@@ -26,7 +26,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers( "/", "/register", "/forgot-password").permitAll()
-                        .requestMatchers("/users").hasAuthority("ADMIN")
+                        .requestMatchers("/users", "/parts-settings", "/users/{id}/edit", "/parts-settings/add-part", "/parts-settings/{partId}/edit").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

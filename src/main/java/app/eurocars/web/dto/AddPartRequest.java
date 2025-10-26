@@ -7,6 +7,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 
 @Builder
 @Getter
@@ -14,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddPartRequest {
+    private UUID id;
     private String name;
     private String description;
     private String imgUrls;

@@ -10,7 +10,6 @@ import app.eurocars.manufacturer.service.ManufacturerService;
 import app.eurocars.part.model.Part;
 import app.eurocars.part.repository.PartRepository;
 import app.eurocars.web.dto.AddPartRequest;
-import jakarta.validation.Valid;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Service;
@@ -115,16 +114,9 @@ public class PartService {
         Manufacturer manufacturer = manufacturerService.findById(createPart.getManufacturer());
 
         engines.add(engine);
-        Set<String> imgUl = new HashSet<>();
-        if (createPart.getImgUrls() != null && !createPart.getImgUrls().isEmpty() ) {
-            imgUl = Arrays.stream(createPart.getImgUrls().split("\n")).collect(Collectors.toSet());
+        Set<String> imgUl = getUrls(createPart);
 
-        }
-
-        Set<String> otherNumbers = new HashSet<>();
-        if (createPart.getOtherNumbers() != null && !createPart.getOtherNumbers().isEmpty()) {
-            otherNumbers = Arrays.stream(createPart.getOtherNumbers().split("\n")).collect(Collectors.toSet());
-        }
+        Set<String> otherNumbers = getOtherNumbers(createPart);
 
 
         Part part = Part.builder()
@@ -143,5 +135,55 @@ public class PartService {
                 .build();
 
         partRepository.save(part);
+    }
+
+    public void updatePart(AddPartRequest editPart, String partId) {
+        Part part = getPartById(partId);
+
+        Category category = categoryService.findById(editPart.getCategory());
+        Engine engine = engineService.findById(String.valueOf(editPart.getEngine()));
+        Manufacturer manufacturer = manufacturerService.findById(editPart.getManufacturer());
+
+        Set<String> imgUrls = getUrls(editPart);
+
+        Set<String> otherNumbers = getOtherNumbers(editPart);
+
+        part.setName(editPart.getName());
+        part.setDescription(editPart.getDescription());
+        part.setWeight(editPart.getWeight());
+        part.setPrice(editPart.getPrice());
+        part.setAdditionalInformation(editPart.getAdditionalInformation());
+        part.setManufacturer(manufacturer);
+        part.setCategory(category);
+        part.getEngines().add(engine);
+        if (!imgUrls.isEmpty()) {
+            imgUrls.forEach(imgUrl -> part.getImgUrls().add(imgUrl));
+        }
+        if (!otherNumbers.isEmpty()) {
+            otherNumbers.forEach(otherNumber -> part.getOtherNumbers().add(otherNumber));
+        }
+        part.setUpdatedOn(LocalDateTime.now());
+
+        partRepository.save(part);
+    }
+
+    private static Set<String> getOtherNumbers(AddPartRequest editPart) {
+        Set<String> otherNumbers = new HashSet<>();
+        if (editPart.getOtherNumbers() != null && !editPart.getOtherNumbers().isEmpty()) {
+            otherNumbers = Arrays.stream(editPart.getOtherNumbers().split("\n")).collect(Collectors.toSet());
+        }
+        return otherNumbers;
+    }
+
+    private static Set<String> getUrls(AddPartRequest editPart) {
+        Set<String> imgUrls = new HashSet<>();
+        if (editPart.getImgUrls() != null && !editPart.getImgUrls().isEmpty() ) {
+            imgUrls = Arrays.stream(editPart.getImgUrls().split("\n")).collect(Collectors.toSet());
+        }
+        return imgUrls;
+    }
+
+    public void deletePartById(UUID partId) {
+        partRepository.deleteById(partId);
     }
 }

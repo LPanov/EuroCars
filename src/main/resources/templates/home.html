@@ -78,6 +78,8 @@
             </div>
         </div>
         <div class="navbar-right">
+            <a th:if="${user.role.name() == 'ADMIN'}" th:href="@{/users}" class="admin-opt">USERS</a>
+            <a th:if="${user.role.name() == 'ADMIN'}" th:href="@{/parts-settings}" class="admin-opt" id="second-opt">PARTS</a>
             <div class="profile-dropdown-container">
                 <p th:text="${user.ownerName}" class="profile-section"></p>
                 <div class="profile-dropdown-content">

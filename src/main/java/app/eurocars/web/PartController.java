@@ -15,13 +15,11 @@ import app.eurocars.web.dto.AddPartRequest;
 import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class PartController {
@@ -86,5 +84,59 @@ public class PartController {
         modelAndView.addObject("user", userService.getById(authenticationDetails.getUserId()));
 
         return modelAndView;
+    }
+
+    @GetMapping("/parts-settings/{partId}/edit")
+    public ModelAndView getEditPartPage(@AuthenticationPrincipal AuthenticationDetails authenticationDetails,
+                                        @PathVariable String partId) {
+        User user = userService.getById(authenticationDetails.getUserId());
+        Part part = partService.getPartById(partId);
+        List<Manufacturer> allManufacturers = manufacturerService.getAllManufacturers();
+        List<Category> allCategories = categoryService.getAllCategories();
+        List<Engine> allEngines = engineService.getAllEngines();
+        AddPartRequest editPart = AddPartRequest.builder()
+                .id(part.getId())
+                .name(part.getName())
+                .description(part.getDescription())
+                .additionalInformation(part.getAdditionalInformation())
+                .weight(part.getWeight())
+                .price(part.getPrice())
+                .category(part.getCategory().getId())
+                .manufacturer(part.getManufacturer().getId())
+                .engine(part.getEngines().stream().findFirst().get().getId())
+                .build();
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("edit-part");
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("part", part);
+        modelAndView.addObject("editPart", editPart);
+        modelAndView.addObject("allManufacturers", allManufacturers);
+        modelAndView.addObject("allCategories", allCategories);
+        modelAndView.addObject("allEngines", allEngines);
+
+        return modelAndView;
+    }
+
+    @PutMapping("/parts-settings/{partId}/edit")
+    public ModelAndView editPart(@Valid AddPartRequest editPart,
+                                 @AuthenticationPrincipal AuthenticationDetails authenticationDetails,
+                                 @PathVariable String partId) {
+
+        partService.updatePart(editPart, partId);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/parts-settings/"+partId+"/edit");
+        modelAndView.addObject("editPart", editPart);
+        modelAndView.addObject("user", userService.getById(authenticationDetails.getUserId()));
+
+        return modelAndView;
+    }
+
+    @DeleteMapping("/parts-settings")
+    public ModelAndView deletePart(@RequestParam UUID partId) {
+        partService.deletePartById(partId);
+
+        return new ModelAndView("redirect:/parts-settings");
     }
 }
