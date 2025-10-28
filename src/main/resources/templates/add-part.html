@@ -15,7 +15,7 @@
     <div th:insert="~{fragments/nav :: navbar}"></div>
     <div class="scroll-to-top" onclick="scrollToTop()"><i class="fa-solid fa-arrow-up"></i></div>
     <main class="pt-10" style="min-height: 80vh;">
-        <form th:action="@{/parts-settings/add-part}" th:method="POST" th:object="${createPart}" id="edit-form" class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-xl">
+        <form th:action="@{/parts-settings/new-part}" th:method="POST" th:object="${createPart}" id="edit-form" class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-xl">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                 <div>

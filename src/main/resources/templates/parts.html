@@ -14,7 +14,7 @@
 <main style="min-height: 80vh;">
     <div id="filterDiv">
         <input type="text" id="searchInput" placeholder="Search part...">
-        <form th:action="@{parts-settings/add-part}" th:method="GET">
+        <form th:action="@{parts-settings/new-part}" th:method="GET">
             <button class="action-button add-btn">Add Part</button>
         </form>
     </div>
@@ -46,7 +46,7 @@
             <td th:text="${part.category.name}">Category</td>
             <td th:text="${part.price + ' EUR'}">11 euro</td>
             <td>
-                <form th:action="@{/parts-settings/{partId}/edit(partId=${part.id})}" th:method="GET">
+                <form th:action="@{/parts-settings/{partId}(partId=${part.id})}" th:method="GET">
                     <button class="action-button edit-btn">Edit</button>
                 </form>
             </td>

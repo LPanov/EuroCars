@@ -55,7 +55,7 @@ public class PartController {
         return modelAndView;
     }
 
-    @GetMapping("parts-settings/add-part")
+    @GetMapping("parts-settings/new-part")
     public ModelAndView getAddPartPage(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
         User user = userService.getById(authenticationDetails.getUserId());
         List<Manufacturer> allManufacturers = manufacturerService.getAllManufacturers();
@@ -73,7 +73,7 @@ public class PartController {
         return modelAndView;
     }
 
-    @PostMapping("parts-settings/add-part")
+    @PostMapping("parts-settings/new-part")
     public ModelAndView createNewPart(@Valid AddPartRequest createPart, @AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
 
         partService.createPart(createPart);
@@ -86,7 +86,7 @@ public class PartController {
         return modelAndView;
     }
 
-    @GetMapping("/parts-settings/{partId}/edit")
+    @GetMapping("/parts-settings/{partId}")
     public ModelAndView getEditPartPage(@AuthenticationPrincipal AuthenticationDetails authenticationDetails,
                                         @PathVariable String partId) {
         User user = userService.getById(authenticationDetails.getUserId());
@@ -118,7 +118,7 @@ public class PartController {
         return modelAndView;
     }
 
-    @PutMapping("/parts-settings/{partId}/edit")
+    @PutMapping("/parts-settings/{partId}")
     public ModelAndView editPart(@Valid AddPartRequest editPart,
                                  @AuthenticationPrincipal AuthenticationDetails authenticationDetails,
                                  @PathVariable String partId) {
@@ -126,7 +126,7 @@ public class PartController {
         partService.updatePart(editPart, partId);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/parts-settings/"+partId+"/edit");
+        modelAndView.setViewName("redirect:/parts-settings/"+partId);
         modelAndView.addObject("editPart", editPart);
         modelAndView.addObject("user", userService.getById(authenticationDetails.getUserId()));
 

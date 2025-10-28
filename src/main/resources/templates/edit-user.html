@@ -15,7 +15,7 @@
     <div th:insert="~{fragments/nav :: navbar}"></div>
     <div class="scroll-to-top" onclick="scrollToTop()"><i class="fa-solid fa-arrow-up"></i></div>
     <main style="min-height: 80vh;">
-        <form th:action="@{/users/{id}/edit(id=${editUserRequest.id})}" th:method="PUT" th:object="${editUserRequest}" id="edit-form" class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-xl">
+        <form th:action="@{/users/{id}(id=${editUserRequest.id})}" th:method="PUT" th:object="${editUserRequest}" id="edit-form" class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-xl">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <div class="mb-4">

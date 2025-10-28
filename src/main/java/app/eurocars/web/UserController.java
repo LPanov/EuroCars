@@ -56,7 +56,7 @@ public class UserController {
         return new ModelAndView("redirect:/users");
     }
 
-    @GetMapping("/{id}/edit")
+    @GetMapping("/{id}")
     public ModelAndView getEditUserPage(@AuthenticationPrincipal AuthenticationDetails authenticationDetails, @PathVariable UUID id) {
         User user = userService.getById(authenticationDetails.getUserId());
 
@@ -79,7 +79,7 @@ public class UserController {
         return modelAndView;
     }
 
-    @PutMapping("/{id}/edit")
+    @PutMapping("/{id}")
     public ModelAndView editUser(@Valid EditUserRequest editUserRequest, BindingResult bindingResult, @AuthenticationPrincipal AuthenticationDetails authenticationDetails, @PathVariable UUID id) {
         User user = userService.getById(authenticationDetails.getUserId());
 
