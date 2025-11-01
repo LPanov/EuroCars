@@ -7,6 +7,8 @@ import app.eurocars.part.model.Part;
 import app.eurocars.web.dto.CartItemRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class CartItemService {
 
@@ -32,5 +34,9 @@ public class CartItemService {
         cartItem.setQuantity(cartItem.getQuantity() + cartItemRequest.getQuantity());
 
         cartItemRepository.save(cartItem);
+    }
+
+    public void deleteCartItem(Long cartItemId) {
+        cartItemRepository.deleteById(cartItemId);
     }
 }

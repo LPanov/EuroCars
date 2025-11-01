@@ -37,7 +37,10 @@
                             <td><div class="product">
                                     <div class="buttons">
                                         <input type="checkbox" class="product-checkbox">
-                                        <button class="remove-button">✕</button>
+                                        <form th:action="@{/cart(itemId=${item.id})}" th:method="DELETE">
+                                            <button class="remove-button">✕</button>
+                                        </form>
+
                                     </div>
                                     <div class="product-image">
                                         <img th:src="${item.part.imgUrls[0]}" alt="">

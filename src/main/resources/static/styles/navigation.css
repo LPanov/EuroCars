@@ -117,7 +117,7 @@
 }
 
 .total {
-    background: rgba(92,140,170, 255);
+    background: rgb(136, 175, 230);
     color: white;
     padding: 30px;
 }
@@ -532,4 +532,135 @@
 .admin-opt:hover {
     background-color: white;
     color: rgba(92, 140, 170, 255);
+}
+
+.minicart > p:first-child {
+    font-weight: 600;
+    font-size: 1rem;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #1f2937;
+}
+
+/* * --- TABLE AND ITEMS STYLING ---
+ */
+.minicart table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+}
+
+.minicart thead {
+    font-size: 0.75rem;
+    color: #6b7280;
+    text-transform: uppercase;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.minicart th {
+    padding: 5px 0;
+    text-align: left;
+}
+.minicart th:last-child {
+    text-align: right;
+}
+
+/* Styles for the empty cart message */
+#empty {
+    text-align: center;
+    padding: 20px 0;
+    color: #9ca3af;
+    font-style: italic;
+    display: block !important; /* Override the default <p> display */
+}
+
+/* Style for each item row */
+.minicart tbody tr {
+    border-bottom: 3px solid #eff;
+}
+.minicart tbody tr:last-child {
+    border-bottom: none;
+}
+
+.minicart td {
+    padding: 8px 0;
+    background-color: #d9ffff;
+}
+
+/* Product information alignment */
+.product-info-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.product-info-cell img {
+    width: 45px; /* Slightly larger image */
+    height: 45px;
+    object-fit: fill;
+    border: 1px solid #f3f4f6;
+    border-radius: 4px;
+    margin-left: 10px;
+    flex-shrink: 0;
+
+}
+
+.product-name-span {
+    color: #1f2937;
+    font-weight: 500;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px; /* Limit name width */
+}
+
+/* Price styling */
+.minicart-price {
+    color: #1f2937;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-align: right;
+    white-space: nowrap;
+}
+
+/* * --- TOTAL AND BUTTON STYLING ---
+ */
+.total {
+    padding-top: 10px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.total p {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: black;
+}
+
+.total button {
+    width: 100%;
+    padding: 8px;
+    background-color: #ef4444; /* Tailwind red-500 */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.total button:hover {
+    background-color: #dc2626;
+}
+
+#sum {
+    color: #3c963d;
+    font-weight: 700;
+    font-size: 1.2em;
 }

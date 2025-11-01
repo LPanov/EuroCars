@@ -101,9 +101,11 @@
                         <button>See All</button>
                     </div>
                 </i></a>
-            <a href="" class="cart"><i class="fa-solid fa-cart-shopping"></i>
+            <a href="/cart" class="cart">
+                <i class="fa-solid fa-cart-shopping"></i>
                 <div class="minicart">
                     <p>Recently added product</p>
+
                     <table>
                         <thead>
                         <tr>
@@ -111,16 +113,34 @@
                             <th>Total value incl. VAT</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <td></td>
-                        </tr>
 
+                        <!-- Check for empty cart outside the loop for Thymeleaf performance -->
+                        <p id="empty" th:if="${user.cart.items.isEmpty()}">Your cart is empty</p>
+
+                        <tbody th:unless="${user.cart.items.isEmpty()}">
+                        <!-- Looping over items -->
+                        <tr th:each="cartItem : ${user.cart.items}">
+                            <!-- Product Info Cell -->
+                            <td>
+                                <div class="product-info-cell">
+                                    <!-- Note: Added class for styling -->
+                                    <img th:src="${cartItem.part.imgUrls[0]}" class="product-img">
+                                    <span th:text="${cartItem.part.name}" class="product-name-span"></span>
+                                </div>
+                            </td>
+                            <!-- Price Cell -->
+                            <td>
+                                <span th:text="${#numbers.formatDecimal(cartItem.getTotalPriceWithVat(), 0, 2)} + '€'" class="minicart-price"></span>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
-                    <p id="empty">Your cart is empty</p>
+
                     <form class="total" th:action="@{/cart}" method="get">
-                        <p>Wholesale total value incl. VAT: <span id="sum">100</span>€</p>
+                        <p>
+                            <span>Wholesale total value incl. VAT:</span>
+                            <span id="sum" th:text="${#numbers.formatDecimal(user.cart.getWholePrice(), 0, 2)} + '€'" class="text-lg font-extrabold text-red-600"></span>
+                        </p>
                         <button>GO TO CART</button>
                     </form>
 
