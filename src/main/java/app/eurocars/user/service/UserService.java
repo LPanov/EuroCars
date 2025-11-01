@@ -1,6 +1,6 @@
 package app.eurocars.user.service;
 
-import app.eurocars.cart.model.Cart;
+import app.eurocars.cart.service.CartService;
 import app.eurocars.exception.DomainException;
 import app.eurocars.security.AuthenticationDetails;
 import app.eurocars.user.model.Country;
@@ -35,13 +35,15 @@ public class UserService implements UserDetailsService {
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
     private final ApplicationEventPublisher eventPublisher;
+    private final CartService cartService;
 
 
-    public UserService(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder, ApplicationEventPublisher eventPublisher) {
+    public UserService(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder, ApplicationEventPublisher eventPublisher, CartService cartService) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
         this.eventPublisher = eventPublisher;
+        this.cartService = cartService;
     }
 
 //    @CacheEvict(value = "users", allEntries = true)
@@ -55,7 +57,6 @@ public class UserService implements UserDetailsService {
 
         User user = modelMapper.map(registerRequest, User.class);
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
-        user.setCart(new Cart());
         user.setRole(Role.USER);
         user.setIsActive(true);
         user.setCountry(Country.BULGARIA);
@@ -68,6 +69,8 @@ public class UserService implements UserDetailsService {
         user.setShowWeight(true);
 
         userRepository.save(user);
+        cartService.createCart(user);
+        user.setCart(cartService.getCartByUser(user));
         log.info("Successfully created new user with email: '%s'".formatted(user.getEmail()));
 
         return user;

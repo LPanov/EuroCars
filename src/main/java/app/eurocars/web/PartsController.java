@@ -11,13 +11,18 @@ import app.eurocars.part.service.PartService;
 import app.eurocars.security.AuthenticationDetails;
 import app.eurocars.user.model.User;
 import app.eurocars.user.service.UserService;
+import app.eurocars.web.dto.CartItemRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class PartsController {
@@ -34,6 +39,7 @@ public class PartsController {
     }
 
     @RequestMapping("/parts")
+    @GetMapping
     public ModelAndView getPartsPage(
             @AuthenticationPrincipal AuthenticationDetails authenticationDetails,
             @RequestParam(value = "vehicleId", required = false) String vehicleId,
@@ -48,8 +54,13 @@ public class PartsController {
         modelAndView.addObject("manufacturers", allManufacturers);
 
         List<Part> allParts = partService.getAllFilteredParts(vehicleId, categoryId, input);
+        List<CartItemRequest> cartItems = new ArrayList<>();
+        for (Part part : allParts) {
+            cartItems.add(CartItemRequest.builder().partId(part.getId()).build());
+        }
 
         modelAndView.addObject("parts", allParts);
+        modelAndView.addObject("cartItems", cartItems);
 
         return modelAndView;
     }

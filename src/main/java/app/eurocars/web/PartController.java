@@ -12,6 +12,7 @@ import app.eurocars.security.AuthenticationDetails;
 import app.eurocars.user.model.User;
 import app.eurocars.user.service.UserService;
 import app.eurocars.web.dto.AddPartRequest;
+import app.eurocars.web.dto.CartItemRequest;
 import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -39,18 +40,21 @@ public class PartController {
     }
 
     @RequestMapping("/part")
+    @GetMapping
     public ModelAndView getPartPage(
             @AuthenticationPrincipal AuthenticationDetails authenticationDetails,
             @RequestParam(value = "partId") String partId) {
         User user = userService.getById(authenticationDetails.getUserId());
         Part selectedPart = partService.getPartById(partId);
         List<Part> crossReferences = partService.findCrossReferences(selectedPart);
+        CartItemRequest cartItemRequest = CartItemRequest.builder().partId(selectedPart.getId()).build();
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("part");
         modelAndView.addObject("user", user);
         modelAndView.addObject("part", selectedPart);
         modelAndView.addObject("crossReferences", crossReferences);
+        modelAndView.addObject("cartItemRequest", cartItemRequest);
 
         return modelAndView;
     }

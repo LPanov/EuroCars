@@ -52,10 +52,11 @@
                 
                 <div class="price-col">
                     <div class="current-price" th:text="${user.pricesWithVAT ? #numbers.formatDecimal(part.price * 1.2, 0, 2) : #numbers.formatDecimal(part.price, 0, 2)} + ' EUR'"></div>
-                    <div>
-                        <input type="number" class="quantity-input" value="1" min="1">
+                    <form class="quantity-form" th:action="@{/cart}" th:each="cartItem : ${cartItems}" th:object="${cartItem}" th:method="POST">
+                        <input type="hidden" th:value="${part.id}" th:field="*{partId}"/>
+                        <input type="number" class="quantity-input" value="1" min="1" th:field="*{quantity}">
                         <button class="add-to-cart-button"><i class="fa-solid fa-cart-shopping"></i></button>
-                    </div>
+                    </form>
                 </div>
             </div>
             

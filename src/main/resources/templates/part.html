@@ -177,7 +177,7 @@
         </section>
     
 
-        <section class="add-to-cart">
+        <form class="add-to-cart" th:action="@{/cart}" th:method="POST" th:object="${cartItemRequest}">
             <div class="product-info-section">
                 <div class="price-info">
                     <div class="price-row">
@@ -188,7 +188,7 @@
 
                 <div class="quantity-section">
                     <label for="qty">Qty:</label>
-                    <input type="number" id="qty" value="1" min="1">
+                    <input type="number" id="qty" value="1" min="1" th:field="*{quantity}">
                 </div>
 
                 <div class="delivery-info">
@@ -199,11 +199,13 @@
                     </div>
                 </div>
 
+                <input type="hidden" th:field="*{partId}"/>
+
                 <div class="action-buttons">
                     <button class="add-to-cart"><i class="fa fa-shopping-cart"></i></button>
                 </div>
             </div>
-        </section>
+        </form>
     </main>
 
     <div th:insert="~{fragments/footer :: footer}"></div>

@@ -119,10 +119,10 @@
                         </tbody>
                     </table>
                     <p id="empty">Your cart is empty</p>
-                    <div class="total">
+                    <form class="total" th:action="@{/cart}" method="get">
                         <p>Wholesale total value incl. VAT: <span id="sum">100</span>€</p>
                         <button>GO TO CART</button>
-                    </div>
+                    </form>
 
                 </div>
             </a>
