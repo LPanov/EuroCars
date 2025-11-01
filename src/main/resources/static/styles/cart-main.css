@@ -108,7 +108,7 @@ th {
     padding: 24px;
     border-radius: 8px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    max-width: 320px;
+    max-width: 380px;
     margin-left: auto;
     border: 2px solid #ff3333;
 }
@@ -162,7 +162,9 @@ th {
     color: #1f2937;
     margin-bottom: 24px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 .delivery-method {
     font-size: 14px;
@@ -242,4 +244,13 @@ th {
     border-radius: 4px;
     margin-right: 12px;
     display: inline-block;
+}
+
+#whole-price {
+    color: #3c763d;
+    font-size: 1.4em;
+}
+
+#price {
+    margin-left: 10px;
 }

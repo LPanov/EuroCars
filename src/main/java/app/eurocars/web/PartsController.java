@@ -54,13 +54,8 @@ public class PartsController {
         modelAndView.addObject("manufacturers", allManufacturers);
 
         List<Part> allParts = partService.getAllFilteredParts(vehicleId, categoryId, input);
-        List<CartItemRequest> cartItems = new ArrayList<>();
-        for (Part part : allParts) {
-            cartItems.add(CartItemRequest.builder().partId(part.getId()).build());
-        }
 
         modelAndView.addObject("parts", allParts);
-        modelAndView.addObject("cartItems", cartItems);
 
         return modelAndView;
     }

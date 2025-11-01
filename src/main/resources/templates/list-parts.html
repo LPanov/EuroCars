@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="product-list">
-            <div class="product-item" th:each="part : ${parts}">
+            <div class="product-item" th:each="part, partStat : ${parts}">
                 <div class="img-info">
                     <div class="product-image-col">
                         <img th:src="${#lists.isEmpty(part.imgUrls) ? '/images/default.png' : part.imgUrls[0]}"
@@ -52,9 +52,8 @@
                 
                 <div class="price-col">
                     <div class="current-price" th:text="${user.pricesWithVAT ? #numbers.formatDecimal(part.price * 1.2, 0, 2) : #numbers.formatDecimal(part.price, 0, 2)} + ' EUR'"></div>
-                    <form class="quantity-form" th:action="@{/cart}" th:each="cartItem : ${cartItems}" th:object="${cartItem}" th:method="POST">
-                        <input type="hidden" th:value="${part.id}" th:field="*{partId}"/>
-                        <input type="number" class="quantity-input" value="1" min="1" th:field="*{quantity}">
+                    <form class="quantity-form" >
+                        <input type="number" class="quantity-input" value="1" min="1">
                         <button class="add-to-cart-button"><i class="fa-solid fa-cart-shopping"></i></button>
                     </form>
                 </div>

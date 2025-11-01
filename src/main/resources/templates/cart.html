@@ -58,9 +58,9 @@
                             <td>
                                 <input type="number" th:value="${item.quantity}" class="quantity-input">
                             </td>
-                            <td><div class="vat" th:text="${#numbers.formatDecimal(item.part.price * 1.2, 0, 2)} + ' EUR'">1,294.00</div></td>
+                            <td><div class="vat" th:text="${#numbers.formatDecimal(item.part.price * 1.2, 0, 2)} + ' EUR'" th:data-unit-price="${#numbers.formatDecimal(item.part.price * 1.2, 0, 2)}">1,294.00</div></td>
                             <td><div class="price" th:text="${#numbers.formatDecimal(item.getTotalPriceWithVat(), 0, 2) + ' EUR'}">1,294.00 BGN</div></td>
-                            <td><div class="weight" th:text="${#numbers.formatDecimal(item.getTotalWeight(), 1, 2) + ' kg'}">12.00 kg</div></td>
+                            <td><div class="weight" th:text="${#numbers.formatDecimal(item.getTotalWeight(), 1, 2) + ' kg'}" th:data-unit-weight="${#numbers.formatDecimal(item.getTotalWeight(), 1, 2)}">12.00 kg</div></td>
                         </tr>
                     </tbody>
                 </table>
@@ -71,24 +71,23 @@
             <h2 class="summary-heading">Summary</h2>
             <div class="selected-products">
                 <span>Selected products</span>
-                <span id="qty">1</span>
+                <span id="qty">0</span>
             </div>
             <div class="total-weight">
                 <span>Total weight</span>
-                <span id="weight">27.50 kg</span>
+                <span id="weight">0.00 kg</span>
             </div>
             <div class="price-info">
-                <span>Wholesale price excl. VAT</span>
-                <span id="price">1,078.00 BGN</span>
+                <span>Wholesale price sum excl. VAT</span>
+                <span id="price">0.00 EUR</span>
             </div>
-            
             <div class="vat-value">
-                <span>VAT value</span>
-                <span id="vat">215.67 BGN</span>
+                <span>VAT value (20%)</span>
+                <span id="vat">0.00 EUR</span>
             </div>
             <div class="wholesale-price-sum">
                 <span>Wholesale price sum incl. VAT</span>
-                <span id="whole-price">1,294.00 BGN</span>
+                <span id="whole-price">0.00 EUR</span>
             </div>
             <div class="delivery-method">
                 <span>Delivery method</span>
@@ -101,17 +100,16 @@
             <button class="order-now-button">
                 ORDER NOW
             </button>
-            
-            <div class="contact-info">
+            <div class="contact-info mt-4 pt-4 border-t border-gray-200">
                 Got questions? Please contact your branch:
             </div>
-            <div class="contact-details">
+            <div class="contact-details font-semibold">
                 Central Warehouse
             </div>
             <div class="contact-info">
                 Mob.:
             </div>
-            <button class="call-button">
+            <button class="call-button bg-green-500 hover:bg-green-600 text-white p-2 rounded w-full">
                 CALL
             </button>
         </div>
@@ -120,5 +118,125 @@
     <div th:insert="~{fragments/footer :: footer}"></div>
 
     <script src="/scripts/navigation.js"></script>
+    <script>
+        // Constants for calculation
+        const VAT_RATE = 0.20; // 20% VAT
+        const CURRENCY = ' EUR'; // Assuming the output currency is EUR (can be BGN)
+        const WEIGHT_UNIT = ' kg';
+
+        /**
+         * Helper function to safely parse a price string (e.g., "7,90 EUR") into a number.
+         * It handles commas as decimal separators.
+         * @param {string} text - The price string from the cell.
+         * @returns {number} The cleaned numeric value.
+         */
+        function parseNumber(text) {
+            // Remove currency/units and replace comma (,) with dot (.) for JavaScript parsing
+            const cleaned = text.replace(/[^0-9,.-]/g, '').replace(',', '.');
+            return parseFloat(cleaned) || 0;
+        }
+
+        /**
+         * Calculates and updates the cart summary based on selected items and quantities.
+         */
+        function updateCartSummary() {
+            let totalQuantity = 0;
+            let totalPriceInclVAT = 0; // The total sum of the 'Total price(incl. VAT)' column
+            let totalWeight = 0;
+            let selectedItemsCount = 0;
+
+            // 1. Get all table rows inside the tbody (the cart items)
+            const rows = document.querySelectorAll('.product-item tr');
+
+            rows.forEach(row => {
+                // Get the checkbox status for the current row
+                const checkbox = row.querySelector('.product-checkbox');
+                if (!checkbox || !checkbox.checked) {
+                    // Skip if the item is not selected
+                    return;
+                }
+                selectedItemsCount++;
+
+                // --- Extract Data Points for Calculation ---
+
+                // Get the Quantity input value
+                const quantityInput = row.querySelector('.quantity-input');
+                const quantity = parseInt(quantityInput.value, 10) || 0;
+
+                // Get the Unit Price (Price per item incl. VAT)
+                const unitPriceDiv = row.querySelector('.vat');
+                // We use the data-unit-price attribute for reliable math
+                const unitPrice = parseNumber(unitPriceDiv.getAttribute('data-unit-price') || unitPriceDiv.textContent);
+
+                // Get the Unit Weight (Weight per item)
+                const unitWeightDiv = row.querySelector('.weight');
+                // We use the data-unit-weight attribute for reliable math
+                const unitWeight = parseNumber(unitWeightDiv.getAttribute('data-unit-weight') || unitWeightDiv.textContent);
+
+                // --- Calculate Row Totals ---
+
+                // Calculate the total price for the current row
+                const rowTotalPrice = unitPrice * quantity;
+                const rowTotalWeight = unitWeight * quantity;
+
+                // --- Update Table Cells (Real-time Feedback) ---
+
+                // Update the 'Total price(incl. VAT)' column
+                const totalPriceCell = row.querySelector('.price');
+                totalPriceCell.textContent = rowTotalPrice.toFixed(2).replace('.', ',') + CURRENCY;
+
+                // Update the 'Total weight' column
+                unitWeightDiv.textContent = rowTotalWeight.toFixed(2).replace('.', ',') + WEIGHT_UNIT;
+
+
+                // --- Aggregate Grand Totals ---
+                totalQuantity += quantity;
+                totalPriceInclVAT += rowTotalPrice;
+                totalWeight += rowTotalWeight;
+            });
+
+            // --- Final Summary Calculations ---
+            const totalPriceExclVAT = totalPriceInclVAT / (1 + VAT_RATE);
+            const vatValue = totalPriceInclVAT - totalPriceExclVAT;
+
+            // --- Update Summary Box ---
+
+            // Selected products (Quantity)
+            document.getElementById('qty').textContent = selectedItemsCount;
+
+            // Total weight
+            document.getElementById('weight').textContent = totalWeight.toFixed(2).replace('.', ',') + WEIGHT_UNIT;
+
+            // Wholesale price excl. VAT (Note: I'm assuming BGN was a mistake in the template, using EUR)
+            document.getElementById('price').textContent = totalPriceExclVAT.toFixed(2).replace('.', ',') + CURRENCY;
+
+            // VAT value
+            document.getElementById('vat').textContent = vatValue.toFixed(2).replace('.', ',') + CURRENCY;
+
+            // Wholesale price sum incl. VAT
+            document.getElementById('whole-price').textContent = totalPriceInclVAT.toFixed(2).replace('.', ',') + CURRENCY;
+        }
+
+        /**
+         * Initializes the script by attaching event listeners and performing the initial calculation.
+         */
+        function initializeCartLogic() {
+            // Attach listeners to all quantity inputs and checkboxes
+            const interactiveElements = document.querySelectorAll('.quantity-input, .product-checkbox');
+
+            interactiveElements.forEach(element => {
+                // Use 'change' event for inputs to recalculate when the value is finalized
+                // Use 'click' event for checkboxes
+                element.addEventListener('change', updateCartSummary);
+            });
+
+            // Perform initial calculation when the page loads
+            updateCartSummary();
+        }
+
+        // Run the initialization function once the DOM is fully loaded
+        window.onload = initializeCartLogic;
+
+    </script>
 </body>
 </html>
