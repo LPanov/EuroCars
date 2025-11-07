@@ -104,51 +104,51 @@
                     </div>
                 </i>
             </a>
-            <a href="/cart" class="cart">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <div class="minicart">
-                    <p>Recently added product</p>
+<!--            <a href="/cart" class="cart">-->
+<!--                <i class="fa-solid fa-cart-shopping"></i>-->
+<!--                <div class="minicart">-->
+<!--                    <p>Recently added product</p>-->
 
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Product</th>
-                            <th>Total value incl. VAT</th>
-                        </tr>
-                        </thead>
+<!--                    <table>-->
+<!--                        <thead>-->
+<!--                        <tr>-->
+<!--                            <th>Product</th>-->
+<!--                            <th>Total value incl. VAT</th>-->
+<!--                        </tr>-->
+<!--                        </thead>-->
 
-                        <!-- Check for empty cart outside the loop for Thymeleaf performance -->
-                        <p id="empty" th:if="${user.cart.items.isEmpty()}">Your cart is empty</p>
+<!--                        &lt;!&ndash; Check for empty cart outside the loop for Thymeleaf performance &ndash;&gt;-->
+<!--                        <p id="empty" th:if="${user.cart.items.isEmpty()}">Your cart is empty</p>-->
 
-                        <tbody th:unless="${user.cart.items.isEmpty()}">
-                        <!-- Looping over items -->
-                        <tr th:each="cartItem : ${user.cart.items}">
-                            <!-- Product Info Cell -->
-                            <td>
-                                <div class="product-info-cell">
-                                    <!-- Note: Added class for styling -->
-                                    <img th:src="${cartItem.part.imgUrls[0]}" class="product-img">
-                                    <span th:text="${cartItem.part.name}" class="product-name-span"></span>
-                                </div>
-                            </td>
-                            <!-- Price Cell -->
-                            <td>
-                                <span th:text="${#numbers.formatDecimal(cartItem.getTotalPriceWithVat(), 0, 2)} + '€'" class="minicart-price"></span>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+<!--                        <tbody th:unless="${user.cart.items.isEmpty()}">-->
+<!--                        &lt;!&ndash; Looping over items &ndash;&gt;-->
+<!--                        <tr th:each="cartItem : ${user.cart.items}">-->
+<!--                            &lt;!&ndash; Product Info Cell &ndash;&gt;-->
+<!--                            <td>-->
+<!--                                <div class="product-info-cell">-->
+<!--                                    &lt;!&ndash; Note: Added class for styling &ndash;&gt;-->
+<!--                                    <img th:src="${cartItem.part.imgUrls[0]}" class="product-img">-->
+<!--                                    <span th:text="${cartItem.part.name}" class="product-name-span"></span>-->
+<!--                                </div>-->
+<!--                            </td>-->
+<!--                            &lt;!&ndash; Price Cell &ndash;&gt;-->
+<!--                            <td>-->
+<!--                                <span th:text="${#numbers.formatDecimal(cartItem.getTotalPriceWithVat(), 0, 2)} + '€'" class="minicart-price"></span>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        </tbody>-->
+<!--                    </table>-->
 
-                    <form class="total" th:action="@{/cart}" method="get">
-                        <p>
-                            <span>Wholesale total value incl. VAT:</span>
-                            <span id="sum" th:text="${#numbers.formatDecimal(user.cart.getWholePrice(), 0, 2)} + '€'" class="text-lg font-extrabold text-red-600"></span>
-                        </p>
-                        <button>GO TO CART</button>
-                    </form>
+<!--                    <form class="total" th:action="@{/cart}" method="get">-->
+<!--                        <p>-->
+<!--                            <span>Wholesale total value incl. VAT:</span>-->
+<!--                            <span id="sum" th:text="${#numbers.formatDecimal(user.cart.getWholePrice(), 0, 2)} + '€'" class="text-lg font-extrabold text-red-600"></span>-->
+<!--                        </p>-->
+<!--                        <button>GO TO CART</button>-->
+<!--                    </form>-->
 
-                </div>
-            </a>
+<!--                </div>-->
+<!--            </a>-->
             
         </div>
     </div>

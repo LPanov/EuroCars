@@ -69,8 +69,7 @@ public class UserService implements UserDetailsService {
         user.setShowWeight(true);
 
         userRepository.save(user);
-        cartService.createCart(user);
-        user.setCart(cartService.getCartByUser(user));
+        cartService.createCart(user.getId());
         log.info("Successfully created new user with email: '%s'".formatted(user.getEmail()));
 
         return user;

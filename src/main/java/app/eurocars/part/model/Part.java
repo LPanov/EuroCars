@@ -1,6 +1,5 @@
 package app.eurocars.part.model;
 
-import app.eurocars.cartItem.model.CartItem;
 import app.eurocars.category.model.Category;
 import app.eurocars.engine.model.Engine;
 import app.eurocars.manufacturer.model.Manufacturer;
@@ -64,9 +63,6 @@ public class Part {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
-
-    @OneToMany(mappedBy = "part")
-    private Set<CartItem> cartItems;
 
     public Part() {
         this.imgUrls = new HashSet<>();

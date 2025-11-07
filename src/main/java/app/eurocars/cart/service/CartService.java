@@ -1,54 +1,69 @@
 package app.eurocars.cart.service;
 
-import app.eurocars.cart.model.Cart;
-import app.eurocars.cart.repository.CartRepository;
-import app.eurocars.cartItem.model.CartItem;
-import app.eurocars.cartItem.service.CartItemService;
+import app.eurocars.cart.client.CartClient;
+import app.eurocars.cart.client.dto.CartItem;
+import app.eurocars.cart.client.dto.CartItemResponse;
+import app.eurocars.cart.client.mapper.DtoMapper;
 import app.eurocars.part.model.Part;
 import app.eurocars.part.service.PartService;
-import app.eurocars.user.model.User;
-import app.eurocars.web.dto.CartItemRequest;
+import jakarta.mail.FetchProfile;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+@Slf4j
 @Service
 public class CartService {
 
-    private final CartRepository cartRepository;
+    private final CartClient cartClient;
     private final PartService partService;
-    private final CartItemService cartItemService;
 
-    public CartService(CartRepository cartRepository, PartService partService, CartItemService cartItemService) {
-        this.cartRepository = cartRepository;
+    public CartService(CartClient cartClient, PartService partService) {
+        this.cartClient = cartClient;
         this.partService = partService;
-        this.cartItemService = cartItemService;
     }
 
-    public Cart getCartByUser(User user) {
-        return cartRepository.getCartByUser(user);
-    }
-
-    public void createCart(User user) {
-        Cart cart = Cart.builder()
-                .user(user)
-                .build();
-
-        cartRepository.save(cart);
-    }
-
-    public void addToCart(CartItemRequest cartItemRequest, User user) {
-        Part part = partService.getPartById(String.valueOf(cartItemRequest.getPartId()));
-        Cart cart = getCartByUser(user);
-
-        if (cart.getItems().stream().anyMatch(cartItem -> cartItem.getPart().getId().equals(part.getId()))) {
-            cartItemService.updateQuantity(cartItemRequest, cart, part);
+    public void createCart(UUID userId) {
+        try {
+            ResponseEntity<Void> response = cartClient.createCart(userId);
+            if (!response.getStatusCode().is2xxSuccessful()) {
+                log.error("[Feign call to cart-svc failed] Can't save user cart for user with id = [%s]".formatted(userId));
+            }
+        } catch (Exception e) {
+            log.error("Unable to call cart-svc");
         }
-        else {
-            cartItemService.createCartItem(part, cartItemRequest.getQuantity(), cart);
-        }
-        updateCart(cart);
     }
 
-    public void updateCart(Cart cart) {
-        cartRepository.save(cart);
+    public List<CartItem> getCartItemsByUserId(UUID id) {
+        List<CartItemResponse> responses = cartClient.getCartItemsByUserId(id);
+        List<CartItem> cartItems = new ArrayList<>();
+
+        for (CartItemResponse response : responses) {
+            Part partById = partService.getPartById(String.valueOf(response.getPartId()));
+            CartItem cartItem = DtoMapper.getCartItems(response, partById);
+
+            cartItems.add(cartItem);
+        }
+
+        return cartItems;
+    }
+
+    public static double getTotalWeight(List<CartItem> cartItems) {
+        return cartItems.stream().mapToDouble(CartItem::getQuantity).sum();
+    }
+
+    public static BigDecimal getTotalPriceWithVat(List<CartItem> cartItems) {
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        for (CartItem cartItem : cartItems) {
+            totalPrice = totalPrice.add(cartItem.getPart().getPrice().multiply(BigDecimal.valueOf(cartItem.getQuantity())));
+        }
+        return totalPrice.multiply(BigDecimal.valueOf(1.2));
     }
 }
