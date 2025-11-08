@@ -15,6 +15,8 @@ This project is a fully functional, full-stack e-commerce web application design
   <img width="1892" height="467" alt="image" src="https://github.com/user-attachments/assets/5eb93afb-5ce8-4206-b488-9d260876bf63" />
 
  - Shopping Cart Module: A critical feature for order management, allowing users to add, update, and remove items before checkout.
+ - <img width="1868" height="761" alt="image" src="https://github.com/user-attachments/assets/f397e3df-54d5-404d-a66f-2ff9437696b5" />
+
  - MVC Architecture: Adherence to the Model-View-Controller design pattern for clear separation of concerns, enhancing maintainability and scalability.
 
 **Technology Stack**
