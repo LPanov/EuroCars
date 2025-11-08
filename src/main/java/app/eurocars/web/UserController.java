@@ -1,11 +1,9 @@
 package app.eurocars.web;
 
-import app.eurocars.security.AuthenticationDetails;
 import app.eurocars.user.model.User;
 import app.eurocars.user.service.UserService;
 import app.eurocars.web.dto.EditUserRequest;
 import jakarta.validation.Valid;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +15,6 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/users")
 public class UserController {
-
-
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -37,13 +33,11 @@ public class UserController {
     }
 
     @GetMapping
-    public ModelAndView getUsersPage(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
-        User user = userService.getById(authenticationDetails.getUserId());
+    public ModelAndView getUsersPage() {
         List<User> allUsers = userService.getAllNonAdminUsers();
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("users");
-        modelAndView.addObject("user", user);
         modelAndView.addObject("users", allUsers);
 
         return modelAndView;
@@ -57,9 +51,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ModelAndView getEditUserPage(@AuthenticationPrincipal AuthenticationDetails authenticationDetails, @PathVariable UUID id) {
-        User user = userService.getById(authenticationDetails.getUserId());
-
+    public ModelAndView getEditUserPage(@PathVariable UUID id) {
         User editUser = userService.getById(id);
         EditUserRequest editUserRequest = EditUserRequest.builder()
                 .id(editUser.getId())
@@ -73,20 +65,17 @@ public class UserController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("edit-user");
-        modelAndView.addObject("user", user);
         modelAndView.addObject("editUserRequest", editUserRequest);
 
         return modelAndView;
     }
 
     @PutMapping("/{id}")
-    public ModelAndView editUser(@Valid EditUserRequest editUserRequest, BindingResult bindingResult, @AuthenticationPrincipal AuthenticationDetails authenticationDetails, @PathVariable UUID id) {
-        User user = userService.getById(authenticationDetails.getUserId());
+    public ModelAndView editUser(@Valid EditUserRequest editUserRequest, BindingResult bindingResult, @PathVariable UUID id) {
 
         if (bindingResult.hasErrors()) {
             ModelAndView modelAndView = new ModelAndView();
             modelAndView.setViewName("edit-user");
-            modelAndView.addObject("user", user);
             modelAndView.addObject("editUserRequest", editUserRequest);
 
             return modelAndView;
@@ -96,7 +85,6 @@ public class UserController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("edit-user");
-        modelAndView.addObject("user", user);
         modelAndView.addObject("editUserRequest", editUserRequest);
 
         return modelAndView;

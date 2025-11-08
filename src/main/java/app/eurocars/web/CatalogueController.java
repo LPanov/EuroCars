@@ -4,6 +4,8 @@ import app.eurocars.brand.model.Brand;
 import app.eurocars.brand.service.BrandService;
 import app.eurocars.car.models.model.Model;
 import app.eurocars.car.models.service.ModelService;
+import app.eurocars.cart.client.dto.CartItem;
+import app.eurocars.cart.service.CartService;
 import app.eurocars.engine.model.Engine;
 import app.eurocars.engine.service.EngineService;
 import app.eurocars.security.AuthenticationDetails;
@@ -23,22 +25,18 @@ public class CatalogueController {
 
 
     private final BrandService brandService;
-    private final UserService userService;
     private final ModelService modelService;
     private final EngineService engineService;
 
 
-    public CatalogueController(BrandService brandService, UserService userService, ModelService modelService, EngineService engineService) {
+    public CatalogueController(BrandService brandService, ModelService modelService, EngineService engineService) {
         this.brandService = brandService;
-        this.userService = userService;
         this.modelService = modelService;
         this.engineService = engineService;
     }
 
     @GetMapping("/brands")
-    public ModelAndView getBrands(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
-
-        User user = userService.getById(authenticationDetails.getUserId());
+    public ModelAndView getBrands() {
         List<Brand> cars = brandService.findALlByType(VehicleType.builder().id(1L).build());
         List<Brand> vans = brandService.findALlByType(VehicleType.builder().id(2L).build());
         List<Brand> trucks = brandService.findALlByType(VehicleType.builder().id(3L).build());
@@ -46,7 +44,6 @@ public class CatalogueController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("brands");
-        modelAndView.addObject("user", user);
         modelAndView.addObject("cars", cars);
         modelAndView.addObject("vans", vans);
         modelAndView.addObject("trucks", trucks);
@@ -56,30 +53,23 @@ public class CatalogueController {
     }
 
     @GetMapping("/models")
-    public ModelAndView getModels(@AuthenticationPrincipal AuthenticationDetails authenticationDetails,
-                                  @RequestParam String brandId) {
+    public ModelAndView getModels(@RequestParam String brandId) {
 
-        User user = userService.getById(authenticationDetails.getUserId());
         List<Model> models = modelService.findAllByBrand(brandId);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("models");
-        modelAndView.addObject("user", user);
         modelAndView.addObject("models", models);
 
         return modelAndView;
     }
 
     @GetMapping("/engines")
-    public ModelAndView getEngines(@AuthenticationPrincipal AuthenticationDetails authenticationDetails,
-                                  @RequestParam String modelId) {
-
-        User user = userService.getById(authenticationDetails.getUserId());
+    public ModelAndView getEngines(@RequestParam String modelId) {
         List<Engine> engines = engineService.findAllByModel(modelId);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("engines");
-        modelAndView.addObject("user", user);
         modelAndView.addObject("engines", engines);
 
         return modelAndView;

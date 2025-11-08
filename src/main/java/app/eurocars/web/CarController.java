@@ -1,5 +1,7 @@
 package app.eurocars.web;
 
+import app.eurocars.cart.client.dto.CartItem;
+import app.eurocars.cart.service.CartService;
 import app.eurocars.category.model.Category;
 import app.eurocars.category.service.CategoryService;
 import app.eurocars.engine.model.Engine;
@@ -23,27 +25,23 @@ import java.util.stream.Collectors;
 @RequestMapping("/cars")
 public class CarController {
 
-    private final UserService userService;
     private final EngineService engineService;
     private final CategoryService categoryService;
 
-    public CarController(UserService userService, EngineService engineService, CategoryService categoryService) {
-        this.userService = userService;
+    public CarController(EngineService engineService, CategoryService categoryService) {
         this.engineService = engineService;
         this.categoryService = categoryService;
     }
 
     @GetMapping("/{id}/categories")
-    public ModelAndView getVehicleManu(@AuthenticationPrincipal AuthenticationDetails authenticationDetails, @PathVariable Long id) {
+    public ModelAndView getVehicleManu(@PathVariable Long id) {
         Engine engine = engineService.getById(id);
-        User user = userService.getById(authenticationDetails.getUserId());
 
         List<Category> mainCategories = categoryService.getAllMainCategories();
         List<Category> subCategories = categoryService.getAllSubCategories();
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("car");
-        modelAndView.addObject("user", user);
         modelAndView.addObject("mainCategories", mainCategories);
         modelAndView.addObject("subCategories", subCategories);
         modelAndView.addObject("engine", engine);
@@ -53,14 +51,11 @@ public class CarController {
 
     @GetMapping("/0/categories")
     public ModelAndView getVehicleMenu(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
-        User user = userService.getById(authenticationDetails.getUserId());
-
         List<Category> mainCategories = categoryService.getAllMainCategories();
         List<Category> subCategories = categoryService.getAllSubCategories();
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("car");
-        modelAndView.addObject("user", user);
         modelAndView.addObject("mainCategories", mainCategories);
         modelAndView.addObject("subCategories", subCategories);
         modelAndView.addObject("engine", new Engine());

@@ -1,5 +1,7 @@
 package app.eurocars.web;
 
+import app.eurocars.cart.client.dto.CartItem;
+import app.eurocars.cart.service.CartService;
 import app.eurocars.category.model.Category;
 import app.eurocars.category.service.CategoryService;
 import app.eurocars.engine.model.Engine;
@@ -26,14 +28,12 @@ import java.util.UUID;
 public class PartController {
 
     private final PartService partService;
-    private final UserService userService;
     private final ManufacturerService manufacturerService;
     private final CategoryService categoryService;
     private final EngineService engineService;
 
-    public PartController(PartService partService, UserService userService, ManufacturerService manufacturerService, CategoryService categoryService, EngineService engineService) {
+    public PartController(PartService partService, ManufacturerService manufacturerService, CategoryService categoryService, EngineService engineService) {
         this.partService = partService;
-        this.userService = userService;
         this.manufacturerService = manufacturerService;
         this.categoryService = categoryService;
         this.engineService = engineService;
@@ -41,17 +41,13 @@ public class PartController {
 
     @RequestMapping("/part")
     @GetMapping
-    public ModelAndView getPartPage(
-            @AuthenticationPrincipal AuthenticationDetails authenticationDetails,
-            @RequestParam(value = "partId") String partId) {
-        User user = userService.getById(authenticationDetails.getUserId());
+    public ModelAndView getPartPage(@RequestParam(value = "partId") String partId) {
         Part selectedPart = partService.getPartById(partId);
         List<Part> crossReferences = partService.findCrossReferences(selectedPart);
         CartItemRequest cartItemRequest = CartItemRequest.builder().partId(selectedPart.getId()).build();
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("part");
-        modelAndView.addObject("user", user);
         modelAndView.addObject("part", selectedPart);
         modelAndView.addObject("crossReferences", crossReferences);
         modelAndView.addObject("cartItemRequest", cartItemRequest);
@@ -60,15 +56,13 @@ public class PartController {
     }
 
     @GetMapping("parts-settings/new-part")
-    public ModelAndView getAddPartPage(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
-        User user = userService.getById(authenticationDetails.getUserId());
+    public ModelAndView getAddPartPage() {
         List<Manufacturer> allManufacturers = manufacturerService.getAllManufacturers();
         List<Category> allCategories = categoryService.getAllCategories();
         List<Engine> allEngines = engineService.getAllEngines();
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("add-part");
-        modelAndView.addObject("user", user);
         modelAndView.addObject("createPart", new AddPartRequest());
         modelAndView.addObject("allManufacturers", allManufacturers);
         modelAndView.addObject("allCategories", allCategories);
@@ -78,22 +72,19 @@ public class PartController {
     }
 
     @PostMapping("parts-settings/new-part")
-    public ModelAndView createNewPart(@Valid AddPartRequest createPart, @AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
+    public ModelAndView createNewPart(@Valid AddPartRequest createPart) {
 
         partService.createPart(createPart);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/parts-settings/add-part");
         modelAndView.addObject("createPart", createPart);
-        modelAndView.addObject("user", userService.getById(authenticationDetails.getUserId()));
 
         return modelAndView;
     }
 
     @GetMapping("/parts-settings/{partId}")
-    public ModelAndView getEditPartPage(@AuthenticationPrincipal AuthenticationDetails authenticationDetails,
-                                        @PathVariable String partId) {
-        User user = userService.getById(authenticationDetails.getUserId());
+    public ModelAndView getEditPartPage(@PathVariable String partId) {
         Part part = partService.getPartById(partId);
         List<Manufacturer> allManufacturers = manufacturerService.getAllManufacturers();
         List<Category> allCategories = categoryService.getAllCategories();
@@ -112,7 +103,6 @@ public class PartController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("edit-part");
-        modelAndView.addObject("user", user);
         modelAndView.addObject("part", part);
         modelAndView.addObject("editPart", editPart);
         modelAndView.addObject("allManufacturers", allManufacturers);
@@ -124,7 +114,6 @@ public class PartController {
 
     @PutMapping("/parts-settings/{partId}")
     public ModelAndView editPart(@Valid AddPartRequest editPart,
-                                 @AuthenticationPrincipal AuthenticationDetails authenticationDetails,
                                  @PathVariable String partId) {
 
         partService.updatePart(editPart, partId);
@@ -132,7 +121,6 @@ public class PartController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/parts-settings/"+partId);
         modelAndView.addObject("editPart", editPart);
-        modelAndView.addObject("user", userService.getById(authenticationDetails.getUserId()));
 
         return modelAndView;
     }

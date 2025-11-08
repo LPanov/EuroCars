@@ -15,7 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,12 +23,10 @@ import java.util.UUID;
 public class CartController {
 
     private final CartService cartService;
-    private final PartService partService;
     private final UserService userService;
 
-    public CartController(CartService cartService, PartService partService, UserService userService) {
+    public CartController(CartService cartService, UserService userService) {
         this.cartService = cartService;
-        this.partService = partService;
         this.userService = userService;
     }
 
@@ -42,6 +39,7 @@ public class CartController {
         modelAndView.setViewName("cart");
         modelAndView.addObject("user", user);
         modelAndView.addObject("items", items);
+        modelAndView.addObject("wholePrice", cartService.getWholePrice(items));
 
         return modelAndView;
     }

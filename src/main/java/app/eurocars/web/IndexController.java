@@ -1,5 +1,7 @@
 package app.eurocars.web;
 
+import app.eurocars.cart.client.dto.CartItem;
+import app.eurocars.cart.service.CartService;
 import app.eurocars.security.AuthenticationDetails;
 import app.eurocars.user.model.User;
 import app.eurocars.user.service.UserService;
@@ -15,14 +17,18 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
 public class IndexController {
 
 
     private final UserService userService;
+    private final CartService cartService;
 
-    public IndexController(UserService userService) {
+    public IndexController(UserService userService, CartService cartService) {
         this.userService = userService;
+        this.cartService = cartService;
     }
 
     @GetMapping("/")
@@ -91,10 +97,13 @@ public class IndexController {
     public ModelAndView getHomePage(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
 
         User user = userService.getById(authenticationDetails.getUserId());
+        List<CartItem> items = cartService.getCartItemsByUserId(user.getId());
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("home");
         modelAndView.addObject("user", user);
+        modelAndView.addObject("items", items);
+        modelAndView.addObject("wholePrice", cartService.getWholePrice(items));
 
         return modelAndView;
     }

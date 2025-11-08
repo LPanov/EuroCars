@@ -95,4 +95,12 @@ public class CartService {
             log.error("Unable to call cart-svc");
         }
     }
+
+    public BigDecimal getWholePrice(List<CartItem> items) {
+        BigDecimal price = BigDecimal.ZERO;
+        for (CartItem item : items) {
+            price = price.add(item.getPart().getPrice().multiply(BigDecimal.valueOf(item.getQuantity()))).multiply(BigDecimal.valueOf(1.2));
+        }
+        return price;
+    }
 }
