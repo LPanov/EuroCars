@@ -7,9 +7,11 @@ import app.eurocars.part.service.PartService;
 import app.eurocars.security.AuthenticationDetails;
 import app.eurocars.user.model.User;
 import app.eurocars.user.service.UserService;
-import app.eurocars.web.dto.CartItemRequest;
+import app.eurocars.cart.client.dto.CartItemRequest;
+import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -35,25 +37,22 @@ public class CartController {
     public ModelAndView getCartPage(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
         User user = userService.getById(authenticationDetails.getUserId());
         List<CartItem> items = cartService.getCartItemsByUserId(user.getId());
-        BigDecimal totalPriceWithVat = CartService.getTotalPriceWithVat(items);
-        double totalWeight = CartService.getTotalWeight(items);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("cart");
         modelAndView.addObject("user", user);
         modelAndView.addObject("items", items);
-        modelAndView.addObject("totalPriceWithVat", totalPriceWithVat);
-        modelAndView.addObject("totalWeight", totalWeight);
 
         return modelAndView;
     }
 
-    @PostMapping
-    public ModelAndView addToCart(CartItemRequest cartItemRequest, @AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
-        if (cartItemRequest.getPartId() != null) {
+    @PostMapping("/item")
+    public ModelAndView addToCart(@Valid CartItemRequest cartItemRequest, BindingResult bindingResult, @AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
+        if (!bindingResult.hasErrors()) {
             User user = userService.getById(authenticationDetails.getUserId());
+            cartItemRequest.setUserId(user.getId());
 
-//            cartService.addToCart(cartItemRequest, user);
+            cartService.addToCart(cartItemRequest);
 
             return new ModelAndView("redirect:/part?partId=" + cartItemRequest.getPartId());
         }
@@ -61,9 +60,9 @@ public class CartController {
         return new ModelAndView("redirect:/home");
     }
 
-    @DeleteMapping
-    public ModelAndView deleteCartItem(@RequestParam Long itemId) {
-//        cartItemService.deleteCartItem(itemId);
+    @DeleteMapping("/item")
+    public ModelAndView deleteCartItem(@RequestParam UUID itemId) {
+        cartService.removeFromCart(itemId);
 
         return new ModelAndView("redirect:/cart");
     }

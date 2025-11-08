@@ -12,7 +12,7 @@ import app.eurocars.security.AuthenticationDetails;
 import app.eurocars.user.model.User;
 import app.eurocars.user.service.UserService;
 import app.eurocars.web.dto.AddPartRequest;
-import app.eurocars.web.dto.CartItemRequest;
+import app.eurocars.cart.client.dto.CartItemRequest;
 import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;

@@ -1,9 +1,5 @@
 package app.eurocars.web;
 
-import app.eurocars.category.model.Category;
-import app.eurocars.category.service.CategoryService;
-import app.eurocars.engine.model.Engine;
-import app.eurocars.engine.service.EngineService;
 import app.eurocars.manufacturer.model.Manufacturer;
 import app.eurocars.manufacturer.service.ManufacturerService;
 import app.eurocars.part.model.Part;
@@ -11,7 +7,6 @@ import app.eurocars.part.service.PartService;
 import app.eurocars.security.AuthenticationDetails;
 import app.eurocars.user.model.User;
 import app.eurocars.user.service.UserService;
-import app.eurocars.web.dto.CartItemRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,10 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class PartsController {

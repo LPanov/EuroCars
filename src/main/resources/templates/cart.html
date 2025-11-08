@@ -37,7 +37,7 @@
                             <td><div class="product">
                                     <div class="buttons">
                                         <input type="checkbox" class="product-checkbox">
-                                        <form th:action="@{/cart(itemId=${item.id})}" th:method="DELETE">
+                                        <form th:action="@{/cart/item(itemId=${item.id})}" th:method="DELETE">
                                             <button class="remove-button">✕</button>
                                         </form>
 
@@ -62,8 +62,8 @@
                                 <input type="number" th:value="${item.quantity}" class="quantity-input">
                             </td>
                             <td><div class="vat" th:text="${#numbers.formatDecimal(item.part.price * 1.2, 0, 2)} + ' EUR'" th:data-unit-price="${#numbers.formatDecimal(item.part.price * 1.2, 0, 2)}">1,294.00</div></td>
-                            <td><div class="price" th:text="${#numbers.formatDecimal(totalPriceWithVat, 0, 2) + ' EUR'}">1,294.00 BGN</div></td>
-                            <td><div class="weight" th:text="${#numbers.formatDecimal(totalWeight, 1, 2) + ' kg'}" th:data-unit-weight="${#numbers.formatDecimal(totalWeight, 1, 2)}">12.00 kg</div></td>
+                            <td><div class="price" th:text="${#numbers.formatDecimal(item.getTotalPriceWithVat(), 0, 2) + ' EUR'}">1,294.00 BGN</div></td>
+                            <td><div class="weight" th:text="${#numbers.formatDecimal(item.getTotalWeight(), 1, 2) + ' kg'}" th:data-unit-weight="${#numbers.formatDecimal(item.getTotalWeight(), 1, 2)}">12.00 kg</div></td>
                         </tr>
                     </tbody>
                 </table>
@@ -180,7 +180,7 @@
 
                 // Calculate the total price for the current row
                 const rowTotalPrice = unitPrice * quantity;
-                const rowTotalWeight = unitWeight * quantity;
+                const rowTotalWeight = (unitWeight/quantity) * quantity;
 
                 // --- Update Table Cells (Real-time Feedback) ---
 

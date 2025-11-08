@@ -13,5 +13,15 @@ public class CartItem {
     private UUID id;
     private Part part;
     private int quantity;
+
+    public BigDecimal getTotalPriceWithVat() {
+        return this.part.getPrice().multiply(new BigDecimal(this.quantity)).multiply(new BigDecimal("1.2"));
+    }
+
+    public double getTotalWeight() {
+        return this.part.getWeight() * this.quantity;
+    }
 }
+
+
 
