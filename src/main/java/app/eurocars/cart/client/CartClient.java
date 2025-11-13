@@ -15,7 +15,6 @@ public interface CartClient {
     @GetMapping("/test")
     ResponseEntity<String> getHelloMessage(@RequestParam(name = "name") String name);
 
-
     @PostMapping("/cart")
     ResponseEntity<Void> createCart(@RequestParam(name = "userId") UUID userId);
 

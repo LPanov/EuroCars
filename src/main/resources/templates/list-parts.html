@@ -30,30 +30,31 @@
             </div>
         </div>
         <div class="product-list">
-            <div class="product-item" th:each="part, partStat : ${parts}">
+            <div class="product-item" th:each="listedPart : ${listedParts}">
                 <div class="img-info">
                     <div class="product-image-col">
-                        <img th:src="${#lists.isEmpty(part.imgUrls) ? '/images/default.png' : part.imgUrls[0]}"
-                             th:alt="${part.name}" class="product-image">
+                        <img th:src="${#lists.isEmpty(listedPart.part.imgUrls) ? '/images/default.png' : listedPart.part.imgUrls[0]}"
+                             th:alt="${listedPart.part.name}" class="product-image">
                     </div>
                     <div class="product-details-col">
-                        <a class="product-title" th:href="@{/part(partId=${part.id})}" th:text="${part.name}">0 250 403 002</a>
-                        <div class="product-specs" th:text="${part.description}">Glow Plug</div>
-                        <div class="product-specs" th:text="${part.additionalInformation}"></div>
+                        <a class="product-title" th:href="@{/part(partId=${listedPart.part.id})}" th:text="${listedPart.part.name}">0 250 403 002</a>
+                        <div class="product-specs" th:text="${listedPart.part.description}">Glow Plug</div>
+                        <div class="product-specs" th:text="${listedPart.part.additionalInformation}"></div>
                     </div>
                 </div>
                 
                 <div class="manufacturer">
-                    <img th:src="${part.manufacturer.imgUrl}" th:alt="${part.manufacturer.name}" class="manufacturer-logo">
+                    <img th:src="${listedPart.part.manufacturer.imgUrl}" th:alt="${listedPart.part.manufacturer.name}" class="manufacturer-logo">
                 </div>
                 <div class="availability-col">
                     <div class="availability-info">1 business day (in branch)</div>
                 </div>
                 
                 <div class="price-col">
-                    <div class="current-price" th:text="${user.pricesWithVAT ? #numbers.formatDecimal(part.price * 1.2, 0, 2) : #numbers.formatDecimal(part.price, 0, 2)} + ' EUR'"></div>
-                    <form class="quantity-form" >
-                        <input type="number" class="quantity-input" value="1" min="1">
+                    <div class="current-price" th:text="${user.pricesWithVAT ? #numbers.formatDecimal(listedPart.part.price * 1.2, 0, 2) : #numbers.formatDecimal(listedPart.part.price, 0, 2)} + ' EUR'"></div>
+                    <form class="quantity-form" th:action="@{/cart/item}" th:method="post" th:object="${listedPart}">
+                        <input type="number" class="quantity-input" min="1" th:value="*{cartItem.quantity}">
+                        <input type="hidden" th:value="*{cartItem.partId}"/>
                         <button class="add-to-cart-button"><i class="fa-solid fa-cart-shopping"></i></button>
                     </form>
                 </div>
