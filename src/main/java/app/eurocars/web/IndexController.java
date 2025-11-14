@@ -72,7 +72,7 @@ public class IndexController {
     }
 
 
-    @GetMapping("/forgot-password")
+    @GetMapping("/forgotten-password")
     public ModelAndView getForgotPasswordPage() {
 
         ModelAndView modelAndView = new ModelAndView();
@@ -82,13 +82,17 @@ public class IndexController {
         return modelAndView;
     }
 
-    @PutMapping("/forgot-password")
+    @PutMapping("/forgotten-password")
     public ModelAndView changePassword(@Valid ChangePasswordRequest changePasswordRequest, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return new ModelAndView("forgot-password");
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("forgot-password");
+            modelAndView.addObject("changerPassRequest", new ChangePasswordRequest());
+
+            return modelAndView;
         }
 
-        User user = userService.changePassword(changePasswordRequest);
+        userService.changePassword(changePasswordRequest);
 
         return new ModelAndView("redirect:/login");
     }

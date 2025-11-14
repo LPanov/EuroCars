@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 Page Not Found</title>
+    <title>500 Internal Server Error</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Define custom shadow utility: NOW BIGGER AND MORE VISIBLE */
         .shadow-3xl {
             box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.4), 0 25px 50px -25px rgba(0, 0, 0, 0.5);
         }
 
         body {
             font-family: 'Inter', sans-serif;
+            /* Note: The image path /images/background_image.jpg must be correct for the background to show */
             background-image: url("/images/background_image.jpg");
             background-size: cover;
             background-position: center;
@@ -20,31 +20,30 @@
 
         /* Custom styling for the card, adding a subtle backdrop blur effect */
         .error-card {
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            padding: 2rem; /* Consistent 2rem padding applied here */
+            background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent white */
+            backdrop-filter: blur(8px); /* Subtle blur effect on the background behind the card */
+            -webkit-backdrop-filter: blur(8px); /* For Safari support */
         }
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
 
-<div class="error-card text-center max-w-md w-full mx-auto rounded-xl shadow-2xl transition duration-500 transform hover:scale-[1.01] hover:shadow-3xl">
+<div class="error-card text-center max-w-md w-full mx-auto p-8 sm:p-10 rounded-xl shadow-2xl transition duration-500 transform hover:scale-[1.01] hover:shadow-3xl">
 
     <div class="text-6xl mb-4">
-        🔍
+        🛠️
     </div>
 
-    <div class="text-7xl font-extrabold text-orange-500 leading-none mb-4">
-        404
+    <div class="text-7xl font-extrabold text-red-600 leading-none mb-4">
+        500
     </div>
 
     <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-800 mb-2">
-        Page Not Found
+        Internal Server Error
     </h1>
 
     <p class="text-sm text-gray-500 mb-8 max-w-sm mx-auto">
-        It looks like the page you were looking for doesn't exist (or was disassembled). Please check the URL or use the button below to go back home.
+        Oops! We ran into a technical issue. Our team has been notified. Please try refreshing or feel free to contact us if the problem persists.
     </p>
 
     <a th:href="@{/home}" class="inline-block w-full sm:w-auto px-8 py-3 text-base font-semibold tracking-wide text-white bg-black rounded-lg transition duration-300 transform hover:bg-gray-700 active:scale-95 shadow-md hover:shadow-lg">

@@ -6,14 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import java.util.Arrays;
 
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
@@ -25,8 +19,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 .authorizeHttpRequests(authorize -> authorize
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .requestMatchers( "/", "/register", "/forgot-password").permitAll()
-                        .requestMatchers("/users", "/parts-settings", "/users/{id}/edit", "/parts-settings/add-part", "/parts-settings/{partId}/edit").hasAuthority("ADMIN")
+                        .requestMatchers( "/", "/register", "/forgotten-password").permitAll()
+                        .requestMatchers("/users", "/parts-settings", "/users/{id}", "/parts-settings/new-part", "/parts-settings/{partId}").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
@@ -41,8 +35,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/")
-                )
-                .csrf().disable();
+                );
 
         return http.build();
     }

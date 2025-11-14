@@ -2,6 +2,8 @@ package app.eurocars.user.service;
 
 import app.eurocars.cart.service.CartService;
 import app.eurocars.exception.DomainException;
+import app.eurocars.exception.EmailAlreadyExistException;
+import app.eurocars.exception.NotMatchingPasswords;
 import app.eurocars.security.AuthenticationDetails;
 import app.eurocars.user.model.Country;
 import app.eurocars.user.model.Role;
@@ -52,12 +54,12 @@ public class UserService implements UserDetailsService {
         Optional<User> userOptional = userRepository.findByEmail(registerRequest.getEmail());
 
         if (userOptional.isPresent()) {
-            throw new DomainException("Email '%s' already exists".formatted(registerRequest.getEmail()));
+            throw new EmailAlreadyExistException("Email '%s' already exists".formatted(registerRequest.getEmail()));
         }
 
         User user = modelMapper.map(registerRequest, User.class);
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
-        user.setRole(Role.USER);
+        user.setRole(getAllUsers().isEmpty() ? Role.ADMIN : Role.USER);
         user.setIsActive(true);
         user.setCountry(Country.BULGARIA);
         LocalDateTime now = LocalDateTime.now();
@@ -95,10 +97,10 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public User changePassword(ChangePasswordRequest changePasswordRequest) {
+    public void changePassword(ChangePasswordRequest changePasswordRequest) {
 
         if (!changePasswordRequest.getPassword().equals(changePasswordRequest.getConfirmPassword())) {
-            throw new DomainException("Passwords do not match");
+            throw new NotMatchingPasswords("Passwords do not match");
         }
 
         User user = userRepository.findByEmail(changePasswordRequest.getEmail()).orElseThrow(() -> new DomainException("Profile with such email does not exist"));
@@ -113,7 +115,7 @@ public class UserService implements UserDetailsService {
                 .build();
 
         eventPublisher.publishEvent(event);
-        return userRepository.save(user);
+        updateUser(user);
     }
 
     public void deleteUserById(UUID id) {
@@ -126,6 +128,7 @@ public class UserService implements UserDetailsService {
         editUser.setOwnerName(editUserRequest.getOwnerName());
         editUser.setCompanyName(editUserRequest.getCompanyName());
         editUser.setCompanyAddress(editUserRequest.getCompanyAddress());
+        editUser.setRole(editUserRequest.getRole());
         editUser.setPhoneNumber(editUserRequest.getPhoneNumber());
         editUser.setEmail(editUserRequest.getEmail());
         editUser.setCountry(editUserRequest.getCountry());

@@ -1,6 +1,7 @@
 package app.eurocars.web.dto;
 
 import app.eurocars.user.model.Country;
+import app.eurocars.user.model.Role;
 import app.eurocars.util.annotations.Password;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -43,6 +44,8 @@ public class EditUserRequest {
     private String state;
 
     private Country country;
+
+    private Role role;
 
     @Password(minLength = 5,
             containsUpperCase = true,
