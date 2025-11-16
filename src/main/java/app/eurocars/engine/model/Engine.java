@@ -3,8 +3,7 @@ package app.eurocars.engine.model;
 import app.eurocars.car.models.model.Model;
 import app.eurocars.part.model.Part;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,6 +12,8 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "engines")
+@Builder
+@AllArgsConstructor
 public class Engine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

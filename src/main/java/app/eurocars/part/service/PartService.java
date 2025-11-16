@@ -35,7 +35,7 @@ public class PartService {
     }
 
     public List<Part> getAllFilteredParts(String vehicleId, String categoryId, String input) {
-        List<Part> allParts = partRepository.findAll();
+        List<Part> allParts = getAllParts();
 
         if (vehicleId != null) {
             Engine selectedEngine = engineService.getById(Long.valueOf(vehicleId));
@@ -52,10 +52,6 @@ public class PartService {
         }
 
         return allParts;
-    }
-
-    public void save(Part part) {
-        partRepository.save(part);
     }
 
     public Part getPartById(String partId) {

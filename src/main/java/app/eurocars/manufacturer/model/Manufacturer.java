@@ -2,8 +2,7 @@ package app.eurocars.manufacturer.model;
 
 import app.eurocars.part.model.Part;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,6 +12,9 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "manufacturers")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Manufacturer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

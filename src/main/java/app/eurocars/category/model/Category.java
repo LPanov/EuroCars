@@ -2,8 +2,7 @@ package app.eurocars.category.model;
 
 import app.eurocars.part.model.Part;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +12,9 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "part_categories")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
