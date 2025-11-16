@@ -57,6 +57,7 @@ public class UserController {
                 .id(editUser.getId())
                 .companyAddress(editUser.getCompanyAddress())
                 .companyName(editUser.getCompanyName())
+                .role(editUser.getRole())
                 .country(editUser.getCountry())
                 .email(editUser.getEmail())
                 .phoneNumber(editUser.getPhoneNumber())

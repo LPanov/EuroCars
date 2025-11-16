@@ -2,6 +2,7 @@ package app.eurocars.category.service;
 
 import app.eurocars.category.model.Category;
 import app.eurocars.category.repository.CategoryRepository;
+import app.eurocars.exception.CategoryNotFound;
 import app.eurocars.exception.DomainException;
 import org.springframework.stereotype.Service;
 
@@ -29,10 +30,6 @@ public class CategoryService {
     }
 
     public Category getById(Long id) {
-        return categoryRepository.findById(id).orElseThrow(() -> new DomainException("Category with id " + id + " does not exist"));
-    }
-
-    public Category findById(Long id) {
-        return categoryRepository.findById(id).orElseThrow(() -> new DomainException("Category with id " + id + " does not exist"));
+        return categoryRepository.findById(id).orElseThrow(() -> new CategoryNotFound("Category with id " + id + " does not exist"));
     }
 }

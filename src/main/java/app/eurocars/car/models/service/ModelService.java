@@ -2,9 +2,9 @@ package app.eurocars.car.models.service;
 
 import app.eurocars.car.models.model.Model;
 import app.eurocars.car.models.repository.ModelRepository;
+import app.eurocars.exception.ModelNotFound;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,5 +24,9 @@ public class ModelService {
         }
 
         return allModelsByBrand;
+    }
+
+    public Model getById(Long modelId) {
+        return modelRepository.findModelById(modelId).orElseThrow(() -> new ModelNotFound("Model with such id does not exist"));
     }
 }

@@ -1,10 +1,6 @@
 package app.eurocars.web;
 
-import app.eurocars.exception.CartServiceFeignCallException;
-import app.eurocars.exception.EmailAlreadyExistException;
-import app.eurocars.exception.NotMatchingPasswords;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.constraints.Email;
+import app.eurocars.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MissingRequestValueException;
@@ -39,11 +35,18 @@ public class ExceptionAdvice {
             AccessDeniedException.class,
             NoResourceFoundException.class,
             MethodArgumentTypeMismatchException.class,
-            MissingRequestValueException.class
+            MissingRequestValueException.class,
+            EngineNotFound.class,
+            CategoryNotFound.class,
+            ModelNotFound.class
     })
     public ModelAndView handleNotFoundExceptions(Exception exception) {
 
-        return new ModelAndView("not-found");
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("not-found");
+        modelAndView.addObject("exception", exception.getClass().getSimpleName());
+
+        return modelAndView;
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -52,7 +55,7 @@ public class ExceptionAdvice {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("internal-server-error");
-        modelAndView.addObject("errorMessage", exception.getClass().getSimpleName());
+        modelAndView.addObject("exception", exception.getClass().getSimpleName());
 
         return modelAndView;
     }

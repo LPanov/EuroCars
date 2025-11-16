@@ -17,7 +17,7 @@
             <a class="previous" th:href="@{/brands}"><i class="fa-solid fa-arrow-left"></i>BACK</a>
             <h3>Choose model</h3>
             <ul>
-                <li th:each="model : ${models}">
+                <li th:unless="${models.isEmpty()}" th:each="model : ${models}">
                     <a th:href="@{/engines(modelId=${model.id})}"><span class="model" th:text="${model.name}"></span><span class="years" th:text="${model.prodYears}"></span></a>
                 </li>
             </ul>

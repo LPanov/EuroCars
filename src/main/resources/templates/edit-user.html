@@ -29,6 +29,14 @@
                     </div>
 
                     <div class="mb-4">
+                        <label for="role" class="block text-sm font-medium text-gray-700 mb-1">Role</label>
+                        <select th:field="*{role}" id="role" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                            <option value="">Select Role</option>
+                            <option th:each="role : ${T(app.eurocars.user.model.Role).values()}" th:value="${role}" th:text="${role}"></option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
                         <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email<span class="text-red-600 text-xl">*</span></label>
                         <input id="email" placeholder="example@mail.com" type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required th:field="*{email}">
                     </div>
@@ -37,14 +45,6 @@
                         <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone<span class="text-red-600 text-xl">*</span></label>
                         <input id="phone" placeholder="+359*********" type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" th:field="*{phoneNumber}">
                     </div>
-                </div>
-
-                <div class="mb-4">
-                    <label for="country" class="block text-sm font-medium text-gray-700 mb-1">Role</label>
-                    <select th:field="*{role}" id="role" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
-                        <option value="">Select Role</option>
-                        <option th:each="role : ${T(app.eurocars.user.model.Role).values()}" th:value="${role}" th:text="${role}"></option>
-                    </select>
                 </div>
 
                 <div>

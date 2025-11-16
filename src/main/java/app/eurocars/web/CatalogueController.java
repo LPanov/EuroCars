@@ -67,10 +67,12 @@ public class CatalogueController {
     @GetMapping("/engines")
     public ModelAndView getEngines(@RequestParam String modelId) {
         List<Engine> engines = engineService.findAllByModel(modelId);
+        Long brandId = modelService.getById(Long.valueOf(modelId)).getBrand().getId();
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("engines");
         modelAndView.addObject("engines", engines);
+        modelAndView.addObject("brandId", brandId);
 
         return modelAndView;
     }

@@ -1,5 +1,6 @@
 package app.eurocars._config;
 
+import app.eurocars.web.CustomAccessDeniedHandler;
 import jakarta.servlet.DispatcherType;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +12,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
+
+    private final CustomAccessDeniedHandler accessDeniedHandler;
+
+    public WebMvcConfiguration(CustomAccessDeniedHandler accessDeniedHandler) {
+        this.accessDeniedHandler = accessDeniedHandler;
+    }
 
     //Implementing spring security instead of session management
     @Bean
@@ -35,6 +42,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/")
+                ).exceptionHandling(exceptions -> exceptions
+                        .accessDeniedHandler(accessDeniedHandler)
                 );
 
         return http.build();

@@ -14,11 +14,11 @@
     <div class="container">
         <div class="engines 50">
             <input type="text" class="search-bar" placeholder="Type engine...">
-            <a class="previous-en" th:href="@{/models(brandId=${engines[0].model.brand.id})}"><i class="fa-solid fa-arrow-left"></i>BACK</a>
+            <a class="previous-en" th:href="@{/models(brandId=${brandId})}"><i class="fa-solid fa-arrow-left"></i>BACK</a>
             <h3>Choose engine</h3>
             <ul>
                 <li><span>Type</span><span>Production years</span><span>kW</span><span>HP</span><span>CCM</span></li>
-                <li th:each="engine : ${engines}"><a th:href="@{/cars/{engineId}/categories(engineId=${engine.id})}">
+                <li th:unless="${engines.isEmpty()}" th:each="engine : ${engines}"><a th:href="@{/cars/{engineId}/categories(engineId=${engine.id})}">
                     <span th:text="${engine.type}">0.8</span><span th:text="${engine.prodYears}"></span><span th:text="${engine.kw}"></span><span th:text="${engine.hp}">34</span><span th:text="${engine.engCapacity}">771</span>
                 </a></li>
             </ul>

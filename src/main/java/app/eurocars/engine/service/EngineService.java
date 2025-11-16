@@ -4,6 +4,7 @@ import app.eurocars.car.models.model.Model;
 import app.eurocars.engine.model.Engine;
 import app.eurocars.engine.repository.EngineRepository;
 import app.eurocars.exception.DomainException;
+import app.eurocars.exception.EngineNotFound;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,11 +20,7 @@ public class EngineService {
     }
 
     public Engine getById(Long id) {
-        return engineRepository.findById(id).orElseThrow(() -> new DomainException("Car with such engine id does not exist"));
-    }
-
-    public Engine findById(String engineId) {
-        return engineRepository.findById(Long.valueOf(engineId)).orElseThrow(() -> new DomainException("Car with such engine id does not exist"));
+        return engineRepository.findById(id).orElseThrow(() -> new EngineNotFound("Car with such engine id does not exist"));
     }
 
     public List<Engine> findAllByModel(String modelId) {

@@ -38,7 +38,7 @@ public class PartService {
         List<Part> allParts = partRepository.findAll();
 
         if (vehicleId != null) {
-            Engine selectedEngine = engineService.findById(vehicleId);
+            Engine selectedEngine = engineService.getById(Long.valueOf(vehicleId));
             allParts = allParts.stream().filter(p -> p.getEngines().stream().anyMatch(e -> e.getId().equals(selectedEngine.getId()))).toList();
         }
 
@@ -109,8 +109,8 @@ public class PartService {
     public void createPart(AddPartRequest createPart) {
         Set<Engine> engines = new HashSet<>();
 
-        Category category = categoryService.findById(createPart.getCategory());
-        Engine engine = engineService.findById(String.valueOf(createPart.getEngine()));
+        Category category = categoryService.getById(createPart.getCategory());
+        Engine engine = engineService.getById(createPart.getEngine());
         Manufacturer manufacturer = manufacturerService.findById(createPart.getManufacturer());
 
         engines.add(engine);
@@ -140,8 +140,8 @@ public class PartService {
     public void updatePart(AddPartRequest editPart, String partId) {
         Part part = getPartById(partId);
 
-        Category category = categoryService.findById(editPart.getCategory());
-        Engine engine = engineService.findById(String.valueOf(editPart.getEngine()));
+        Category category = categoryService.getById(editPart.getCategory());
+        Engine engine = engineService.getById(editPart.getEngine());
         Manufacturer manufacturer = manufacturerService.findById(editPart.getManufacturer());
 
         Set<String> imgUrls = getUrls(editPart);
