@@ -168,12 +168,12 @@
 
                 // Get the Unit Price (Price per item incl. VAT)
                 const unitPriceDiv = row.querySelector('.vat');
-                // We use the data-unit-price attribute for reliable math
+                // We use the data-service-price attribute for reliable math
                 const unitPrice = parseNumber(unitPriceDiv.getAttribute('data-unit-price') || unitPriceDiv.textContent);
 
                 // Get the Unit Weight (Weight per item)
                 const unitWeightDiv = row.querySelector('.weight');
-                // We use the data-unit-weight attribute for reliable math
+                // We use the data-service-weight attribute for reliable math
                 const unitWeight = parseNumber(unitWeightDiv.getAttribute('data-unit-weight') || unitWeightDiv.textContent);
 
                 // --- Calculate Row Totals ---

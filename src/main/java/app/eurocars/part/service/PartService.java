@@ -59,13 +59,17 @@ public class PartService {
     }
 
     public List<Part> findCrossReferences(Part part) {
-        List<Part> partsByCategory = partRepository.findPartsByCategory(part.getCategory());
         List<Part> filteredParts = new ArrayList<>();
 
-        for (Part p : partsByCategory) {
-            for (Engine e : p.getEngines()) {
-                if (part.getEngines().stream().anyMatch(engine -> engine.getId().equals(e.getId()) && !part.getId().equals(p.getId())) ) {
-                    filteredParts.add(p);
+        if (part != null) {
+            List<Part> partsByCategory = partRepository.findPartsByCategory(part.getCategory());
+
+
+            for (Part p : partsByCategory) {
+                for (Engine e : p.getEngines()) {
+                    if (part.getEngines().stream().anyMatch(engine -> engine.getId().equals(e.getId()) && !part.getId().equals(p.getId())) ) {
+                        filteredParts.add(p);
+                    }
                 }
             }
         }
