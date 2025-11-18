@@ -34,21 +34,18 @@ import java.util.UUID;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
-    private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
     private final ApplicationEventPublisher eventPublisher;
     private final CartService cartService;
 
 
-    public UserService(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder, ApplicationEventPublisher eventPublisher, CartService cartService) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, ApplicationEventPublisher eventPublisher, CartService cartService) {
         this.userRepository = userRepository;
-        this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
         this.eventPublisher = eventPublisher;
         this.cartService = cartService;
     }
 
-//    @CacheEvict(value = "users", allEntries = true)
     @Transactional
     public User register(RegisterRequest registerRequest) {
         Optional<User> userOptional = userRepository.findByEmail(registerRequest.getEmail());
@@ -57,18 +54,23 @@ public class UserService implements UserDetailsService {
             throw new EmailAlreadyExistException("Email '%s' already exists".formatted(registerRequest.getEmail()));
         }
 
-        User user = modelMapper.map(registerRequest, User.class);
-        user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
-        user.setRole(getAllUsers().isEmpty() ? Role.ADMIN : Role.USER);
-        user.setIsActive(true);
-        user.setCountry(Country.BULGARIA);
-        LocalDateTime now = LocalDateTime.now();
-        user.setCreatedOn(now);
-        user.setUpdatedOn(now);
-        user.setPricesWithVAT(true);
-        user.setWholesalePrices(true);
-        user.setProductsOrder(true);
-        user.setShowWeight(true);
+        User user = User.builder()
+                .companyName(registerRequest.getCompanyName())
+                .ownerName(registerRequest.getOwnerName())
+                .companyAddress(registerRequest.getCompanyAddress())
+                .email(registerRequest.getEmail())
+                .phoneNumber(registerRequest.getPhoneNumber())
+                .password(passwordEncoder.encode(registerRequest.getPassword()))
+                .role(getAllUsers().isEmpty() ? Role.ADMIN : Role.USER)
+                .isActive(true)
+                .country(Country.BULGARIA)
+                .pricesWithVAT(true)
+                .wholesalePrices(true)
+                .productsOrder(true)
+                .showWeight(true)
+                .createdOn(LocalDateTime.now())
+                .updatedOn(LocalDateTime.now())
+                .build();
 
         userRepository.save(user);
         cartService.createCart(user.getId());
@@ -106,6 +108,7 @@ public class UserService implements UserDetailsService {
         User user = userRepository.findByEmail(changePasswordRequest.getEmail()).orElseThrow(() -> new DomainException("Profile with such email does not exist"));
 
         user.setPassword(passwordEncoder.encode(changePasswordRequest.getPassword()));
+        user.setUpdatedOn(LocalDateTime.now());
         log.info("Successfully changed password for profile with email: '%s'".formatted(user.getEmail()));
 
         ChangedPasswordEvent event = ChangedPasswordEvent.builder()
@@ -122,7 +125,7 @@ public class UserService implements UserDetailsService {
         userRepository.deleteById(id);
     }
 
-    public void editUser(@Valid EditUserRequest editUserRequest, UUID editUserId) {
+    public void editUser(EditUserRequest editUserRequest, UUID editUserId) {
         User editUser = getById(editUserId);
 
         editUser.setOwnerName(editUserRequest.getOwnerName());
