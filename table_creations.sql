@@ -533,3 +533,43 @@ INSERT INTO part_categories (name, parent_category_id) VALUES
 
 select * from part_categories;
 
+INSERT INTO manufacturers (img_ulr, name)
+VALUES
+    ('https://i.ibb.co/V4hDX1ZP/elstock.jpg', 'ELSTOCK'),
+    ('https://i.ibb.co/8gPj5LKh/Gates.png', 'Gates'),
+    ('https://i.ibb.co/7X2tHShb/Huco.png', 'HUCO'),
+    ('https://i.ibb.co/v6q75NJg/Lemforder.png', 'LEMFORDER'),
+    ('https://i.ibb.co/5gZ04WnV/Ferodo.png', 'FERODO'),
+    ('https://i.ibb.co/JRgjHNNM/nrf.png', 'NRF'),
+    ('https://i.ibb.co/yMR66xZt/hepu.png', 'HEPU'),
+    ('https://i.ibb.co/LXSvRXWP/Skf.png', 'SKF'),
+    ('https://i.ibb.co/Nd6rDLWV/Moog.png', 'Federal-Mogul'),
+    ('https://i.ibb.co/qFdp7P5H/Swag.png', 'SWAG'),
+    ('https://i.ibb.co/359HWTfQ/Exedy.png', 'EXEDY'),
+    ('https://i.ibb.co/KX17XR55/purflux.png', 'Purflux'),
+    ('https://i.ibb.co/DHz3BNWZ/Luk.png', 'LUK'),
+    ('https://i.ibb.co/JRY9KFX1/NGK.png', 'NGK'),
+    ('https://i.ibb.co/dsbNP7ZX/Delphi.png', 'Delphi'),
+    ('https://i.ibb.co/Z66F5N5G/nissens.png', 'Nissens'),
+    ('https://i.ibb.co/Z6B1Dk2W/Mahle.png', 'MAHLE'),
+    ('https://i.ibb.co/k61QBM3x/hengst.png', 'HENGST'),
+    ('https://i.ibb.co/C379r5FF/Meyle.png', 'MEYLE'),
+    ('https://i.ibb.co/Y8gDSfFV/Vaico.png', 'VAICO'),
+    ('https://i.ibb.co/4ZM7H2zK/Bilstein.png', 'BILSTEIN'),
+    ('https://i.ibb.co/qMdP6MWt/Liqui-Moly.png', 'Liqui Moly')
+    ('https://i.ibb.co/fZbQB077D/Motul.png', 'MOTUL'),
+    ('https://i.ibb.co/TM2PSD4X/555.png', '555'),
+    ('https://i.ibb.co/fYwPWzPr/Mann.png', 'MANN FILTER'),
+    ('https://i.ibb.co/NDpXL0bw/Kayaba.png', 'KAYABA'),
+    ('https://i.ibb.co/VWwfp7mf/Total.png', 'TOTAL'),
+    ('https://i.ibb.co/XfFsLYQf/Elring.png', 'ELRING'),
+    ('https://i.ibb.co/HpnP5ZsV/Fuchs.png', 'FUCHS'),
+    ('https://i.ibb.co/60QZfdL2/Brembo.png', 'BREMBO'),
+    ('https://i.ibb.co/Z62TMP4X/Valeo.png', 'Valeo'),
+    ('https://i.ibb.co/1f84Q0sn/Aisin.png', 'AISIN'),
+    ('https://i.ibb.co/YBcm1PS9/ZF.png', 'ZF'),
+    ('https://i.ibb.co/hJ30v5WB/Continentals.png', 'Continental'),
+    ('https://i.ibb.co/TBLcFK5B/Bosch.png', 'BOSCH'),
+    ('https://i.ibb.co/sD9nBM1/Denso.png', 'DENSO'),
+    ('https://ic-files-res.cloudinary.com/image/upload/t_t100x100v2/v1/item/hysgmx9jzyqg0sx9ccno.jpg', 'FEBI');
+
