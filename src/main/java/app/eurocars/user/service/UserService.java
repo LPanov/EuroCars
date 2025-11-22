@@ -99,7 +99,7 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public void changePassword(ChangePasswordRequest changePasswordRequest) {
+    public User changePassword(ChangePasswordRequest changePasswordRequest) {
 
         if (!changePasswordRequest.getPassword().equals(changePasswordRequest.getConfirmPassword())) {
             throw new NotMatchingPasswords("Passwords do not match");
@@ -119,6 +119,8 @@ public class UserService implements UserDetailsService {
 
         eventPublisher.publishEvent(event);
         updateUser(user);
+
+        return user;
     }
 
     public void deleteUserById(UUID id) {

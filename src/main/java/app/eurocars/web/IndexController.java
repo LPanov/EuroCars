@@ -21,8 +21,6 @@ import java.util.List;
 
 @Controller
 public class IndexController {
-
-
     private final UserService userService;
     private final CartService cartService;
 
@@ -66,7 +64,7 @@ public class IndexController {
             return new ModelAndView("register");
         }
 
-        User registeredUser = userService.register(registerRequest);
+        userService.register(registerRequest);
 
         return new ModelAndView("redirect:/login");
     }
