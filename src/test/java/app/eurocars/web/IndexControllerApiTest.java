@@ -7,12 +7,10 @@ import app.eurocars.security.AuthenticationDetails;
 import app.eurocars.user.model.Role;
 import app.eurocars.user.model.User;
 import app.eurocars.user.service.UserService;
-import app.eurocars.web.dto.ChangePasswordRequest;
 import app.eurocars.web.dto.RegisterRequest;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
-import org.mockito.stubbing.OngoingStubbing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -140,6 +138,26 @@ public class IndexControllerApiTest {
     }
 
     @Test
+    void postRequestToRegisterEndpointPassedDataIsInvalid_thenReturnToRegisterPage() throws Exception {
+        when(userService.register(any())).thenThrow(new EmailAlreadyExistException("Email already exist!"));
+        MockHttpServletRequestBuilder request = post("/register")
+                .formField("companyName", "companyName")
+                .formField("email", "test@email.com")
+                .formField("ownerName", "ownerName")
+                .formField("companyAddress", "companyAddress")
+                .formField("phoneNumber", "phoneNumber")
+                .formField("password", "IvalidPass")
+                .with(csrf());
+
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(view().name("register"))
+                .andExpect(model().attributeExists("registerRequest"));
+        verify(userService, never()).register(any());
+    }
+
+    @Test
     void putRequestToChangePasswordEndpoint_happyPath() throws Exception {
         MockHttpServletRequestBuilder request = put("/forgotten-password")
                 .formField("email", "test@email.com")
@@ -156,8 +174,7 @@ public class IndexControllerApiTest {
 
     @Test
     void putRequestToChangePasswordEndpointWhenPasswordsDoNotMatch_thenReturnForgotPasswordPageWithFlashAttribute() throws Exception {
-        OngoingStubbing<User> userOngoingStubbing =
-                when(userService.changePassword(any())).thenThrow(new NotMatchingPasswords("Passwords do not match!"));
+        when(userService.changePassword(any())).thenThrow(new NotMatchingPasswords("Passwords do not match!"));
         MockHttpServletRequestBuilder request = put("/forgotten-password")
                 .formField("email", "test@email.com")
                 .formField("password", "Test123")
@@ -170,6 +187,22 @@ public class IndexControllerApiTest {
                 .andExpect(redirectedUrl("/forgotten-password"))
                 .andExpect(flash().attributeExists("notMatchingPasswords"));
         verify(userService, times(1)).changePassword(any());
+    }
+
+    @Test
+    void putRequestToChangePasswordEndpointWhenPasswordsAreInvalid_thenReturnForgotPasswordPage() throws Exception {
+        MockHttpServletRequestBuilder request = put("/forgotten-password")
+                .formField("email", "test@email.com")
+                .formField("password", "InvalidPassword")
+                .formField("confirmPassword", "InvalidPassword")
+                .with(csrf());
+
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(view().name("forgot-password"))
+                .andExpect(model().attributeExists("changerPassRequest"));
+        verify(userService, never()).changePassword(any());
     }
 
     @Test
@@ -210,21 +243,56 @@ public class IndexControllerApiTest {
     }
 
     @Test
-    void getErrorPageWithoutRequestParamContinue_RedirectToHome() throws Exception {
-        MockHttpServletRequestBuilder request = get("/error");
+    void getErrorPageWithoutRequestParam_RedirectToLogin() throws Exception {
+        UUID userId = UUID.randomUUID();
+        User user = User.builder()
+                .id(userId)
+                .companyName("companyName")
+                .ownerName("ownerName")
+                .companyAddress("companyAddress")
+                .phoneNumber("phoneNumber")
+                .email("test@email.com")
+                .password("Test123")
+                .role(Role.USER)
+                .build();
 
-        mockMvc.perform(request)
-                .andExpect(status().is3xxRedirection());
-    }
+        when(userService.getById(any())).thenReturn(user);
 
-    @Test
-    void getErrorPageWithRequestParamContinue_RedirectToLogin() throws Exception {
+        AuthenticationDetails principal = new AuthenticationDetails(userId, "test@email.com", "Test123", user.getRole(), true);
         MockHttpServletRequestBuilder request = get("/error")
-                .param("continueParam", "continue");
+                .with(user(principal));
+
 
         mockMvc.perform(request)
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("http://localhost/login"));
+                .andExpect(redirectedUrl("/login"));
+    }
+
+    @Test
+    void getErrorPageWithRequestParamContinue_RedirectToHome() throws Exception {
+        UUID userId = UUID.randomUUID();
+        User user = User.builder()
+                .id(userId)
+                .companyName("companyName")
+                .ownerName("ownerName")
+                .companyAddress("companyAddress")
+                .phoneNumber("phoneNumber")
+                .email("test@email.com")
+                .password("Test123")
+                .role(Role.USER)
+                .build();
+
+        when(userService.getById(any())).thenReturn(user);
+
+        AuthenticationDetails principal = new AuthenticationDetails(userId, "test@email.com", "Test123", user.getRole(), true);
+        MockHttpServletRequestBuilder request = get("/error")
+                .param("continue", "continue")
+                .with(user(principal));
+
+
+        mockMvc.perform(request)
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/home"));
     }
 
 }
