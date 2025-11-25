@@ -22,13 +22,11 @@ public class PartsController {
 
     private final PartService partService;
     private final ManufacturerService manufacturerService;
-    private final CartService cartService;
 
 
-    public PartsController(PartService partService, ManufacturerService manufacturerService, CartService cartService) {
+    public PartsController(PartService partService, ManufacturerService manufacturerService) {
         this.partService = partService;
         this.manufacturerService = manufacturerService;
-        this.cartService = cartService;
     }
 
     @RequestMapping("/parts")

@@ -16,6 +16,7 @@ public class TestDataProvider {
                 .email("test@email.com")
                 .password("Test123")
                 .role(Role.USER)
+                .pricesWithVAT(true)
                 .build();
     }
 

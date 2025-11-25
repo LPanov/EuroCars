@@ -16,6 +16,7 @@ import app.eurocars.user.service.UserService;
 import app.eurocars.web.dto.AddPartRequest;
 import app.eurocars.cart.client.dto.CartItemRequest;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -39,8 +40,7 @@ public class PartController {
         this.engineService = engineService;
     }
 
-    @RequestMapping("/part")
-    @GetMapping
+    @GetMapping("part")
     public ModelAndView getPartPage(@RequestParam(value = "partId") String partId) {
         Part selectedPart = partService.getPartById(partId);
         List<Part> crossReferences = partService.findCrossReferences(selectedPart);
@@ -56,6 +56,7 @@ public class PartController {
     }
 
     @GetMapping("parts-settings/new-part")
+    @PreAuthorize("hasRole('ADMIN')")
     public ModelAndView getAddPartPage() {
         List<Manufacturer> allManufacturers = manufacturerService.getAllManufacturers();
         List<Category> allCategories = categoryService.getAllCategories();
@@ -72,6 +73,7 @@ public class PartController {
     }
 
     @PostMapping("parts-settings/new-part")
+    @PreAuthorize("hasRole('ADMIN')")
     public ModelAndView createNewPart(@Valid AddPartRequest createPart) {
 
         partService.createPart(createPart);
