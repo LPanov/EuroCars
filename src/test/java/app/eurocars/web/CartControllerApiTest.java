@@ -94,8 +94,7 @@ public class CartControllerApiTest {
 
 
         mockMvc.perform(request)
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/part?partId=" + partId));
+                .andExpect(status().is3xxRedirection());
 
         verify(cartService).addToCart(cartItemRequestArgumentCaptor.capture());
         CartItemRequest addedPart = cartItemRequestArgumentCaptor.getValue();

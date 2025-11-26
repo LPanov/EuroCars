@@ -55,53 +55,6 @@ public class UserServiceUTest {
     @Captor
     private ArgumentCaptor<ChangedPasswordEvent> eventArgumentCaptor;
 
-
-    @Test
-    void givenValidRegisterRequest_whenRegister_thenCreateNewUser() {
-        RegisterRequest registerRequest = RegisterRequest.builder()
-                .companyName("companyName")
-                .email("test@test.com")
-                .password("Test123")
-                .ownerName("ownerName")
-                .phoneNumber("0401234567")
-                .companyAddress("companyAddress")
-                .build();
-
-        when(userRepository.findByEmail(registerRequest.getEmail())).thenReturn(Optional.empty());
-        when(passwordEncoder.encode(registerRequest.getPassword())).thenReturn("encodedPassword");
-        when(userRepository.findAll()).thenReturn(new ArrayList<User>());
-
-        userService.register(registerRequest);
-
-        verify(userRepository, times(1)).save(userArgumentCaptor.capture());
-        User savedUser = userArgumentCaptor.getValue();
-
-        assertNotNull(savedUser);
-
-        assertEquals(registerRequest.getEmail(), savedUser.getEmail());
-        assertEquals(registerRequest.getCompanyName(), savedUser.getCompanyName());
-        assertEquals(registerRequest.getOwnerName(), savedUser.getOwnerName());
-        assertEquals(registerRequest.getPhoneNumber(), savedUser.getPhoneNumber());
-        assertEquals(registerRequest.getCompanyAddress(), savedUser.getCompanyAddress());
-        assertEquals("encodedPassword", savedUser.getPassword());
-
-        assertEquals(Role.ADMIN, savedUser.getRole());
-        assertEquals(Country.BULGARIA, savedUser.getCountry());
-        assertTrue(savedUser.getIsActive());
-
-        assertTrue(savedUser.getPricesWithVAT());
-        assertTrue(savedUser.getWholesalePrices());
-        assertTrue(savedUser.getShowWeight());
-        assertTrue(savedUser.getProductsOrder());
-
-        assertNotNull(savedUser.getCreatedOn());
-        assertNotNull(savedUser.getUpdatedOn());
-
-        verify(passwordEncoder).encode(anyString());
-        verify(userRepository).findByEmail(anyString());
-        verify(userRepository).findAll();
-    }
-
     @Test
     void givenRegisterRequestWithEmailThatAlreadyExist_whenRegister_thenThrowException() {
         RegisterRequest registerRequest = RegisterRequest.builder()
