@@ -3,6 +3,7 @@ package app.eurocars.web;
 import app.eurocars.user.model.User;
 import app.eurocars.user.service.UserService;
 import app.eurocars.web.dto.EditUserRequest;
+import app.eurocars.web.dto.UpdateProfileRequest;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -25,11 +26,38 @@ public class UserController {
     public ModelAndView getProfileMenu(@PathVariable UUID id) {
         User user = userService.getById(id);
 
+        UpdateProfileRequest updateProfileRequest = UpdateProfileRequest.builder()
+                .ownerName(user.getOwnerName())
+                .companyAddress(user.getCompanyAddress())
+                .email(user.getEmail())
+                .pricesWithVAT(user.getPricesWithVAT())
+                .wholesalePrices(user.getWholesalePrices())
+                .productsOrder(user.getProductsOrder())
+                .showWeight(user.getShowWeight())
+                .build();
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("account-settings");
         modelAndView.addObject("user", user);
+        modelAndView.addObject("updateProfileRequest", updateProfileRequest);
 
         return modelAndView;
+    }
+
+    @PatchMapping("/{userId}/account-settings")
+    public ModelAndView updateProfile(@Valid UpdateProfileRequest updateProfileRequest, BindingResult bindingResult, @PathVariable UUID userId) {
+        if (bindingResult.hasErrors()) {
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("account-settings");
+            modelAndView.addObject("user", userService.getById(userId));
+            modelAndView.addObject("updateProfileRequest", updateProfileRequest);
+
+            return modelAndView;
+        }
+
+        userService.updateUserProfile(updateProfileRequest, userId);
+
+        return new ModelAndView("redirect:/users/"+ userId +"/account-settings");
     }
 
     @GetMapping

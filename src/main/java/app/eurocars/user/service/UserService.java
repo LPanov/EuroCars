@@ -9,14 +9,9 @@ import app.eurocars.user.model.Country;
 import app.eurocars.user.model.Role;
 import app.eurocars.user.model.User;
 import app.eurocars.user.repository.UserRepository;
-import app.eurocars.web.dto.ChangePasswordRequest;
-import app.eurocars.web.dto.ChangedPasswordEvent;
-import app.eurocars.web.dto.EditUserRequest;
-import app.eurocars.web.dto.RegisterRequest;
+import app.eurocars.web.dto.*;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -148,5 +143,24 @@ public class UserService implements UserDetailsService {
 
     public void updateUser(User user) {
         userRepository.save(user);
+    }
+
+    public void updateUserProfile(UpdateProfileRequest updateProfileRequest, UUID userId) {
+        User user = getById(userId);
+
+        user.setOwnerName(updateProfileRequest.getOwnerName());
+        user.setEmail(updateProfileRequest.getEmail());
+        user.setCompanyAddress(updateProfileRequest.getCompanyAddress());
+        if (updateProfileRequest.getPassword() != null) {
+            user.setPassword(passwordEncoder.encode(updateProfileRequest.getPassword()));
+        }
+
+        user.setPricesWithVAT(updateProfileRequest.getPricesWithVAT());
+        user.setWholesalePrices(updateProfileRequest.getWholesalePrices());
+        user.setProductsOrder(updateProfileRequest.getProductsOrder());
+        user.setShowWeight(updateProfileRequest.getShowWeight());
+        user.setUpdatedOn(LocalDateTime.now());
+
+        updateUser(user);
     }
 }

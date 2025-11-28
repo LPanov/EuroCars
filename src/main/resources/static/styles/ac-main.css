@@ -24,26 +24,6 @@
     color: #4b5563; 
     margin-bottom: 16px; 
 }
-.account-info {
-    background-color: #f9fafb; 
-    border-radius: 6px; 
-    padding: 16px;
-    margin-bottom: 16px; 
-    display: flex; 
-    align-items: center; 
-    justify-content: space-between; 
-}
-
-.account-info-title {
-    font-size: 14px; 
-    font-weight: 500; 
-    color: #6b7280; 
-    margin-bottom: 4px;
-}
-.account-info-name {
-    font-size: 14px; 
-    color: #374151; 
-}
 .change-password-button {
     background-color: #ff3333; 
     color: #fff; 
@@ -168,4 +148,99 @@
 }
 .save-button:hover {
     background-color: #b91c1c; 
+}
+
+/* 1. Make the entire container wider */
+.new-wide-container {
+    max-width: 1000px; /* New wide size */
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 2. Implement the Two-Column Layout */
+.two-column-settings {
+    display: flex;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+.settings-column-left,
+.settings-column-right {
+    flex: 1;
+    min-width: 0;
+}
+
+.settings-column-left {
+    padding: 16px; /* Match original padding */
+    background-color: #f9fafb; /* Match original light grey background */
+    border-radius: 6px; /* Match original border radius */
+}
+/* 3. Re-style Account Fields to stack nicely within the column */
+.account-info {
+    /* RESET: Overrides the old flex rule and the temporary 4-column grid rule */
+    display: block;
+    margin-bottom: 20px;
+    background-color: transparent; /* Remove the gray background from the old .account-info */
+    padding: 0; /* Remove padding from the old .account-info */
+}
+
+.account-info-field {
+    margin-bottom: 15px;
+    display: block;
+}
+
+/* Style for the label (Owner Name, Email, etc.) */
+.account-info-label {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+/* Style for the input box */
+.account-info-input {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Styling the language select box */
+.language-info {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* RESET: Overrides old .language-info background/padding */
+    background-color: transparent;
+    padding: 0;
+}
+
+.language-info label {
+    font-size: 14px;
+    color: #333;
+}
+
+#language {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* 4. Improve spacing for Catalog Settings (Right Column) */
+.setting-group {
+    margin-bottom: 20px;
+}
+
+/* 5. Handle the 'Product listing view' to be a 3-column radio group */
+.radio-group-three-col {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.radio-group-three-col .radio-label {
+    flex: 1;
 }
