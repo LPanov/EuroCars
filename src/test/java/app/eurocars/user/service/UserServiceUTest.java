@@ -10,10 +10,7 @@ import app.eurocars.user.model.Country;
 import app.eurocars.user.model.Role;
 import app.eurocars.user.model.User;
 import app.eurocars.user.repository.UserRepository;
-import app.eurocars.web.dto.ChangePasswordRequest;
-import app.eurocars.web.dto.ChangedPasswordEvent;
-import app.eurocars.web.dto.EditUserRequest;
-import app.eurocars.web.dto.RegisterRequest;
+import app.eurocars.web.dto.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -231,6 +228,91 @@ public class UserServiceUTest {
         when(userRepository.findByEmail(any())).thenReturn(Optional.empty());
 
         assertThrows(DomainException.class, () -> userService.loadUserByUsername(anyString()));
+    }
+
+    @Test
+    void givenValidUpdateUserRequest_whenUpdateUser_thenUpdateUserProfile() {
+        UUID updatedUserId = UUID.randomUUID();
+
+        User targetedUser = User.builder()
+                .id(updatedUserId)
+                .build();
+
+        UpdateProfileRequest updateProfileRequest = UpdateProfileRequest.builder()
+                .ownerName("newOwnerName")
+                .email("new@email.com")
+                .companyAddress("newCompanyAddress")
+                .password("<PASSWORD>")
+                .pricesWithVAT(true)
+                .wholesalePrices(true)
+                .productsOrder(true)
+                .showWeight(true)
+                .build();
+
+        when(userRepository.findById(updatedUserId)).thenReturn(Optional.of(targetedUser));
+        when(passwordEncoder.encode(updateProfileRequest.getPassword())).thenReturn("encodedPassword");
+
+        userService.updateUserProfile(updateProfileRequest, updatedUserId);
+
+        verify(userRepository, times(1)).save(userArgumentCaptor.capture());
+        User updatedUser = userArgumentCaptor.getValue();
+
+        assertEquals(updateProfileRequest.getOwnerName(), updatedUser.getOwnerName());
+        assertEquals(updateProfileRequest.getEmail(), updatedUser.getEmail());
+        assertEquals(updateProfileRequest.getCompanyAddress(), updatedUser.getCompanyAddress());
+        assertEquals("encodedPassword", updatedUser.getPassword());
+
+        assertTrue(updatedUser.getPricesWithVAT());
+        assertTrue(updatedUser.getShowWeight());
+        assertTrue(updatedUser.getWholesalePrices());
+        assertTrue(updatedUser.getProductsOrder());
+
+        assertNotNull(updatedUser.getUpdatedOn());
+
+        verify(passwordEncoder).encode(anyString());
+        verify(userRepository).findById(any());
+    }
+
+    @Test
+    void givenValidUpdateUserRequestWithNullPassword_whenUpdateUser_thenUpdateUserProfileWithoutChangingPassword() {
+        UUID updatedUserId = UUID.randomUUID();
+
+        User targetedUser = User.builder()
+                .id(updatedUserId)
+                .build();
+
+        UpdateProfileRequest updateProfileRequest = UpdateProfileRequest.builder()
+                .ownerName("newOwnerName")
+                .email("new@email.com")
+                .companyAddress("newCompanyAddress")
+                .pricesWithVAT(true)
+                .wholesalePrices(true)
+                .productsOrder(true)
+                .showWeight(true)
+                .build();
+
+        when(userRepository.findById(updatedUserId)).thenReturn(Optional.of(targetedUser));
+
+        userService.updateUserProfile(updateProfileRequest, updatedUserId);
+
+        verify(userRepository, times(1)).save(userArgumentCaptor.capture());
+        User updatedUser = userArgumentCaptor.getValue();
+
+        assertEquals(updateProfileRequest.getOwnerName(), updatedUser.getOwnerName());
+        assertEquals(updateProfileRequest.getEmail(), updatedUser.getEmail());
+        assertEquals(updateProfileRequest.getCompanyAddress(), updatedUser.getCompanyAddress());
+
+        assertNull(updatedUser.getPassword());
+
+        assertTrue(updatedUser.getPricesWithVAT());
+        assertTrue(updatedUser.getShowWeight());
+        assertTrue(updatedUser.getWholesalePrices());
+        assertTrue(updatedUser.getProductsOrder());
+
+        assertNotNull(updatedUser.getUpdatedOn());
+
+        verify(passwordEncoder, never()).encode(anyString());
+        verify(userRepository).findById(any());
     }
 
 }

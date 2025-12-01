@@ -21,14 +21,14 @@ public class RegisterRequest {
     private String companyName;
 
     @NotNull
-    @Length(min = 5)
+    @Length(min = 5, message = "Owner name must be at least 5 symbols long")
     private String ownerName;
 
     @NotNull
     @NotEmpty
     private String companyAddress;
 
-    @Email
+    @Email(message = "Invalid email address")
     private String email;
 
     @NotNull
@@ -37,6 +37,7 @@ public class RegisterRequest {
     @Password(minLength = 5,
             containsUpperCase = true,
             containsLowerCase = true,
-            containsDigit = true)
+            containsDigit = true,
+            message = "Password does not match the requirements.\nPassword must contains: Upper/Lower symbol, digit and min length of 5.")
     private String password;
 }

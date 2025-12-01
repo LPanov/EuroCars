@@ -24,17 +24,18 @@ public class EditUserRequest {
     private String companyName;
 
     @NotNull
-    @Length(min = 5)
+    @Length(min = 5,
+            message = "Owner name must be at least 5 symbols long")
     private String ownerName;
 
     @NotNull
-    @NotEmpty
+    @NotEmpty(message = "Company address cannot be empty")
     private String companyAddress;
 
-    @Email
+    @Email(message = "Invalid email address")
     private String email;
 
-    @NotNull
+    @NotNull(message = "Phone number cannot be empty")
     private String phoneNumber;
 
     private String zipCode;
@@ -50,7 +51,8 @@ public class EditUserRequest {
     @Password(minLength = 5,
             containsUpperCase = true,
             containsLowerCase = true,
-            containsDigit = true)
+            containsDigit = true,
+            message = "Password does not match the requirements.\nPassword must contains: Upper/Lower symbol, digit and min length of 5.")
     private String password;
 
 

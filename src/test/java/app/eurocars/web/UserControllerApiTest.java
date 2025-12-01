@@ -5,6 +5,7 @@ import app.eurocars.security.AuthenticationDetails;
 import app.eurocars.user.model.User;
 import app.eurocars.user.service.UserService;
 import app.eurocars.web.dto.EditUserRequest;
+import app.eurocars.web.dto.UpdateProfileRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -147,5 +148,65 @@ public class UserControllerApiTest {
                 .andExpect(model().attributeExists("editUserRequest"));
 
         verify(userService, never()).editUser(any(), any());
+    }
+
+    @Test
+    void getAccountSettingsPage_returnAccountSettingsViewWithUserAndUpdateProfileRequestObjects() throws Exception {
+        User user = getRandomUser();
+
+        when(userService.getById(any())).thenReturn(user);
+
+        MockHttpServletRequestBuilder request = get("/users/{id}/account-settings", user.getId())
+                .with(user(principal));
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(view().name("account-settings"))
+                .andExpect(model().attributeExists("updateProfileRequest", "user"));
+    }
+
+    @Test
+    void updateUserProfile_happyPath() throws Exception {
+        UUID targetUserId = UUID.randomUUID();
+
+        doNothing().when(userService).updateUserProfile(new UpdateProfileRequest(), targetUserId);
+
+        MockHttpServletRequestBuilder request = patch("/users/{id}/account-settings", targetUserId )
+                .with(user(principal))
+                .param("ownerName", "ownerName")
+                .param("companyAddress", "companyAddress")
+                .param("email", "new@email.com")
+                .param("password", "NewPass123")
+                .param("pricesWithVAT", "true")
+                .param("wholesalePrices", "true")
+                .param("showWeight", "true")
+                .with(csrf());
+
+        mockMvc.perform(request)
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/users/" + targetUserId + "/account-settings"));
+    }
+
+    @Test
+    void updateUserProfile_whenDtoHasInvalidField_returnAccountSettingsPageWithUnchangedValues() throws Exception {
+        UUID targetUserId = UUID.randomUUID();
+
+        doNothing().when(userService).updateUserProfile(new UpdateProfileRequest(), targetUserId);
+
+        MockHttpServletRequestBuilder request = patch("/users/{id}/account-settings", targetUserId )
+                .with(user(principal))
+                .param("ownerName", "ownerName")
+                .param("companyAddress", "companyAddress")
+                .param("email", "new@email.com")
+                .param("password", "InvalidPass")
+                .param("pricesWithVAT", "true")
+                .param("wholesalePrices", "true")
+                .param("showWeight", "true")
+                .with(csrf());
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(view().name("account-settings"))
+                .andExpect(model().attributeExists("updateProfileRequest", "user"));
     }
 }
