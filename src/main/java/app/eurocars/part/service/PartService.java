@@ -172,7 +172,7 @@ public class PartService {
 
         partRepository.save(part);
 
-        log.info("Part '{}' updated successfully".formatted(part.getName()));
+        log.info("Part '%s' updated successfully".formatted(part.getName()));
 
     }
 

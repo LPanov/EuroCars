@@ -1,6 +1,7 @@
 package app.eurocars.web.dto;
 
 import app.eurocars.util.annotations.Password;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,9 +14,11 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ChangePasswordRequest {
     @NotNull(message = "Email cannot be empty")
+    @NotEmpty
     private String email;
 
     @NotNull
+    @NotEmpty
     private String password;
 
     @Password(minLength = 5,

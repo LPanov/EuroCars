@@ -112,7 +112,12 @@ public class UserService implements UserDetailsService {
                 .changeDate(LocalDateTime.now())
                 .build();
 
-        eventPublisher.publishEvent(event);
+        try {
+            eventPublisher.publishEvent(event);
+        } catch (Exception e) {
+            log.error("Unable to publish event");
+        }
+
         updateUser(user);
 
         log.info("Successfully changed password for user with email: '%s'".formatted(user.getEmail()));

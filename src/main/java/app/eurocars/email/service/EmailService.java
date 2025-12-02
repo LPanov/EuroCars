@@ -20,8 +20,8 @@ public class EmailService {
     @EventListener
     public void sendSimpleMessage(ChangedPasswordEvent event) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("");
-        message.setTo("");
+        message.setFrom("eurocars@mail.eu");
+        message.setTo(event.getEmail());
         message.setSubject("Changed password");
         message.setText("\tThe password to %s with email %s was changed on %s.\n\tIf it wasn't you, please contact us via: support@eurocars.eu".formatted(event.getOwner(), event.getEmail(), event.getChangeDate()));
         emailSender.send(message);

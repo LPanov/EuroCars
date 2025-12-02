@@ -11,10 +11,7 @@ import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -75,19 +72,15 @@ public class IndexController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("forgot-password");
-        modelAndView.addObject("changerPassRequest", new ChangePasswordRequest());
+        modelAndView.addObject("changePasswordRequest", new ChangePasswordRequest());
 
         return modelAndView;
     }
 
-    @PutMapping("/forgotten-password")
+    @PatchMapping("/forgotten-password")
     public ModelAndView changePassword(@Valid ChangePasswordRequest changePasswordRequest, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            ModelAndView modelAndView = new ModelAndView();
-            modelAndView.setViewName("forgot-password");
-            modelAndView.addObject("changerPassRequest", new ChangePasswordRequest());
-
-            return modelAndView;
+            return new ModelAndView("forgot-password");
         }
 
         userService.changePassword(changePasswordRequest);

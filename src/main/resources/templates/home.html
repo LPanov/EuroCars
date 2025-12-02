@@ -142,7 +142,7 @@
                     <form class="total" th:action="@{/cart}" method="get">
                         <p>
                             <span>Wholesale total value incl. VAT:</span>
-                            <span id="sum" th:text="${#numbers.formatDecimal(wholePrice, 0, 2)} + '€'" class="text-lg font-extrabold text-red-600"></span>
+                            <span id="sum" th:text="${#numbers.formatDecimal(wholePrice, 1, 2)} + '€'" class="text-lg font-extrabold text-red-600"></span>
                         </p>
                         <button>GO TO CART</button>
                     </form>
