@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class ChangePasswordRequest {
-    @NotNull
+    @NotNull(message = "Email cannot be empty")
     private String email;
 
     @NotNull

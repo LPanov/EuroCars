@@ -115,11 +115,15 @@ public class UserService implements UserDetailsService {
         eventPublisher.publishEvent(event);
         updateUser(user);
 
+        log.info("Successfully changed password for user with email: '%s'".formatted(user.getEmail()));
+
         return user;
     }
 
     public void deleteUserById(UUID id) {
         userRepository.deleteById(id);
+
+        log.info("Successfully deleted user with ID: '%s'".formatted(id.toString()));
     }
 
     public void editUser(EditUserRequest editUserRequest, UUID editUserId) {
@@ -139,6 +143,8 @@ public class UserService implements UserDetailsService {
         editUser.setUpdatedOn(LocalDateTime.now());
 
         updateUser(editUser);
+
+        log.info("Successfully edited user with email: '%s'".formatted(editUser.getEmail()));
     }
 
     public void updateUser(User user) {
@@ -162,5 +168,7 @@ public class UserService implements UserDetailsService {
         user.setUpdatedOn(LocalDateTime.now());
 
         updateUser(user);
+
+        log.info("Successfully updated user profile for user with email: '%s'".formatted(user.getEmail()));
     }
 }

@@ -21,16 +21,18 @@
             <div id="nameOwner">
                 <div>
                     <label for="companyName">Company Name<span class="text-red-600 text-xl">*</span></label>
+                    <p th:if="${#fields.hasErrors('companyName')}" th:text="${#fields.errors('companyName')[0]}" class = "error-message"></p>
                     <input id="companyName" type="text" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required th:field="*{companyName}">
-                    <p class="errors" th:if="${#fields.hasErrors('companyName')}" th:errors="*{companyName}"></p>
                 </div>
                 <div>
                     <label for="owner">Owner Name<span class="text-red-600 text-xl">*</span></label>
+                    <p th:if="${#fields.hasErrors('ownerName')}" th:text="${#fields.errors('ownerName')[0]}" class = "error-message"></p>
                     <input id="owner" type="text" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required th:field="*{ownerName}">
                 </div>
             </div>
             <div>
                 <label for="addres">Company Mailing Address<span class="text-red-600 text-xl">*</span></label>
+                <p th:if="${#fields.hasErrors('companyAddress')}" th:text="${#fields.errors('companyAddress')[0]}" class = "error-message"></p>
                 <input id="addres" placeholder="Street address" type="text" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required th:field="*{companyAddress}">
             </div>
             <div id="cityInfo">
@@ -44,14 +46,17 @@
 
             <div class="pb-2">
                 <label for="email">Email<span class="text-red-600 text-xl">*</span></label>
+                <p th:if="${#fields.hasErrors('email')}" th:text="${#fields.errors('email')[0]}" class = "error-message"></p>
                 <input id="email" placeholder="example@mail.com" type="text" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required th:field="*{email}">
                 <label for="phone">Phone<span class="text-red-600 text-xl">*</span></label>
+                <p th:if="${#fields.hasErrors('phoneNumber')}" th:text="${#fields.errors('phoneNumber')[0]}" class = "error-message"></p>
                 <input id="phone" placeholder="+359*********" type="text" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" th:field="*{phoneNumber}">
             </div>
 
             <div class="flex pb-2 gap-[15px]" id="password"> 
                 <div>
                     <label for="password">Enter password<span class="text-red-600 text-xl">*</span></label>
+                    <p th:if="${#fields.hasErrors('password')}" th:text="${#fields.errors('password')[0]}" class = "error-message"></p>
                     <input type="password" id="password" placeholder="••••••••" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required th:field="*{password}">
                 </div>
                 <div>

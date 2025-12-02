@@ -25,27 +25,40 @@
                             <div class="account-info">
                                 <div class="account-info-field">
                                     <label for="ownerName" class="account-info-label">Owner Name</label>
+                                    <p th:if="${#fields.hasErrors('ownerName')}" th:text="${#fields.errors('ownerName')[0]}" class = "error-message"></p>
                                     <input type="text" id="ownerName" name="ownerName"
-                                           th:value="*{ownerName}" class="account-info-input" required>
+                                           th:value="*{ownerName}"
+                                           th:classappend="${#fields.hasErrors('ownerName')} ? 'input-error' : ''"
+                                           class="account-info-input" required>
                                 </div>
 
                                 <div class="account-info-field">
                                     <label for="companyAddress" class="account-info-label">Company Address</label>
+                                    <p th:if="${#fields.hasErrors('companyAddress')}" th:text="${#fields.errors('companyAddress')[0]}" class = "error-message"></p>
                                     <input type="text" id="companyAddress" name="companyAddress"
-                                           th:value="*{companyAddress}" class="account-info-input">
+                                           th:value="*{companyAddress}"
+                                           th:classappend="${#fields.hasErrors('companyAddress')} ? 'input-error' : ''"
+                                           class="account-info-input">
                                 </div>
 
                                 <div class="account-info-field">
                                     <label for="email" class="account-info-label">Email</label>
+                                    <p th:if="${#fields.hasErrors('email')}" th:text="${#fields.errors('email')[0]}" class = "error-message"></p>
                                     <input type="email" id="email" name="email"
-                                           th:value="*{email}" class="account-info-input" required>
+                                           th:value="*{email}"
+                                           th:classappend="${#fields.hasErrors('email')} ? 'input-error' : ''"
+                                           class="account-info-input" required>
                                 </div>
 
                                 <div class="account-info-field">
                                     <label for="password" class="account-info-label">New Password</label>
+                                    <p th:if="${#fields.hasErrors('password')}" th:text="${#fields.errors('password')[0]}" class = "error-message"></p>
                                     <input type="password" id="password" name="password"
-                                           th:value="*{password}" class="account-info-input" placeholder="••••••••">
+                                           th:value="*{password}"
+                                           th:classappend="${#fields.hasErrors('password')} ? 'input-error' : ''"
+                                           class="account-info-input" placeholder="••••••••">
                                 </div>
+
                             </div>
                         </div>
 

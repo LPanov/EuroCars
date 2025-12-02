@@ -20,11 +20,13 @@
                 <div>
                     <div class="mb-4">
                         <label for="companyName" class="block text-sm font-medium text-gray-700 mb-1">Company Name<span class="text-red-600 text-xl">*</span></label>
+                        <p th:if="${#fields.hasErrors('companyName')}" th:text="${#fields.errors('companyName')[0]}" class = "error-message"></p>
                         <input id="companyName" type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required th:field="*{companyName}">
                     </div>
 
                     <div class="mb-4">
                         <label for="owner" class="block text-sm font-medium text-gray-700 mb-1">Owner Name<span class="text-red-600 text-xl">*</span></label>
+                        <p th:if="${#fields.hasErrors('ownerName')}" th:text="${#fields.errors('ownerName')[0]}" class = "error-message"></p>
                         <input id="owner" type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required th:field="*{ownerName}">
                     </div>
 
@@ -38,11 +40,13 @@
 
                     <div class="mb-4">
                         <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email<span class="text-red-600 text-xl">*</span></label>
+                        <p th:if="${#fields.hasErrors('email')}" th:text="${#fields.errors('email')[0]}" class = "error-message"></p>
                         <input id="email" placeholder="example@mail.com" type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required th:field="*{email}">
                     </div>
 
                     <div class="mb-4">
                         <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone<span class="text-red-600 text-xl">*</span></label>
+                        <p th:if="${#fields.hasErrors('phoneNumber')}" th:text="${#fields.errors('phoneNumber')[0]}" class = "error-message"></p>
                         <input id="phone" placeholder="+359*********" type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" th:field="*{phoneNumber}">
                     </div>
                 </div>
@@ -50,6 +54,8 @@
                 <div>
                     <div class="mb-4">
                         <label for="addres" class="block text-sm font-medium text-gray-700 mb-1">Company Mailing Address<span class="text-red-600 text-xl">*</span></label>
+                        <p th:if="${#fields.hasErrors('companyAddress')}" th:text="${#fields.errors('companyAddress')[0]}" class = "error-message"></p>
+
                         <input id="addres" placeholder="Street address" type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-3" required th:field="*{companyAddress}">
 
                         <div class="grid grid-cols-3 gap-3 mb-3">
@@ -69,6 +75,7 @@
 
                     <div class="mb-4">
                         <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Enter password<span class="text-red-600 text-xl">*</span></label>
+                        <p th:if="${#fields.hasErrors('password')}" th:text="${#fields.errors('password')[0]}" class = "error-message"></p>
                         <input type="password" id="password" placeholder="••••••••" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required th:field="*{password}">
                     </div>
                 </div>

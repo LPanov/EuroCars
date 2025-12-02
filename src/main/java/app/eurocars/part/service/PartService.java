@@ -10,16 +10,19 @@ import app.eurocars.manufacturer.service.ManufacturerService;
 import app.eurocars.part.model.Part;
 import app.eurocars.part.repository.PartRepository;
 import app.eurocars.web.dto.AddPartRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class PartService {
 
     private final PartRepository partRepository;
@@ -99,7 +102,8 @@ public class PartService {
 
         partRepository.updateAllPrices(rate);
 
-        System.out.println("Prices updated at " + LocalDateTime.now());
+        String timestamp = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss").format(LocalDateTime.now());
+        log.info("Prices updated at '%s'".formatted(timestamp));
     }
 
     public List<Part> getAllParts() {
@@ -135,6 +139,8 @@ public class PartService {
                 .build();
 
         partRepository.save(part);
+
+        log.info("Part '{}' created successfully".formatted(createPart.getName()));
     }
 
     public void updatePart(AddPartRequest editPart, String partId) {
@@ -165,6 +171,9 @@ public class PartService {
         part.setUpdatedOn(LocalDateTime.now());
 
         partRepository.save(part);
+
+        log.info("Part '{}' updated successfully".formatted(part.getName()));
+
     }
 
     private static Set<String> getOtherNumbers(AddPartRequest editPart) {
@@ -185,5 +194,7 @@ public class PartService {
 
     public void deletePartById(UUID partId) {
         partRepository.deleteById(partId);
+
+        log.info("Part with id '%s' deleted successfully".formatted(partId.toString()));
     }
 }

@@ -25,13 +25,13 @@ public class RegisterRequest {
     private String ownerName;
 
     @NotNull
-    @NotEmpty
+    @NotEmpty(message = "Company address cannot be empty")
     private String companyAddress;
 
     @Email(message = "Invalid email address")
     private String email;
 
-    @NotNull
+    @NotNull(message = "Phone number cannot be empty")
     private String phoneNumber;
 
     @Password(minLength = 5,

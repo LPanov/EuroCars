@@ -244,3 +244,27 @@
 .radio-group-three-col .radio-label {
     flex: 1;
 }
+
+/* Add this to your main CSS file */
+.error-message {
+    /*!* Background and Border *!*/
+    /*background-color: #ffebee; !* Very light red/pink background *!*/
+    /*border: 1px solid #d32f2f; !* Darker red border *!*/
+    /*border-radius: 4px; !* Rounded corners *!*/
+
+    /* Text and Spacing */
+    color: #d32f2f; /* Dark red text */
+    padding: 10px 15px; /* Padding inside the box */
+    margin-top: 5px; /* Space above the error message */
+    font-size: 0.9em;
+    font-weight: 500;
+
+    /* Ensure the text is readable and centered vertically with the icon */
+    display: flex;
+    align-items: center;
+}
+
+
+.input-error {
+    border: 2px solid #d32f2f !important; /* Makes the input box border red */
+}

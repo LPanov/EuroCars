@@ -26,3 +26,21 @@ footer {
     color: red;
     font-size: 0.75em;
 }
+
+.error-message {
+    /*!* Background and Border *!*/
+    /*background-color: #ffebee; !* Very light red/pink background *!*/
+    /*border: 1px solid #d32f2f; !* Darker red border *!*/
+    /*border-radius: 4px; !* Rounded corners *!*/
+
+    /* Text and Spacing */
+    color: #d32f2f; /* Dark red text */
+    padding: 10px 15px; /* Padding inside the box */
+    margin-top: 5px; /* Space above the error message */
+    font-size: 0.9em;
+    font-weight: 500;
+
+    /* Ensure the text is readable and centered vertically with the icon */
+    display: flex;
+    align-items: center;
+}

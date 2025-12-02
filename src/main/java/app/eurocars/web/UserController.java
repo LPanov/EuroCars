@@ -47,12 +47,7 @@ public class UserController {
     @PatchMapping("/{userId}/account-settings")
     public ModelAndView updateProfile(@Valid UpdateProfileRequest updateProfileRequest, BindingResult bindingResult, @PathVariable UUID userId) {
         if (bindingResult.hasErrors()) {
-            ModelAndView modelAndView = new ModelAndView();
-            modelAndView.setViewName("account-settings");
-            modelAndView.addObject("user", userService.getById(userId));
-            modelAndView.addObject("updateProfileRequest", updateProfileRequest);
-
-            return modelAndView;
+            return new ModelAndView("account-settings");
         }
 
         userService.updateUserProfile(updateProfileRequest, userId);

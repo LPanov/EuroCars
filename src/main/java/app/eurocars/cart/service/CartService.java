@@ -34,6 +34,8 @@ public class CartService {
             if (!response.getStatusCode().is2xxSuccessful()) {
                 log.error("[Feign call to cart-svc failed] Can't save user cart for user with id = [%s]".formatted(userId));
             }
+
+            log.info("Successfully created cart for user with id '%s'".formatted(userId.toString()));
         } catch (Exception e) {
             log.error("Unable to call cart-svc");
         }
@@ -61,24 +63,14 @@ public class CartService {
         return cartItems;
     }
 
-    public static double getTotalWeight(CartItem cartItem) {
-        return cartItem.getPart().getWeight() * cartItem.getQuantity();
-    }
-
-    public static BigDecimal getTotalPriceWithVat(List<CartItem> cartItems) {
-        BigDecimal totalPrice = BigDecimal.ZERO;
-        for (CartItem cartItem : cartItems) {
-            totalPrice = totalPrice.add(cartItem.getPart().getPrice().multiply(BigDecimal.valueOf(cartItem.getQuantity())));
-        }
-        return totalPrice.multiply(BigDecimal.valueOf(1.2));
-    }
-
     public void addToCart(CartItemRequest cartItemRequest) {
         try {
             ResponseEntity<Void> response = cartClient.addToCart(cartItemRequest);
             if (!response.getStatusCode().is2xxSuccessful()) {
                 log.error("[Feign call to cart-svc failed] Can't add item to cart for user with id = [%s]".formatted(cartItemRequest.getUserId()));
             }
+
+            log.info("Successfully added part with id '%s' to cart".formatted(cartItemRequest.getPartId()));
         } catch (Exception e) {
             log.error("Unable to call cart-svc");
         }
@@ -91,6 +83,8 @@ public class CartService {
             if (!response.getStatusCode().is2xxSuccessful()) {
                 log.error("[Feign call to cart-svc failed] Can't remove item from cart for user with id = [%s]".formatted(itemId));
             }
+
+            log.info("Successfully removed item with id '%s' from cart".formatted(itemId.toString()));
         } catch (Exception e) {
             log.error("Unable to call cart-svc");
         }
