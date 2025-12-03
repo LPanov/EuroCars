@@ -3,6 +3,7 @@ package app.eurocars.car.models.service;
 import app.eurocars.car.models.model.Model;
 import app.eurocars.car.models.repository.ModelRepository;
 import app.eurocars.exception.ModelNotFound;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

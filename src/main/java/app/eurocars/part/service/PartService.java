@@ -13,6 +13,8 @@ import app.eurocars.web.dto.AddPartRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -106,10 +108,12 @@ public class PartService {
         log.info("Prices updated at '%s'".formatted(timestamp));
     }
 
+    @Cacheable("parts")
     public List<Part> getAllParts() {
         return partRepository.findAll();
     }
 
+    @CacheEvict(value = "parts", allEntries = true)
     public void createPart(AddPartRequest createPart) {
         Set<Engine> engines = new HashSet<>();
 
@@ -143,6 +147,7 @@ public class PartService {
         log.info("Part '{}' created successfully".formatted(createPart.getName()));
     }
 
+    @CacheEvict(value = "parts", allEntries = true)
     public void updatePart(AddPartRequest editPart, String partId) {
         Part part = getPartById(partId);
 
@@ -192,6 +197,7 @@ public class PartService {
         return imgUrls;
     }
 
+    @CacheEvict(value = "parts", allEntries = true)
     public void deletePartById(UUID partId) {
         partRepository.deleteById(partId);
 

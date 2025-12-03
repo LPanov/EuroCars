@@ -3,6 +3,7 @@ package app.eurocars.brand.service;
 import app.eurocars.brand.model.Brand;
 import app.eurocars.brand.repository.BrandRepository;
 import app.eurocars.vehicle.type.model.VehicleType;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

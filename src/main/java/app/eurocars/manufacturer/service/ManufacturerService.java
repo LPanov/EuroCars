@@ -3,6 +3,7 @@ package app.eurocars.manufacturer.service;
 import app.eurocars.exception.DomainException;
 import app.eurocars.manufacturer.model.Manufacturer;
 import app.eurocars.manufacturer.repository.ManufacturerRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class ManufacturerService {
         this.manufacturerRepository = manufacturerRepository;
     }
 
-
+    @Cacheable("manufacturers")
     public List<Manufacturer> getAllManufacturers() {
         return manufacturerRepository.findAll();
     }

@@ -12,6 +12,8 @@ import app.eurocars.user.repository.UserRepository;
 import app.eurocars.web.dto.*;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -42,6 +44,7 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
+    @CacheEvict(value = "users", allEntries = true)
     public User register(RegisterRequest registerRequest) {
         Optional<User> userOptional = userRepository.findByEmail(registerRequest.getEmail());
 
@@ -74,6 +77,7 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
+    @Cacheable("users")
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
@@ -125,12 +129,14 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
+    @CacheEvict(value = "users", allEntries = true)
     public void deleteUserById(UUID id) {
         userRepository.deleteById(id);
 
         log.info("Successfully deleted user with ID: '%s'".formatted(id.toString()));
     }
 
+    @CacheEvict(value = "users", allEntries = true)
     public void editUser(EditUserRequest editUserRequest, UUID editUserId) {
         User editUser = getById(editUserId);
 
@@ -156,6 +162,7 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
+    @CacheEvict(value = "users", allEntries = true)
     public void updateUserProfile(UpdateProfileRequest updateProfileRequest, UUID userId) {
         User user = getById(userId);
 

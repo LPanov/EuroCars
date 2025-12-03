@@ -5,6 +5,7 @@ import app.eurocars.engine.model.Engine;
 import app.eurocars.engine.repository.EngineRepository;
 import app.eurocars.exception.DomainException;
 import app.eurocars.exception.EngineNotFound;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class EngineService {
         return allEnginesByModel;
     }
 
+    @Cacheable("engines")
     public List<Engine> getAllEngines() {
         return engineRepository.findAll();
     }

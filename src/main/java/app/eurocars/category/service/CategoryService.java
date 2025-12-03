@@ -4,6 +4,7 @@ import app.eurocars.category.model.Category;
 import app.eurocars.category.repository.CategoryRepository;
 import app.eurocars.exception.CategoryNotFound;
 import app.eurocars.exception.DomainException;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class CategoryService {
         return categoryRepository.getCategoriesByImageUrlIsNull();
     }
 
+    @Cacheable("categories")
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
     }
