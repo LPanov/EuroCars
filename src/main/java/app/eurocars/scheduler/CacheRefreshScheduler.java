@@ -5,11 +5,13 @@ import app.eurocars.car.models.service.ModelService;
 import app.eurocars.category.service.CategoryService;
 import app.eurocars.engine.service.EngineService;
 import app.eurocars.manufacturer.service.ManufacturerService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class CacheRefreshScheduler {
 
     private final CategoryService categoryService;
@@ -37,5 +39,7 @@ public class CacheRefreshScheduler {
         manufacturerService.getAllManufacturers();
         brandService.findAll();
         modelService.getAll();
+
+        log.info("Cache refreshed");
     }
 }

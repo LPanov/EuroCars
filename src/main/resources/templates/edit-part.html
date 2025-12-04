@@ -71,7 +71,7 @@
                 </div>
 
                 <div class="mb-4">
-                    <label for="engine" class="block text-sm font-medium text-gray-700 mb-1">Category<span class="text-red-600 text-xl">*</span></label>
+                    <label for="engine" class="block text-sm font-medium text-gray-700 mb-1">Engine<span class="text-red-600 text-xl">*</span></label>
                     <select th:field="*{engine}" id="engine" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white" required>
                         <option value="">Select Engine</option>
                         <option th:each="e : ${allEngines}" th:value="${e.id}" th:text="${e.type}"></option>

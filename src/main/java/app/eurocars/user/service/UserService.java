@@ -147,7 +147,9 @@ public class UserService implements UserDetailsService {
         editUser.setPhoneNumber(editUserRequest.getPhoneNumber());
         editUser.setEmail(editUserRequest.getEmail());
         editUser.setCountry(editUserRequest.getCountry());
-        editUser.setPassword(passwordEncoder.encode(editUserRequest.getPassword()));
+        if (editUserRequest.getPassword() != null) {
+            editUser.setPassword(passwordEncoder.encode(editUserRequest.getPassword()));
+        }
         editUser.setCity(editUserRequest.getCity());
         editUser.setZipCode(editUserRequest.getZipCode());
         editUser.setState(editUserRequest.getState());
