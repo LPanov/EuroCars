@@ -88,7 +88,7 @@ public class IndexControllerApiTest {
         mockMvc.perform(request)
                 .andExpect(status().isOk())
                 .andExpect(view().name("forgot-password"))
-                .andExpect(model().attributeExists("changerPassRequest"));
+                .andExpect(model().attributeExists("changePasswordRequest"));
     }
 
     @Test
@@ -158,8 +158,8 @@ public class IndexControllerApiTest {
     }
 
     @Test
-    void putRequestToChangePasswordEndpoint_happyPath() throws Exception {
-        MockHttpServletRequestBuilder request = put("/forgotten-password")
+    void patchRequestToChangePasswordEndpoint_happyPath() throws Exception {
+        MockHttpServletRequestBuilder request = patch("/forgotten-password")
                 .formField("email", "test@email.com")
                 .formField("password", "Test123")
                 .formField("confirmPassword", "Test123")
@@ -173,9 +173,9 @@ public class IndexControllerApiTest {
     }
 
     @Test
-    void putRequestToChangePasswordEndpointWhenPasswordsDoNotMatch_thenReturnForgotPasswordPageWithFlashAttribute() throws Exception {
+    void patchRequestToChangePasswordEndpointWhenPasswordsDoNotMatch_thenReturnForgotPasswordPageWithFlashAttribute() throws Exception {
         when(userService.changePassword(any())).thenThrow(new NotMatchingPasswords("Passwords do not match!"));
-        MockHttpServletRequestBuilder request = put("/forgotten-password")
+        MockHttpServletRequestBuilder request = patch("/forgotten-password")
                 .formField("email", "test@email.com")
                 .formField("password", "Test123")
                 .formField("confirmPassword", "notMatchingPassword123")
@@ -190,8 +190,8 @@ public class IndexControllerApiTest {
     }
 
     @Test
-    void putRequestToChangePasswordEndpointWhenPasswordsAreInvalid_thenReturnForgotPasswordPage() throws Exception {
-        MockHttpServletRequestBuilder request = put("/forgotten-password")
+    void patchRequestToChangePasswordEndpointWhenPasswordsAreInvalid_thenReturnForgotPasswordPage() throws Exception {
+        MockHttpServletRequestBuilder request = patch("/forgotten-password")
                 .formField("email", "test@email.com")
                 .formField("password", "InvalidPassword")
                 .formField("confirmPassword", "InvalidPassword")
@@ -201,7 +201,7 @@ public class IndexControllerApiTest {
         mockMvc.perform(request)
                 .andExpect(status().isOk())
                 .andExpect(view().name("forgot-password"))
-                .andExpect(model().attributeExists("changerPassRequest"));
+                .andExpect(model().attributeExists("changePasswordRequest"));
         verify(userService, never()).changePassword(any());
     }
 

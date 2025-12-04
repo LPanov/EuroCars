@@ -18,6 +18,7 @@ public class BrandService {
         this.brandRepository = brandRepository;
     }
 
+    @Cacheable("brands")
     public List<Brand> findAll() {
         return brandRepository.findAll();
     }

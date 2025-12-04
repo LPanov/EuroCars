@@ -32,6 +32,7 @@ public class ModelService {
         return modelRepository.findModelById(modelId).orElseThrow(() -> new ModelNotFound("Model with such id does not exist"));
     }
 
+    @Cacheable("models")
     public List<Model> getAll() {
         return modelRepository.findAll();
     }
