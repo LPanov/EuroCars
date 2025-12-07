@@ -28,8 +28,8 @@ Design Pattern	Model-View-Controller (MVC)
 Getting Started
 **Prerequisites**
  - To run this project locally, you will need:
- - Java Development Kit (JDK) [Specify version, e.g., 17+]
- - Apache Maven [Specify version, e.g., 3.8+]
+ - Java Development Kit (JDK) [17+]
+ - Apache Maven [3.8+]
  - MySQL Server
  - An IDE (e.g., IntelliJ IDEA, Eclipse)
 
